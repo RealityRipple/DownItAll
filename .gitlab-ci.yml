@@ -2,5 +2,6 @@ build:
     stage: build
     script:
       - mkdir bin  
+      - apt install xmlstarlet -y
       - cd src
       - make 
