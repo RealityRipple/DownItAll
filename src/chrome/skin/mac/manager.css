@@ -1,0 +1,150 @@
+@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
+
+#infoIcon {
+	max-width: 48px !important;
+}
+
+#tools > toolbarbutton,
+#actions > toolbarbutton {
+	border: 1px solid transparent;
+	margin-bottom: 3px !important;
+}
+#tools > toolbarbutton:hover:not([disabled="true"]),
+#actions > toolbarbutton:hover:not([disabled="true"]) {
+	border-color: hsla(0,0%,0%,.45) hsla(0,0%,0%,.45) hsla(0,0%,0%,.7) hsla(0,0%,0%,.4);
+	border-radius: 6px;
+	box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.35) inset, 0px 1px 0px rgba(255, 255, 255, 0.2);
+	background-image: -moz-linear-gradient(hsla(0,0%,100%,.73), hsla(0,0%,100%,.05) 85%);
+}
+#tools > toolbarbutton:hover:active:not([disabled="true"]),
+#actions > toolbarbutton:hover:active:not([disabled="true"]) {
+	background-image: -moz-linear-gradient(hsla(0,0%,60%,.37), hsla(0,0%,100%,.35) 95%);
+	border-color: hsla(0,0%,0%,.53) hsla(0,0%,0%,.35) hsla(0,0%,0%,.47);
+}
+
+#actions > toolbarbutton {
+	min-width: 26px;
+	min-height: 24px;
+}
+
+#tools:-moz-window-inactive {
+	/* this forces a repaint, which is all that we're after */
+	background-color: -moz-mac-chrome-inactive;
+}
+
+#search {
+	border-radius: 10000px;
+	-moz-appearance: none;
+	box-shadow: 0 1px rgba(255, 255, 255, 0.2), inset 0 1px hsla(0,0%,0%,.05);
+	margin: 0 4px;
+	padding: 2px;
+	padding-left: 5px;
+	padding-right: 6px;
+	border: 1px solid;
+	border-color: #626262 #787878 #8c8c8c;
+	background-clip: padding-box;
+}
+@media (-moz-mac-lion-theme) {
+	#search {
+		background-image: -moz-linear-gradient(hsl(0,0%,97%), hsl(0,0%,100%));
+		border-color: hsla(0,0%,0%,.35) hsla(0,0%,0%,.25) hsla(0,0%,0%,.15);
+		box-shadow: 0 1px 0 hsla(0,0%,100%,.2), inset 0 0 1px hsla(0,0%,0%,.05), inset 0 1px 2px hsla(0,0%,0%,.1);
+	}
+}
+#search[focused="true"] {
+	border-color: -moz-mac-focusring;
+	box-shadow: 0 0 1px -moz-mac-focusring inset, 0 0 4px 1px -moz-mac-focusring, 0 0 1.5px 1px -moz-mac-focusring;
+}
+
+#search .toolbarbutton-text {
+	display: none;
+}
+
+#search image {
+	list-style-image: url(Search.png);
+}
+
+#loading {
+	list-style-image: url(chrome://global/skin/icons/information-32.png);
+}
+
+#footer {
+	-moz-appearance: statusbar;
+	background: yellow !important;
+}
+#footer > resizer {
+	/* mac doesn't use resizers */
+	display: none;
+}
+
+statusbarpanel#netstatus {
+	list-style-image: url(chrome://dta/skin/manager/netstatus.png);
+	-moz-image-region: rect(16px, 16px, 32px, 0px);
+}
+statusbarpanel#netstatus[offline] {
+	-moz-image-region: rect(16px, 32px, 32px, 16px);
+}
+
+/* pinestripe makes this important at 32px :p */
+toolbarspacer {
+	min-width: 6px !important;
+}
+toolbarspacer.visible {
+	min-width: 13px !important;
+}
+
+#actionsbox {
+	-moz-appearance: toolbar;
+}
+#actions {
+	margin-top: 16px;
+	padding-left: 2px;
+	padding-right: 2px;
+	-moz-appearance: none;
+	background-color: -moz-mac-chrome-inactive;
+	border-top: 1px solid -moz-mac-chrome-active;
+	-moz-border-start: 1px solid -moz-mac-chrome-active;
+	border-bottom: 1px solid -moz-mac-chrome-active;
+}
+#actions:-moz-window-inactive {
+	background-color: transparent;
+}
+#actions:-moz-locale-dir(ltr) {
+	margin-left: 6px;
+	border-top-left-radius: 6px;
+	border-bottom-left-radius: 6px;
+}
+#actions:-moz-locale-dir(rtl) {
+	margin-right: 6px;
+	border-top-right-radius: 6px;
+	border-bottom-right-radius: 6px;
+}
+
+treecol > dropmarker {
+	-moz-appearance: none;
+}
+
+toolbar#tools > toolbarbutton {
+	list-style-image: url(tools.png);
+}
+toolbar#tools > toolbarbutton > .toolbarbutton-icon {
+	width: 26px;
+	height: 26px;
+}
+
+treecol[params] .treecol-marker {
+	list-style-image: url("chrome://global/skin/menu/menu-check.png") !important;
+	-moz-image-region: rect(0px, 10px, 11px, 0px) !important;
+}
+
+
+@media (min-resolution: 2dppx) {
+	toolbar#tools > toolbarbutton {
+		list-style-image: url(tools@2x.png);
+	}
+	#search image {
+		list-style-image: url(Search@2x.png);
+		width: 14px;
+		height: 14px;
+	}
+}

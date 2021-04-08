@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+	- License, v. 2.0. If a copy of the MPL was not distributed with this
+	- file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
+
+<?xml-stylesheet href="chrome://dta/skin/integration/toolbarinstall.css" type="text/css" ?>
+
+<!DOCTYPE overlay [
+	<!ENTITY % menuDTD SYSTEM "chrome://dta/locale/menu.dtd">
+	%menuDTD;
+	<!ENTITY % defmenuDTD SYSTEM "chrome://dta-locale/content/menu.dtd">
+	%defmenuDTD;
+]>
+<dialog xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" title="&dta-tbinstall;" id="DownThemAll" windowtype="DTA:TBInstall">
+		<script type="text/javascript" src="toolbarinstall.js"/>
+		<grid>
+			<columns><column/><column flex="1"/></columns>
+			<rows>
+				<row align="center" pack="center">
+					<image id="dta-icon" class="icon" />
+					<vbox flex="1">
+						<checkbox id="dta-button" label="&dta-regular2.label;" />
+						<description>&dta-regular.desc;</description>
+					</vbox>
+				</row>
+				<separator class="groove" />
+				<row align="center" pack="center">
+					<image id="dta-turbo-icon" class="icon" />
+					<vbox flex="1">
+						<checkbox id="dta-turbo-button" label="&dta-regular-turbo2.label;" />
+						<description>&dta-regular-turbo.desc;</description>
+					</vbox>
+				</row>
+				<separator class="groove" />
+				<row align="center" pack="center">
+					<image id="dta-turboselect-icon" class="icon" />
+					<vbox>
+						<checkbox id="dta-turboselect-button" label="&dta-selector-button2.label;" />
+						<description>&dta-selector-button.desc;</description>
+					</vbox>
+				</row>
+				<separator class="groove" />
+				<row align="center" pack="center">
+					<image id="dta-manager-icon" class="icon" />
+					<vbox flex="1">
+						<checkbox id="dta-manager-button" label="&dta-manager-button;" />
+						<description>&dta-manager-button.desc;</description>
+					</vbox>
+				</row>
+			</rows>
+		</grid>
+</dialog>

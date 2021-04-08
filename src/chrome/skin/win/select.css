@@ -1,0 +1,20 @@
+@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
+
+#views,
+#findfiles {
+	background: transparent;
+	border: 0;
+}
+
+@media not all and (-moz-windows-compositor) {
+	@media (-moz-windows-default-theme) {
+		#views, #findfiles {
+			-moz-appearance: none !important;
+			background-color: rgb(185,209,234);
+		}
+		#views:-moz-window-inactive , #findfiles:-moz-window-inactive {
+			-moz-appearance: none !important;
+			background-color: rgb(215,228,242);
+		}
+	}
+}

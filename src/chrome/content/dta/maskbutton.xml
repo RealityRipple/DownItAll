@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+	- License, v. 2.0. If a copy of the MPL was not distributed with this
+	- file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
+
+<!--
+	pretty lame overlay like stuff.
+	overalying itself is not possible, as this will crash fx
+-->
+
+<!DOCTYPE bindings [
+	<!ENTITY % maskDTD SYSTEM "chrome://dta/locale/mask.dtd">
+	%maskDTD;
+	<!ENTITY % defmaskDTD SYSTEM "chrome://dta-locale/content/mask.dtd">
+	%defmaskDTD;
+]>
+
+<xbl:bindings
+	xmlns:xbl="http://www.mozilla.org/xbl"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+>
+	<xbl:binding id="maskbutton">
+		<xbl:content>
+			<popupset>
+				<panel id="maskPopup" orient="vertical" position="before_end" style="padding: 8px; margin-bottom: -10px;">
+					<label class="masktitle" value="&mask.tags;"/>
+					<grid id="maskitems">
+					<columns>
+						<column flex="1"/>
+						<column/>
+						<column flex="1"/>
+						<column/>
+					</columns>
+					<rows>
+						<row tag="*name*" desc="&mask.name;" tag2="*refername*" desc2="&mask.refername;"/>
+						<row tag="*ext*" desc="&mask.ext;" tag2="*referext*" desc2="&mask.referext;"/>
+						<row tag="*url*" desc="&mask.url;" tag2="*refer*" desc2="&mask.refer;"/>
+						<row tag="*curl*" desc="&mask.curl;" tag2="*crefer*" desc2="&mask.crefer;"/>
+						<row tag="*flatcurl*" desc="&mask.flatcurl;" tag2="*flatcrefer*" desc2="&mask.flatcrefer;"/>
+						<row tag="*subdirs*" desc="&mask.subdirs;" tag2="*referdirs*" desc2="&mask.referdirs;"/>
+						<row tag="*flatsubdirs*" desc="&mask.flatsubdirs;" tag2="*flatreferdirs*" desc2="&mask.flatreferdirs;"/>
+						<row tag="*qstring*" desc="&mask.qstring;" tag2="*referqstring*" desc2="&mask.referqstring;"/>
+						<separator/>
+						<row tag="*text*" desc="&mask.linktext;" tag2="*hh*" desc2="&mask.hh;"/>
+						<row tag="*flattext*" desc="&mask.flatlinktext;" tag2="*mm*" desc2="&mask.mm;"/>
+						<row tag="*title*" desc="&mask.title;" tag2="*ss*" desc2="&mask.ss;"/>
+						<row tag="*flattitle*" desc="&mask.flattitle2;" tag2="*d*" desc2="&mask.d;"/>
+						<row tag="*num*" desc="&mask.batch;" tag2="*m*" desc2="&mask.m;"/>
+						<row tag="*inum*" desc="&mask.inum;" tag2="*y*" desc2="&mask.y;"/>
+					</rows>
+					</grid>
+				</panel>
+			</popupset>
+			<toolbarbutton
+				popup="maskPopup"
+				tooltiptext="&mask.open.tip;"
+				xbl:inherits="disabled=readonly,popup=readonly"
+			/>
+		</xbl:content>
+	</xbl:binding>
+
+	<xbl:binding id="maskitem">
+		<xbl:content>
+			<label
+				xbl:inherits="value=tag"
+				class="masktag"
+				tooltiptext="&mask.tip;"/>
+			<label class="maskdesc" xbl:inherits="value=desc"/>
+			<label
+				xbl:inherits="value=tag2"
+				class="masktag"
+				tooltiptext="&mask.tip;"/>
+			<label class="maskdesc" xbl:inherits="value=desc2"/>
+		</xbl:content>
+		<xbl:handlers>
+			<xbl:handler event="click"><![CDATA[
+				if (event.originalTarget.className != "masktag") {
+					return;
+				}
+				let text = $('renaming');
+				let value = event.originalTarget.value;
+				let s = text.inputField.selectionStart;
+				text.value = text.value.substring(0, s)
+					+ value
+					+ text.value.substring(text.inputField.selectionEnd, text.value.length);
+				text.inputField.setSelectionRange(s + value.length, s + value.length);
+			]]></xbl:handler>
+		</xbl:handlers>
+	</xbl:binding>
+</xbl:bindings>

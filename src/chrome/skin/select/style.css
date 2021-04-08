@@ -1,0 +1,237 @@
+@import 'chrome://dta/skin/common/style.css';
+@import 'chrome://dta-platform/skin/common.css';
+@namespace url(http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul);
+
+#renamingbox {
+	min-width: 200px;
+}
+
+caption {
+	font-weight: bold;
+}
+
+#views, .findfiles {
+	margin: 0;
+	padding: 0;
+}
+#views toolbar {
+	border-width:0px;
+	height: 30px;
+}
+
+#views toolbarbutton {
+	-moz-box-orient: horizontal !important;
+	-moz-appearance: none !important;
+	min-width: 18em;
+	background-repeat: no-repeat,no-repeat,no-repeat;
+	background-position: left 0, 30px 0, right 0, 0 0;
+	background-size: 30px 100%, calc(100% - 60px) 100%, 30px 100%, 100% 100%;
+	-moz-padding-start: 4ex;
+	-moz-padding-end: 4ex;
+	border: 0 !important;
+	text-shadow: rgba(255, 255, 255, 0.4) 0px 1px 0px;
+}
+#views toolbarbutton, #views toolbarbutton:hover {
+	-moz-margin-start: -7px !important;
+	-moz-margin-end: -7px !important;
+}
+#views toolbarbutton:first-child, #views toolbarbutton:hover:first-child {
+	-moz-margin-start: 0px !important;
+}
+#views toolbarbutton:last-child, #views toolbarbutton:hover:last-child {
+	-moz-margin-end: 0px !important;
+}
+#views toolbarbutton:hover:not([disabled="true"]):not([selected="true"]) {
+	background-image: url(tabBackgroundStart.svg),url(tabBackgroundMiddle.svg),url(tabBackgroundEnd.svg);
+}
+
+#views toolbarbutton[selected="true"] {
+	background-image: url(tabActiveStart.svg),url(tabActiveMiddle.svg),url(tabActiveEnd.svg);
+	font-weight: bold;
+}
+
+#views toolbarbutton:not([disabled="true"]):hover {
+	cursor: pointer;
+	font-weight: 700;
+}
+threechildren::-moz-tree-row {
+	min-height: 20px;
+}
+
+treechildren::-moz-tree-image {
+	width: 16px;
+}
+treechildren::-moz-tree-checkbox {
+	/* css for checked cells */
+	list-style-image: url(checks.png);
+	-moz-image-region: rect(16px,28px,28px,16px);
+}
+
+treechildren::-moz-tree-checkbox(checked) {
+	/* css for checked cells */
+	-moz-image-region: rect(16px,12px,28px,0px);
+}
+
+treechildren::-moz-tree-row(manuallySelected) {
+	background-color: #FFFFB3 !important;
+}
+treechildren::-moz-tree-row(manuallySelected, selected) {
+	background-color: #FFFF80 !important;
+}
+treechildren::-moz-tree-row(f0) {
+	background-color: #FFE8BB !important;
+}
+treechildren::-moz-tree-row(f0, selected) {
+	background-color: #FFD88A !important;
+}
+treechildren::-moz-tree-row(f1) {
+	background-color: #ECFFB3 !important;
+}
+treechildren::-moz-tree-row(f1, selected) {
+	background-color: #DFFF80 !important;
+}
+treechildren::-moz-tree-row(f2) {
+	background-color: #ECE8FF !important;
+}
+treechildren::-moz-tree-row(f2, selected) {
+	background-color: #D5CCFF !important;
+}
+treechildren::-moz-tree-row(f3) {
+	background-color: #DDF3FF !important;
+}
+treechildren::-moz-tree-row(f3, selected) {
+	background-color: #C2EAFF !important;
+}
+treechildren::-moz-tree-row(f4) {
+	background-color: #FDE8FF !important;
+}
+treechildren::-moz-tree-row(f4, selected) {
+	background-color: #FBCCFF !important;
+}
+treechildren::-moz-tree-row(f5) {
+	background-color: #DDFFF4;
+}
+treechildren::-moz-tree-row(f5, selected) {
+	background-color: #A8FFE4 !important;
+}
+treechildren::-moz-tree-row(f6) {
+	background-color: #FEFFAF !important;
+}
+treechildren::-moz-tree-row(f6, selected) {
+	background-color: #FDFF7A !important;
+}
+treechildren::-moz-tree-row(f7) {
+	background-color: #FFF0B3 !important;
+}
+treechildren::-moz-tree-row(f7, selected) {
+	background-color: #FFE680 !important;
+}
+treechildren::-moz-tree-row(fastFiltered) {
+	background-color: #FFDBDB !important;
+}
+treechildren::-moz-tree-row(fastFiltered, selected) {
+	background-color: #DFC2C2 !important;
+}
+treechildren::-moz-tree-cell-text(manuallySelected),
+treechildren::-moz-tree-cell-text(f1),
+treechildren::-moz-tree-cell-text(f2),
+treechildren::-moz-tree-cell-text(f3),
+treechildren::-moz-tree-cell-text(f4),
+treechildren::-moz-tree-cell-text(f5),
+treechildren::-moz-tree-cell-text(f6),
+treechildren::-moz-tree-cell-text(f7),
+treechildren::-moz-tree-cell-text(fastFiltered) {
+	color: black !important;
+}
+
+#mcheck, #muncheck, #mtoggle {
+	list-style-image: url(checks.png);
+}
+#mcheck {
+	-moz-image-region: rect(0px, 16px, 16px, 0px);
+}
+#muncheck {
+	-moz-image-region: rect(0px, 48px, 16px, 32px);
+}
+#mtoggle {
+	-moz-image-region: rect(0px, 32px, 16px, 16px);
+}
+
+#mrenaming {
+	list-style-image: url(chrome://dta/skin/common/mask.png);
+}
+
+#selectall, #selectinvert, #selectfiltered {
+	list-style-image: url(chrome://dta/skin/common/selection.png);
+}
+#selectall {
+	-moz-image-region: rect(0px, 16px, 16px, 0px);
+}
+#selectinvert {
+	-moz-image-region: rect(0px, 48px, 16px, 32px);
+}
+#selectfiltered {
+	-moz-image-region: rect(0px, 64px, 16px, 48px);
+}
+#mopen {
+	list-style-image: url(chrome://dta/skin/common/openurl.png);
+}
+
+@media (min-resolution: 2dppx) {
+	/* Cannot use ATM: -moz-tree-checkbox does not support scaling
+	treechildren::-moz-tree-checkbox {
+		list-style-image: url(checks@2x.png);
+		-moz-image-region: rect(32px,56px,56px,32px);
+		width: 12px;
+		height: 12px;
+	}
+	treechildren::-moz-tree-checkbox(checked) {
+		-moz-image-region: rect(32px,24px,56px,0px);
+	}
+	*/
+
+	#mcheck, #muncheck, #mtoggle {
+		list-style-image: url(checks@2x.png);
+	}
+	#mcheck {
+		-moz-image-region: rect(0px, 32px, 32px, 0px);
+	}
+	#muncheck {
+		-moz-image-region: rect(0px, 96px, 32px, 64px);
+	}
+	#mtoggle {
+		-moz-image-region: rect(0px, 64px, 32px, 32px);
+	}
+
+	#selectall, #selectinvert, #selectfiltered {
+		list-style-image: url(chrome://dta/skin/common/selection@2x.png);
+	}
+	#selectall {
+		-moz-image-region: rect(0px, 32px, 32px, 0px);
+	}
+	#selectinvert {
+		-moz-image-region: rect(0px, 96px, 32px, 64px);
+	}
+	#selectfiltered {
+		-moz-image-region: rect(0px, 128px, 32px, 96px);
+	}
+	.menu-iconic-icon {
+		width: 16px;
+	}
+}
+
+#maskeditor {
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 4px;
+	padding-bottom: 6px;
+}
+#maskeditor-buttons {
+	margin-top: 1em;
+}
+
+#checkcontainer checkbox {
+	font-size: smaller;
+	white-space: nowrap !important;
+	overflow: hidden;
+}

@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+	 - License, v. 2.0. If a copy of the MPL was not distributed with this
+	 - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
+
+<?xml-stylesheet type="text/css" href="chrome://dta/content/common/bindings.css"?>
+<?xml-stylesheet type="text/css" href="chrome://dta/skin/integration/saveas.css"?>
+
+<overlay id="downthemallDownloadSaveAs" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+	<radiogroup id="mode">
+		<vbox insertbefore="save" id="downthemallcontainer" collapsed="true" flex="1">
+			<hbox flex="1">
+				<radio id="downthemall" label="DownThemAll!" disabled="true" />
+			</hbox>
+			<hbox id="tdta" flex="1">
+				<radio id="turbodta" disabled="true" label="dTa OneClick!" />
+				<toolbarbutton id="turbodtaexec" disabled="true" />
+				<spacer flex="1" />
+				<saveddropdown id="tdtalist" preference="directory" readonly="true" crop="center" flex="1" />
+			</hbox>
+		</vbox>
+	</radiogroup>
+</overlay>

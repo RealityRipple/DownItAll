@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+	- License, v. 2.0. If a copy of the MPL was not distributed with this
+	- file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
+
+<!DOCTYPE window [
+	<!ENTITY % prefsDTD SYSTEM "chrome://dta/locale/prefpanes.dtd">
+	%prefsDTD;
+	<!ENTITY % defprefsDTD SYSTEM "chrome://dta-locale/content/prefpanes.dtd">
+	%defprefsDTD;
+]>
+<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+	<prefpane id="paneServers" label="&serverspane.label;" orient="vertical" onpaneload="Servers.init();" flex="1">
+		<preferences>
+			<preference id="dtamaxtasks" name="extensions.dta.ntask" type="int" />
+			<preference id="dtamaxtasksperserver" name="extensions.dta.serverlimit.perserver" type="int" />
+			<preference id="dtaarinterval" name="extensions.dta.autoretryinterval" type="int" />
+			<preference id="dtaarmax" name="extensions.dta.maxautoretries" type="int" />
+		</preferences>
+
+		<groupbox>
+			<caption label="&serverspane.downloads.caption;" />
+			<grid flex="1">
+				<columns>
+					<column />
+					<column />
+					<column flex="1" />
+				</columns>
+				<rows>
+					<row align="center">
+						<label value="&serverspane.concurrent2.label;" control="maxtasks" />
+						<scale min="1" max="20" id="maxtasks" preference-editable="true" onchange="Servers.changedMaxTasks();" />
+						<label id="maxtaskslabel" style="width: 3em;" />
+					</row>
+					<row align="center">
+						<label value="&serverspane.perserver2.label;" control="maxtasksperserver" />
+						<scale min="1" max="10" id="maxtasksperserver" preference-editable="true" onchange="Servers.changedMaxTasksPerServer();" />
+						<label id="maxtasksperserverlabel" style="width: 3em;" />
+					</row>
+				</rows>
+			</grid>
+		</groupbox>
+		<groupbox orient="vertical">
+			<caption label="&serverspane.autoretry2.caption;" />
+			<grid>
+				<columns>
+					<column/>
+					<column/>
+				</columns>
+				<rows>
+					<row align="center">
+						<label value="&serverspane.autoretry.interval.label;" />
+						<menulist preference="dtaarinterval">
+							<menupopup>
+								<menuitem label="&advancedpane.chunksdisabled;" value="0" />
+								<menuitem label="1 &advancedpane.minute;" value="60" />
+								<menuitem label="5 &advancedpane.minutes;" value="300" />
+								<menuitem label="10 &advancedpane.minutes;" value="600" />
+								<menuitem label="30 &advancedpane.minutes;" value="1800" />
+								<menuitem label="1 &advancedpane.hour;" value="3600" />
+								<menuitem label="3 &advancedpane.hours;" value="10800" />
+							</menupopup>
+						</menulist>
+					</row>
+					<row align="center">
+						<label value="&serverspane.autoretry.max.label;" />
+						<menulist preference="dtaarmax">
+							<menupopup>
+								<menuitem label="&serverspane.unlimited;" value="0" />
+								<menuitem label="1" value="1" />
+								<menuitem label="2" value="2" />
+								<menuitem label="3" value="3" />
+								<menuitem label="4" value="4" />
+								<menuitem label="5" value="5" />
+								<menuitem label="10" value="10" />
+								<menuitem label="15" value="15" />
+								<menuitem label="20" value="20" />
+								<menuitem label="50" value="50" />
+							</menupopup>
+						</menulist>
+					</row>
+				</rows>
+			</grid>
+		</groupbox>
+		<groupbox pack="center" flex="1" id="serversBox" orient="vertical">
+			<caption label="&serverspane.limits.label;" />
+			<stack flex="1">
+				<richlistbox id="serverLimits" flex="1" />
+				<vbox align="center" pack="center" flex="1" id="noitemsbox">
+					<label value="&serverpane.limits.noitems;" disabled="true" />
+				</vbox>
+			</stack>
+			<hbox pack="end" align="center">
+				<label value="&serverspane.url.label;" control="spnewurl" />
+				<textbox id="spnewurl" type="autocomplete" autocompletesearch="history" flex="1" oninput="Servers.newInput();" />
+				<button id="newServerLimit" label="&serverspane.new.label;" oncommand="Servers.newLimit();" disabled="true" />
+			</hbox>
+		</groupbox>
+	</prefpane>
+</overlay>

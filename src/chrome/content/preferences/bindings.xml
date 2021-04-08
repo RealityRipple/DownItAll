@@ -1,0 +1,338 @@
+<?xml version="1.0"?>
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+	- License, v. 2.0. If a copy of the MPL was not distributed with this
+	- file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
+
+<!DOCTYPE bindings [
+	<!ENTITY % prefsDTD SYSTEM "chrome://dta/locale/prefpanes.dtd">
+	%prefsDTD;
+	<!ENTITY % defprefsDTD SYSTEM "chrome://dta-locale/content/prefpanes.dtd">
+	%defprefsDTD;
+]>
+<bindings xmlns="http://www.mozilla.org/xbl" xmlns:xbl="http://www.mozilla.org/xbl" xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+	<binding id="serverlimit-base" extends="chrome://global/content/bindings/richlistbox.xml#richlistitem">
+		<implementation>
+			<field name="_host">document.getAnonymousElementByAttribute(this, 'anonid', 'host');</field>
+			<field name="_connectionsLabel">document.getAnonymousElementByAttribute(this, 'anonid', 'connectionsLabel');</field>
+			<field name="_speedLabel">document.getAnonymousElementByAttribute(this, 'anonid', 'speedLabel');</field>
+			<field name="_segmentsLabel">document.getAnonymousElementByAttribute(this, 'anonid', 'segmentsLabel');</field>
+
+			<property name="host" onget="return this._host.value;" />
+
+			<constructor>this.refresh();</constructor>
+
+			<method name="postEvent">
+				<parameter name="eventType" />
+				<body><![CDATA[
+					let evt = document.createEvent('UIEvents');
+					evt.initUIEvent(eventType, true, true, null, 0);
+					return this.dispatchEvent(evt);
+				]]></body>
+			</method>
+
+			<method name="refresh">
+				<body><![CDATA[
+					this._connectionsLabel.value = (this.connections > 0) ? this.connections : _('unlimited');
+					this._speedLabel.value = (this.speed > 0) ? Utils.formatSpeed(this.speed * 1024) : _('unlimited');
+					this._segmentsLabel.value = (this.segments > 0) ? this.segments : _('unlimited');
+				]]></body>
+			</method>
+
+			<method name="edit">
+				<body><![CDATA[
+					this.postEvent('LimitsEdit');
+				]]></body>
+			</method>
+		</implementation>
+	</binding>
+	<binding id="serverlimit" extends="chrome://dta/content/preferences/bindings.xml#serverlimit-base">
+		<content>
+			<xul:grid flex="1">
+				<xul:columns>
+					<xul:column/>
+					<xul:column flex="1"/>
+				</xul:columns>
+				<xul:rows>
+					<xul:hbox class="serverlimit-host" align="center">
+						<xul:image class="serverlimit-host-image" />
+						<xul:label anonid="host" xbl:inherits="value=host" class="serverlimit-host-label" crop="right" />
+					</xul:hbox>
+					<xul:row>
+						<xul:label value="&serverspane.connections.label;" class="serverlimit-desc-label" />
+						<xul:label class="serverlimit-connections-label serverlimit-value-label" anonid="connectionsLabel" />
+					</xul:row>
+					<xul:row>
+						<xul:label value="&serverspane.speed2.label;" class="serverlimit-desc-label" />
+						<xul:label class="serverlimit-speed-label serverlimit-value-label" anonid="speedLabel" />
+					</xul:row>
+					<xul:row>
+						<xul:label value="&serverspane.segments.label;" class="serverlimit-desc-label" />
+						<xul:label class="serverlimit-segments-label serverlimit-value-label" anonid="segmentsLabel" />
+					</xul:row>
+				</xul:rows>
+			</xul:grid>
+		</content>
+		<implementation>
+			<property name="connections" onget="return parseInt(this.getAttribute('connections'));" />
+			<property name="speed" onget="return parseInt(this.getAttribute('speed'));" />
+			<property name="segments" onget="return parseInt(this.getAttribute('segments'));" />
+		</implementation>
+	</binding>
+	<binding id="serverlimit-selected" extends="chrome://dta/content/preferences/bindings.xml#serverlimit-base">
+		<content>
+			<xul:hbox flex="1">
+				<xul:grid flex="1">
+					<xul:columns>
+						<xul:column/>
+						<xul:column flex="1"/>
+					</xul:columns>
+					<xul:rows>
+						<xul:hbox class="serverlimit-host" align="center">
+							<xul:image class="serverlimit-host-image" />
+							<xul:label anonid="host" xbl:inherits="value=host" class="serverlimit-host-label" crop="right" />
+						</xul:hbox>
+						<xul:row>
+							<xul:label value="&serverspane.connections.label;" class="serverlimit-desc-label" />
+							<xul:label class="serverlimit-connections-label serverlimit-value-label" anonid="connectionsLabel" />
+						</xul:row>
+						<xul:row>
+							<xul:label value="&serverspane.speed2.label;" class="serverlimit-desc-label" />
+							<xul:label class="serverlimit-speed-label serverlimit-value-label" anonid="speedLabel" />
+						</xul:row>
+						<xul:row>
+							<xul:label value="&serverspane.segments.label;" class="serverlimit-desc-label" />
+							<xul:label class="serverlimit-segments-label serverlimit-value-label" anonid="segmentsLabel" />
+						</xul:row>
+					</xul:rows>
+				</xul:grid>
+				<xul:separator class="thin"/>
+				<xul:vbox pack="start" class="serverlimit-buttons">
+					<xul:button label="&serverspane.edit.label;" anonid="editButton" />
+					<xul:button label="&serverspane.remove.label;" anonid="removeButton" />
+				</xul:vbox>
+			</xul:hbox>
+		</content>
+		<implementation>
+			<property name="connections" onget="return parseInt(this.getAttribute('connections'));" />
+			<property name="speed" onget="return parseInt(this.getAttribute('speed'));" />
+			<property name="segments" onget="return parseInt(this.getAttribute('segments'));" />
+			<method name="removeLimit">
+				<body><![CDATA[
+					if (!this.postEvent('LimitsCanRemove')) {
+						return;
+					}
+					this.limit.remove();
+					this.postEvent('LimitsRemoved');
+				]]></body>
+			</method>
+		</implementation>
+		<handlers>
+			<handler event="command"><![CDATA[
+				switch (event.originalTarget.getAttribute('anonid')) {
+					case 'editButton':
+						this.edit();
+						break;
+					case 'removeButton':
+						this.removeLimit();
+						break;
+				}
+			]]></handler>
+			<handler event="click" clickcount="2"><![CDATA[
+				this.edit();
+			]]></handler>
+		</handlers>
+	</binding>
+	<binding id="serverlimit-editing" extends="chrome://dta/content/preferences/bindings.xml#serverlimit-base">
+		<content>
+			<xul:hbox flex="1">
+				<xul:grid flex="1" class="serverlimit-grid">
+					<xul:columns>
+						<xul:column/>
+						<xul:column flex="1"/>
+					</xul:columns>
+					<xul:rows>
+						<xul:hbox class="serverlimit-host" align="center">
+							<xul:image class="serverlimit-host-image" />
+							<xul:label anonid="host" xbl:inherits="value=host" class="serverlimit-host-label" crop="right" />
+						</xul:hbox>
+						<xul:row>
+							<xul:label value="&serverspane.connections.label;" />
+							<xul:radiogroup anonid="connectionsGroup" orient="horizontal" class="serverlimit-radiogroup">
+								<xul:radio label="&serverspane.unlimited;" value="unlimited" />
+								<xul:radio label="&serverspane.limited;" value="limited" />
+								<xul:hbox align="center">
+									<xul:scale min="1" max="10" anonid="connections" xbl:inherits="value=connections" />
+									<xul:label class="serverlimit-connections-label serverlimit-scale-label" anonid="connectionsLabel" />
+								</xul:hbox>
+							</xul:radiogroup>
+						</xul:row>
+						<xul:row>
+							<xul:label value="&serverspane.speed2.label;" />
+							<xul:radiogroup anonid="speedGroup" orient="horizontal" class="serverlimit-radiogroup">
+								<xul:radio label="&serverspane.unlimited;" value="unlimited" />
+								<xul:radio label="&serverspane.limited;" value="limited" />
+								<xul:hbox align="center">
+									<xul:textbox type="number" min="1" max="20480" size="5" increment="4" pageincrement="16" anonid="speed" xbl:inherits="value=speed" />
+									<xul:label class="serverlimit-speed-label serverlimit-scale-label" anonid="speedLabel" />
+								</xul:hbox>
+							</xul:radiogroup>
+						</xul:row>
+						<xul:row>
+							<xul:label value="&serverspane.segments.label;" />
+							<xul:radiogroup anonid="segmentsGroup" orient="horizontal" class="serverlimit-radiogroup">
+								<xul:radio label="&serverspane.unlimited;" value="unlimited" />
+								<xul:radio label="&serverspane.limited;" value="limited" />
+								<xul:hbox align="center">
+									<xul:scale min="1" max="10" anonid="segments" xbl:inherits="value=segments" />
+									<xul:label class="serverlimit-segments-label serverlimit-scale-label" anonid="segmentsLabel" />
+								</xul:hbox>
+							</xul:radiogroup>
+						</xul:row>
+					</xul:rows>
+				</xul:grid>
+				<xul:separator class="thin"/>
+				<xul:vbox pack="start" class="serverlimit-buttons">
+					<xul:button anonid="saveButton" />
+					<xul:button label="&serverspane.cancel.label;" anonid="cancelButton" />
+				</xul:vbox>
+			</xul:hbox>
+		</content>
+		<implementation>
+			<field name="_connectionsGroup">document.getAnonymousElementByAttribute(this, 'anonid', 'connectionsGroup');</field>
+			<field name="_connections">document.getAnonymousElementByAttribute(this, 'anonid', 'connections');</field>
+
+			<field name="_speedGroup">document.getAnonymousElementByAttribute(this, 'anonid', 'speedGroup');</field>
+			<field name="_speed">document.getAnonymousElementByAttribute(this, 'anonid', 'speed');</field>
+
+			<field name="_segmentsGroup">document.getAnonymousElementByAttribute(this, 'anonid', 'segmentsGroup');</field>
+			<field name="_segments">document.getAnonymousElementByAttribute(this, 'anonid', 'segments');</field>
+
+			<field name="_saveButton">document.getAnonymousElementByAttribute(this, 'anonid', 'saveButton');</field>
+
+			<property name="connections">
+				<getter><![CDATA[
+					if (this._connectionsGroup.value == "unlimited") {
+						return -1;
+					}
+					return parseInt(this._connections.value);
+				]]></getter>
+			</property>
+
+			<property name="speed">
+				<getter><![CDATA[
+					if (this._speedGroup.value == "unlimited") {
+						return -1;
+					}
+					return parseInt(this._speed.value);
+				]]></getter>
+			</property>
+
+			<property name="segments">
+				<getter><![CDATA[
+					if (this._segmentsGroup.value == "unlimited") {
+						return 0;
+					}
+					return parseInt(this._segments.value);
+				]]></getter>
+			</property>
+
+			<constructor><![CDATA[
+				this._connectionsGroup.value = this.getAttribute('connections') <= 0 ? 'unlimited' : 'limited';
+				this._speedGroup.value = this.getAttribute('speed') <= 0 ? 'unlimited' : 'limited';
+				this._segmentsGroup.value = this.getAttribute('segments') <= 0 ? 'unlimited' : 'limited';
+
+				this._saveButton.label = _(this.limit.isNew ? 'createlimit' : 'savelimit');
+				this.parentNode.ensureElementIsVisible(this);
+			]]></constructor>
+
+			<method name="saveEdit">
+				<body><![CDATA[
+					if (!this.postEvent("LimitsEditSave")) {
+						return;
+					}
+
+					this.limit.connections = this.connections;
+					this.limit.speed = this.speed;
+					this.limit.segments = this.segments;
+
+					this.setAttribute('connections', this.connections);
+					this.setAttribute('speed', this.speed);
+					this.setAttribute('segments', this.segments);
+
+					this.limit.save();
+				]]></body>
+			</method>
+
+			<method name="cancelEdit">
+				<body><![CDATA[
+					this.postEvent("LimitsEditCancel");
+				]]></body>
+			</method>
+			<method name="changedConnections">
+				<body><![CDATA[
+					if (this._connectionsGroup.value != 'limited') {
+						return;
+					}
+					this._connections.value = Math.max(this.limit.connections, 0) || 2;
+					this.refresh();
+				]]></body>
+			</method>
+			<method name="changedSpeed">
+				<body><![CDATA[
+					if (this._speedGroup.value != 'limited') {
+						return;
+					}
+					this._speed.value = Math.max(this.limit.speed, 0) || 100;
+					this.refresh();
+				]]></body>
+			</method>
+			<method name="changedSegments">
+				<body><![CDATA[
+					if (this._segmentsGroup.value != 'limited') {
+						return;
+					}
+					this._segments.value = Math.max(this.limit.segments, 0) || 1;
+					this.refresh();
+				]]></body>
+			</method>
+		</implementation>
+		<handlers>
+			<handler event="change">this.refresh();</handler>
+			<handler event="command"><![CDATA[
+				switch (event.originalTarget.getAttribute('anonid')) {
+					case 'saveButton':
+						this.saveEdit();
+						break;
+					case 'cancelButton':
+						this.cancelEdit();
+						break;
+				}
+			]]></handler>
+			<handler event="select"><![CDATA[
+				switch (event.originalTarget.getAttribute('anonid')) {
+					case 'connectionsGroup':
+						this.changedConnections();
+						break;
+					case 'speedGroup':
+						this.changedSpeed();
+						break;
+					case 'segmentsGroup':
+						this.changedSegments();
+						break;
+				}
+				this.refresh();
+			]]></handler>
+		</handlers>
+	</binding>
+
+	<binding id="timepicker" extends="chrome://global/content/bindings/datetimepicker.xml#timepicker">
+		<implementation>
+			<field name="is24HourClock">false</field>
+			<field name="hourLeadingZero">false</field>
+			<field name="minuteLeadingZero">true</field>
+			<field name="secondLeadingZero">true</field>
+			<field name="amIndicator">"AM"</field>
+			<field name="pmIndicator">"PM"</field>
+		</implementation>
+	</binding>
+</bindings>

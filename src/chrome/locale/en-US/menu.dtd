@@ -1,0 +1,27 @@
+<!-- LOCALIZATION NOTE : FILE Please do NOT translate Get'emAll! and OneClick -->
+
+<!ENTITY dta-tbinstall "Add Toolbar Buttons">
+<!ENTITY dta-pref.label "Preferences">
+<!ENTITY dta-about2.label "About Get'emAll!">
+<!ENTITY dta-manager-button "Manager">
+<!ENTITY dta-manager-button.desc "Opens the Manager window.">
+<!ENTITY dta-selector-button2.label "OneClick! Selector">
+<!ENTITY dta-selector-button.desc "Adds items by left-clicking on them.">
+<!ENTITY dta-tb-all.label "All Tabs">
+<!ENTITY dta-tb-single.label "Current Tab">
+<!ENTITY dta-selection2.label "Get'emAll! Selection">
+<!ENTITY dta-selection-turbo2.label "OneClick Selection">
+<!ENTITY dta-regular2.label "Get'emAll!">
+<!ENTITY dta-regular.desc "Opens the Get'emAll! Selection window for the current tab.">
+<!ENTITY dta-regular-turbo2.label "GeA! OneClick">
+<!ENTITY dta-regular-turbo.desc "Downloads all items from the current page according to the last used preferences and filters.">
+<!ENTITY dta-img-save2.label "Save Image with Get'emAll!">
+<!ENTITY dta-img-save-turbo2.label "Save Image with GeA! OneClick">
+<!ENTITY dta-video-save2.label "Save Video with Get'emAll!">
+<!ENTITY dta-video-save-turbo2.label "Save Video with GeA! OneClick">
+<!ENTITY dta-audio-save2.label "Save Audio with Get'emAll!">
+<!ENTITY dta-audio-save-turbo2.label "Save Audio with GeA! OneClick">
+<!ENTITY dta-link-save2.label "Save Link with Get'emAll!">
+<!ENTITY dta-link-save-turbo2.label "Save Link with GeA! OneClick">
+<!ENTITY dta-form-save2.label "Save Form Target with Get'emAll!">
+<!ENTITY dta-form-save-turbo2.label "Save Form Target with GeA! OneClick">

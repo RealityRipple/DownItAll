@@ -1,0 +1,29 @@
+<!ENTITY start.label "Start!">
+<!ENTITY start.key "s" >
+<!ENTITY queue.label "Add paused">
+<!ENTITY queue.key "p" >
+
+<!ENTITY options.label "Preferences">
+
+<!ENTITY url.value "Download">
+<!ENTITY url.placeholder "Enter download URI">
+<!ENTITY override.filename.value "Custom filename">
+<!ENTITY override.filename.placeholder "Enter new file name">
+<!ENTITY override.filename.tip "Enter new file name, or empty as is for default name">
+<!ENTITY directory.caption "Save files in:">
+<!ENTITY directory.placeholder "Enter or select folder">
+<!ENTITY mirrors.value "Mirrors:">
+<!ENTITY referrer.value "Referring page:">
+<!ENTITY referrer.placeholder "Enter referrer URI">
+<!ENTITY referrer.tip "Enter referrer URI, or leave empty to send no referrer">
+<!ENTITY description.value "Description:">
+<!ENTITY checksum.value "Checksum (Hash):">
+<!ENTITY browse.tooltip "Browse…">
+<!ENTITY mirrormanager.tip "Manage download mirrors">
+<!ENTITY mask3.label "Mask">
+<!ENTITY mask.tip "Selected files will be saved and renamed using this mask">
+<!ENTITY mask.once.label "Use mask only this time">
+
+<!ENTITY selectall.label "Select All">
+<!ENTITY selectinv.label "Invert Selection">
+<!ENTITY selectnone.label "Select None">

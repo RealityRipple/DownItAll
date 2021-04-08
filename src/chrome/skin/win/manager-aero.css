@@ -1,0 +1,222 @@
+@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
+
+/* lwtheme background */
+window:-moz-lwtheme {
+	background-repeat: no-repeat;
+	background-position: right top;
+}
+#footer:-moz-lwtheme {
+	background-repeat: no-repeat;
+	background-position: left bottom;
+}
+
+/* titlebar */
+#titlebar {
+	-moz-binding: url("chrome://global/content/bindings/general.xml#windowdragbox");
+	-moz-appearance: -moz-window-titlebar !important;
+	-moz-window-dragging: drag;
+}
+#tools {
+	-moz-binding: url("chrome://global/content/bindings/general.xml#windowdragbox");
+}
+window[sizemode="maximized"] #titlebar {
+	-moz-appearance: -moz-window-titlebar-maximized !important;
+}
+#titlebar-buttonbox {
+	-moz-appearance: -moz-window-button-box;
+}
+window[sizemode="maximized"] #titlebar-buttonbox {
+	-moz-appearance: -moz-window-button-box-maximized;
+}
+#titlebar-min {
+	-moz-appearance: -moz-window-button-minimize;
+}
+#titlebar-max {
+	-moz-appearance: -moz-window-button-maximize;
+}
+window[sizemode="maximized"] #titlebar-max {
+	-moz-appearance: -moz-window-button-restore;
+}
+#titlebar-close {
+	-moz-appearance: -moz-window-button-close;
+}
+
+/* draggable title and main toolbar */
+#titlebar {
+	-moz-binding: url(chrome://global/content/bindings/toolbar.xml#toolbar-drag);
+}
+
+#toolbox,
+#actionsbox,
+#footer {
+	background: transparent;
+}
+
+/* default style for toolbars */
+#toolbox:not(:-moz-lwtheme),
+#actionsbox:not(:-moz-lwtheme) {
+	-moz-appearance: none;
+}
+#actions {
+	margin-top: 24px;
+	margin-left: 2px;
+	-moz-appearance: none;
+}
+#actions:not(:-moz-window-inactive) {
+	background: rgba(255,255,255,0.66);
+	border-top-left-radius: 4px;
+	border-bottom-left-radius: 4px;
+}
+
+#actionsbox:-moz-lwtheme {
+	-moz-binding: url(chrome://dta/content/common/bindings.xml#toolbar-lwauto);
+}
+window[sizemode="maximized"] #titlebar {
+	margin-bottom: -14px;
+}
+
+window[sizemode="maximized"] #tools {
+	padding-top: 6px;
+}
+/* specialized toolbarbutton styles */
+
+/* special lwtheme rules */
+treecol:-moz-lwtheme-brighttext {
+	text-shadow: none;
+}
+
+#tooldonate:-moz-lwtheme {
+	display: none;
+}
+
+
+/* non-compositor rules */
+@media all and (-moz-windows-compositor:0) {
+	window:-moz-system-metric(windows-default-theme) {
+		background-color: rgb(185,209,234);
+	}
+	window:-moz-system-metric(windows-default-theme):-moz-window-inactive {
+		background-color: rgb(215,228,242);
+	}
+	window[sizemode="maximized"] #titlebar:-moz-lwtheme {
+		visibility: hidden;
+	}
+	window[sizemode="maximized"] #titlebar-buttonbox {
+		visibility: visible;
+		position: relative;
+	}
+	#titlebar-min {
+		-moz-margin-end: 2px;
+	}
+	window[sizemode="maximized"] #donatebox {
+		-moz-box-pack: end;
+	}
+	window[sizemode="maximized"] #tooldonate {
+		list-style-image: url(chrome://dta/skin/manager/donate16.png) !important;
+		-moz-image-region: rect(0px,74px,16px,0px) !important;
+		-moz-margin-end: 4px;
+	}
+	window[sizemode="maximized"] #tooldonate:hover {
+		-moz-image-region: rect(16px,74px,32px,0px) !important;
+	}
+	#footer {
+		-moz-appearance: none;
+		background-color: rgba(255, 255, 255, 0.5);
+		border-radius: 4px;
+		border-top-right-radius: 0px;
+	}
+
+}
+/* compositor rules */
+@media all and (-moz-windows-compositor) {
+
+	/* specifity issues ahead; beware */
+	#DownThemAll {
+		-moz-appearance: -moz-win-glass;
+	}
+	#downloads {
+		-moz-appearance: -moz-win-exclude-glass;
+		border: 0;
+	}
+	window {
+		background-color: transparent;
+		background-image: none;
+		background-repeat: repeat;
+		background-attachment: scroll;
+		background-position: 0% 0%;
+		background-clip: border-box;
+		background-origin: padding-box;
+		background-size: auto auto;
+	}
+
+	window[sizemode="maximized"] #titlebar-buttonbox {
+		-moz-margin-end: 3px;
+	}
+	.titlebar-button {
+		display: none;
+	}
+
+	toolbarbutton[disabled="true"] {
+		opacity: .4;
+	}
+
+	/* Artificially draw window borders that are covered by lwtheme, see bug 591930. */
+	window[sizemode="normal"] > #titlebar > #titlebar-content:-moz-lwtheme {
+		border-top: 2px solid;
+		-moz-border-top-colors: rgb(37, 44, 51) rgba(255,255,255,.6);
+	}
+	window[sizemode="normal"] > #titlebar > #titlebar-content:-moz-lwtheme:-moz-window-inactive {
+		-moz-border-top-colors: rgb(102, 102, 102) rgba(255,255,255,.6);
+	}
+
+	#main-window[sizemode="normal"] #titlebar-buttonbox:-moz-lwtheme {
+		margin-top: -2px;
+	}
+	#toolbox, #actionsbox:not(:-moz-lwtheme) {
+		background: transparent;
+	}
+	#toolbox {
+		-moz-appearance: -moz-win-glass !important;
+		text-shadow: 0 0 .8em white, 0 0 .8em white, 0 1px 0 rgba(255,255,255,.4);
+	}
+
+	#footer:-moz-lwtheme-brighttext {
+		text-shadow: 1px 1px 1.5px black;
+	}
+
+	#footer:-moz-lwtheme-darktext {
+		text-shadow: 1px 1px 1.5px gray;
+	}
+
+	#footer:not(:-moz-lwtheme) {
+		text-shadow: 0pt 0pt 0.5em white, 0pt 0pt 0.5em white, 0pt 1px 0pt rgba(255, 255, 255, 0.4);
+	}
+	#footer:not(:-moz-lwtheme):not(:-moz-window-inactive) {
+		background-color: rgba(255,255,255,.66);
+		border-radius: 4px;
+		border-top-right-radius: 0px;
+	}
+
+	#donatebox {
+		-moz-box-pack: end;
+	}
+	#tooldonate {
+		-moz-box-pack: end;
+		list-style-image: url(chrome://dta/skin/manager/donate16.png) !important;
+		-moz-image-region: rect(0px,74px,16px,0px) !important;
+	}
+	#tooldonate:hover {
+		-moz-image-region: rect(16px,74px,32px,0px) !important;
+	}
+	window[sizemode="maximized"] #tooldonate:not(:-moz-lwtheme) {
+		-moz-margin-end: 4px;
+	}
+
+	#titlebar {
+		margin-bottom: -6px;
+	}
+	window:not([sizemode="maximized"]) #tools[mode="icons"] {
+		margin-top: -12px;
+	}
+
+}

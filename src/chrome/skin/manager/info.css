@@ -1,0 +1,24 @@
+@import 'chrome://dta/skin/manager/style.css';
+
+dialog {
+	width: 600px;
+}
+
+#infoIcon {
+	margin: 1em;
+}
+
+#clearReferrer {
+	list-style-image: url(icons.png);
+	-moz-image-region: rect(64px,64px,80px,48px);
+}
+
+@media (min-resolution: 2dppx) {
+	#clearReferrer {
+		list-style-image: url(icons@2x.png);
+		-moz-image-region: rect(128px,128px,160px,96px);
+	}
+	#clearReferrer .toolbarbutton-icon {
+		width: 16px;
+	}
+}

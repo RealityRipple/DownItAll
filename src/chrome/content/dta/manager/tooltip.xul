@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+	- License, v. 2.0. If a copy of the MPL was not distributed with this
+	- file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
+
+<!DOCTYPE overlay [
+	<!ENTITY % managerDTD SYSTEM "chrome://dta/locale/manager.dtd">
+	%managerDTD;
+	<!ENTITY % defmanagerDTD SYSTEM "chrome://dta-locale/content/manager.dtd">
+	%defmanagerDTD;
+]>
+<overlay
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	xmlns:html="http://www.w3.org/1999/xhtml"
+	>
+	<hbox id="infoBox">
+		<vbox>
+			<image id="infoIcon" />
+		</vbox>
+		<grid id="infoBox" flex="1">
+			<columns>
+				<column/>
+				<column flex="1"/>
+			</columns>
+			<rows>
+				<label crop="left" id="infoDest" />
+				<label id="infoPrivate" value="&infoPrivate.value;" />
+				<row>
+					<label value="&infoURLTitle.value;" />
+					<textbox class="plain" id="infoURL" />
+				</row>
+				<row>
+					<label value="&infoSizeTitle.value;" />
+					<textbox class="plain" id="infoSize" />
+				</row>
+				<row>
+					<label value="&infoDateTitle.value;" />
+					<textbox class="plain" id="infoDate" />
+				</row>
+			</rows>
+		</grid>
+	</hbox>
+
+	<grid id="canvasGrid">
+		<columns>
+			<column flex="1"/>
+			<column flex="1" class="col-value"/>
+			<column flex="1"/>
+			<column flex="1" class="col-value"/>
+		</columns>
+		<rows>
+			<separator class="thin"/>
+			<stack id="chunkStack" align="center">
+				<html:canvas id="chunkCanvas" height="45"/>
+				<label id="infoPercent" />
+			</stack>
+			<row>
+				<label value="&elapsedTitle.value;" tooltiptext="&elapsedTitle.value;" crop="center"/>
+				<label id="timeElapsed" crop="center"/>
+				<label value="&remainingTitle.value;" tooltiptext="&remainingTitle.value;" crop="center"/>
+				<label id="timeRemaining" crop="center"/>
+			</row>
+			<separator class="thin" />
+			<html:canvas id="speedCanvas" height="50"/>
+			<row id="speedRow">
+				<label value="&currentSpeedTitle.value;" tooltiptext="&currentSpeedTitle.value;" crop="center"/>
+				<label id="speedCurrent" crop="end"/>
+				<label value="&avgSpeedTitle.value;" tooltiptext="&currentSpeedTitle.value;" crop="center"/>
+				<label id="speedAverage" crop="end"/>
+			</row>
+		</rows>
+	</grid>
+</overlay>
