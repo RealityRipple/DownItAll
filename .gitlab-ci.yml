@@ -2,6 +2,6 @@ build:
     stage: build
     script:
       - mkdir bin  
-      - apt install xmlstarlet -y
+      - apt install ant -y
       - cd src
-      - make 
+      - ant build
