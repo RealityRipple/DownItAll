@@ -2,14 +2,14 @@
 <RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 	xmlns:em="http://www.mozilla.org/2004/em-rdf#">
 	<Description about="urn:mozilla:install-manifest"
-		em:id="{4f45ab64-73d7-4bde-b9e6-0922abe8e11a}" em:name="Get'emAll!"
+		em:id="{4f45ab64-73d7-4bde-b9e6-0922abe8e11a}" em:name="GetemAll!"
 		em:description="Get all the things!" 
-		em:version="1.0" em:bootstrap="true" em:type="2"
-		em:creator="moonbat" em:aboutURL="chrome://dta/content/about/about.xul"
+		em:version="1.0" em:bootstrap="true" em:type="2" em:creator="moonbat" 
 		em:iconURL="chrome://dtaicon/content/icon.png"
 		em:icon64URL="chrome://dtaicon/content/icon64.png"
-		em:homepageURL="https://downthemall.org/"
+		em:homepageURL="https://deusrex.neocities.org/xul/getemall/getemall.html"
 		em:optionsURL="chrome://dta/content/preferences/prefs.xul">
+		<em:contributor>Matt A. Tobin</em:contributor>
 		<em:contributor>Federico Parodi</em:contributor>
 		<em:contributor>Stefano Verna</em:contributor>
 		<em:contributor>Nils Maier</em:contributor>

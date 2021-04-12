@@ -29,7 +29,7 @@
 
 <window
 	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
-	title="DownThemAll! - &title;"
+	title="Get'emAll! - &title;"
 	width="675" height="575"
 	id="DownThemAll"
 	class="selectlinks"

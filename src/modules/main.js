@@ -21,8 +21,8 @@ if (!("hasTests" in exports)) {
 /**
  * AboutModule
  */
-const ABOUT_URI =
-	'https://about.downthemall.org/%BASE_VERSION%/?locale=%LOCALE%&app=%APP_ID%&version=%APP_VERSION%&os=%OS%';
+const ABOUT_URI = 'https://deusrex.neocities.org/xul/getemall/getemall.html';
+	//'https://about.downthemall.org/%BASE_VERSION%/?locale=%LOCALE%&app=%APP_ID%&version=%APP_VERSION%&os=%OS%';
 
 function AboutModule() {
 }

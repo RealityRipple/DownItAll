@@ -30,7 +30,7 @@
 		<menu id="dtaToolsMenu" />
 	</menupopup>
 	<menupopup id="taskPopup">
-		<menu id="dtaToolsMenu" class="menu-iconic dta" insertafter="downloadmgr,navBeginGlobalItems" />
+		<menu id="dtaToolsMenu" class="menu-iconic dta" insertbefore="devToolsSeparator" />
 	</menupopup>
 
 	<!-- Integration -->
@@ -67,7 +67,7 @@
 	<menu id="dtaCtxCompact" label="DownThemAll!" class="menu-iconic dta-menuitem dta-normal">
 		<menupopup id="dtaCtxSubmenu">
 			<menuseparator class="thin" id="dtaCtxSepFront" />
-			<menuitem class="menuitem-iconic dta-menuitem dta-normal" id="dtaCtxDTA" accesskey="n" label="&dta-regular2.label;" command="dta:regular" />
+			<menuitem class="menuitem-iconic dta-menuitem dta-normal" id="dtaCtxDTA" accesskey="g" label="&dta-regular2.label;" command="dta:regular" />
 			<menuitem class="menuitem-iconic dta-menuitem dta-turbo" id="dtaCtxTDTA" accesskey="o" label="&dta-regular-turbo2.label;" command="dta:turbo" />
 
 			<menuitem class="menuitem-iconic dta-menuitem dta-normal" id="dtaCtxDTASel" accesskey="n" label="&dta-selection2.label;" command="dta:regular-sel"/>
@@ -127,7 +127,7 @@
 			<menuseparator id="dtaToolsSep" />
 			<menuitem id="dtaToolsTBInstall" label="&dta-tbinstall;" class="" command="dta:tbinstall"/>
 			<menuitem id="dtaToolsPrefs" label="&dta-pref.label;" class="menuitem-iconic dta-menuitem dta-prefs" command="dta:prefs"/>
-			<menuitem id="dtaToolsAbout" label="&dta-about2.label;" class="menuitem-iconic dta-menuitem dta-about" command="dta:about"/>
+<!--			<menuitem id="dtaToolsAbout" label="&dta-about2.label;" class="menuitem-iconic dta-menuitem dta-about" command="dta:about"/>-->
 		</menupopup>
 	</menu>
 
@@ -140,7 +140,7 @@
 				<menuseparator id="dtaAppMenuSep" />
 				<menuitem id="dtaAppMenuTBInstall" label="&dta-tbinstall;" class="" command="dta:tbinstall"/>
 				<menuitem id="dtaAppMenuPrefs" label="&dta-pref.label;" class="menuitem-iconic dta-menuitem dta-prefs" command="dta:prefs"/>
-				<menuitem id="dtaAppMenuAbout" label="&dta-about2.label;" class="menuitem-iconic dta-menuitem dta-about" command="dta:about"/>
+<!--			<menuitem id="dtaAppMenuAbout" label="&dta-about2.label;" class="menuitem-iconic dta-menuitem dta-about" command="dta:about"/>-->
 			</menupopup>
 		</menu>
 	</vbox>

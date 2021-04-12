@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="straitjacket" default="build">
+	<scriptdef language="javascript" name="lower">
+	    <attribute name="string" /> 
+	    <attribute name="to" />
+		    project.setProperty( attributes.get( "to" ),
+		                         attributes.get( "string" ).toLowerCase() );
+	</scriptdef>
+    <property name="bin.directory" value="bin" />
+    <property name="build.directory" value="${bin.directory}/build" />
+    <property name="source.directory" value="src" />
+   	<xmlproperty file="${source.directory}/install.rdf" keeproot="false"/>
+   	<lower string="${Description(em:name)}" to="lower"/>
+	<property name="outputfile" value="${lower}-${Description(em:version)}.xpi"/>
+
+    <target name="build" depends="clean">
+		<echo message="Building ${outputfile}"/>
+        <mkdir dir="${build.directory}"/>
+        <copy todir="${build.directory}">
+            <fileset dir="${source.directory}">
+                <exclude name="build.xml"/>
+				<exclude name="Makefile"/>
+            </fileset>
+        </copy>
+        <zip destfile="${bin.directory}/${outputfile}" update="true">
+            <fileset dir="${build.directory}">
+            </fileset>
+        </zip>
+        <delete dir="${build.directory}" failonerror="true"/>
+    </target>
+    <target name="clean">
+		<echo message="Removing old ${outputfile}"/>
+        <delete>
+			<fileset dir="${bin.directory}">
+	    		<include name="${outputfile}"/>
+			</fileset>
+		</delete>
+    </target>
+</project>
