@@ -10,10 +10,10 @@
 	<radiogroup id="mode">
 		<vbox insertbefore="save" id="downthemallcontainer" collapsed="true" flex="1">
 			<hbox flex="1">
-				<radio id="downthemall" label="DownThemAll!" disabled="true" />
+				<radio id="downthemall" label="Get'emAll" disabled="true" />
 			</hbox>
 			<hbox id="tdta" flex="1">
-				<radio id="turbodta" disabled="true" label="dTa OneClick!" />
+				<radio id="turbodta" disabled="true" label="GtA OneClick!" />
 				<toolbarbutton id="turbodtaexec" disabled="true" />
 				<spacer flex="1" />
 				<saveddropdown id="tdtalist" preference="directory" readonly="true" crop="center" flex="1" />
