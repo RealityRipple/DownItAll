@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<project name="straitjacket" default="build">
+<project name="getemall" default="build">
 	<scriptdef language="javascript" name="lower">
 	    <attribute name="string" /> 
 	    <attribute name="to" />
