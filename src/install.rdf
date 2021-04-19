@@ -2,9 +2,9 @@
 <RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 	xmlns:em="http://www.mozilla.org/2004/em-rdf#">
 	<Description about="urn:mozilla:install-manifest"
-		em:id="{4f45ab64-73d7-4bde-b9e6-0922abe8e11a}" em:name="GetemAll!"
-		em:description="Get all the things!" 
-		em:version="1.0" em:bootstrap="true" em:type="2" em:creator="moonbat" 
+		em:id="{4f45ab64-73d7-4bde-b9e6-0922abe8e11a}" em:name="GetEmAll!"
+		em:description="Get all the things!A powerful download manager." 
+		em:version="1.0.1" em:bootstrap="true" em:type="2" em:creator="moonbat" 
 		em:iconURL="chrome://dtaicon/content/icon.png"
 		em:icon64URL="chrome://dtaicon/content/icon64.png"
 		em:homepageURL="https://deusrex.neocities.org/xul/getemall/getemall.html"
