@@ -133,8 +133,8 @@ exports.exportToHtmlFile = function exportToHtmlFile(aDownloads, aDocument, aFil
 		let foot = document.createElement('p');
 		foot.appendChild(document.createTextNode('Exported by '));
 		n = document.createElement('a');
-		n.setAttribute('href', 'https://www.downthemall.org/');
-		n.textContent = 'Get'emAll! ' + Version.VERSION;
+		n.setAttribute('href', 'https://deusrex.neocities.org/xul/getemall/getemall.html');
+		n.textContent = "Get'emAll! " + "Version.VERSION";
 		foot.appendChild(n);
 		body.appendChild(foot);
 
