@@ -1,5 +1,0 @@
-build:
-    stage: build
-    script:
-      - mkdir bin  
-      - ant build
