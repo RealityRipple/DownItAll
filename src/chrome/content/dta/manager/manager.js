@@ -194,7 +194,6 @@ var Dialog = {
 					e.setAttribute('tooltiptext', e.getAttribute('label'));
 				}
 			}
-			$('tbp_' + $('tools').getAttribute('mode')).setAttribute('checked', "true");
 		})();
 
 
@@ -253,12 +252,6 @@ var Dialog = {
 					log(LOG_ERROR, "failed to process ondrop", ex);
 				}
 			}, true);
-
-			/*$('tooldonate').addEventListener('click', function(evt) {
-				if (evt.button === 0) {
-					Dialog.openDonate();
-				}
-			}, false);*/
 		})();
 
 		this.paneSchedule = $("schedule");
@@ -321,17 +314,6 @@ var Dialog = {
 				if (shouldAutofit) {
 					document.documentElement.setAttribute('dtaAutofitted', cv);
 					$('tools').setAttribute('mode', 'icons');
-					/*defer(
-						function() {
-							let tdb = $('tooldonate').boxObject;
-							let db = de.boxObject;
-							let cw = tdb.width + tdb.x;
-							if (db.width < cw) {
-								window.resizeTo(cw, window.outerHeight);
-								log(LOG_DEBUG, "manager was autofit");
-							}
-						}
-					);*/
 				}
 			});
 		})();
@@ -339,67 +321,6 @@ var Dialog = {
 		$('listSpeeds').limit = Prefs.speedLimit;
 		$('listSpeedsSpinners').addEventListener('up', () => Dialog.changeSpeedLimitUp(), false);
 		$('listSpeedsSpinners').addEventListener('down', () => Dialog.changeSpeedLimitDown(), false);
-
-		/*(function nagging() {
-			if (Preferences.getExt('nagnever', false)) {
-				return;
-			}
-			let nb = $('notifications');
-			try {
-				let seq = QueueStore.getQueueSeq();
-				let nagnext = Preferences.getExt('nagnext', 100);
-				log(LOG_DEBUG, "nag: " + seq + "/" + nagnext + "/" + (seq - nagnext));
-				if (seq < nagnext) {
-					return;
-				}
-				for (nagnext = isFinite(nagnext) && nagnext > 0 ? nagnext : 100; seq >= nagnext;) {
-					nagnext *= 2;
-				}
-
-				seq = Math.floor(seq / 100) * 100;
-
-				setTimeoutOnlyFun(function() {
-					let ndonation = nb.appendNotification(
-							_('nagtext', [seq]),
-							"donation",
-							null,
-							nb.PRIORITY_INFO_HIGH,
-							[
-								{
-									accessKey: '',
-									label: _('nagdonate'),
-									callback: function() {
-										nb.removeNotification(ndonation);
-										Preferences.setExt('nagnext', nagnext);
-										Preferences.setExt('nagnever', true);
-										Dialog.openDonate();
-									}
-								},
-								{
-									accessKey: '',
-									label: _('naghide'),
-									callback: function() {
-										Preferences.setExt('nagnext', nagnext);
-										nb.removeNotification(ndonation);
-									}
-								},
-								{
-									accessKey: '',
-									label: _('dontaskagain'),
-									callback: function() {
-										nb.removeNotification(ndonation);
-										Preferences.setExt('nagnever', true);
-									}
-								}
-
-							]
-					);
-				}, 1000);
-			}
-			catch (ex) {
-				log(LOG_ERROR, 'nagger', ex);
-			}
-		})();*/
 
 		(function checkLogging() {
 			if (!log.enabled) {
@@ -646,14 +567,6 @@ var Dialog = {
 		);
 	},
 
-	openDonate: function() {
-		try {
-			openUrl('https://www.downthemall.org/howto/donate/');
-		}
-		catch(ex) {
-			window.alert(ex);
-		}
-	},
 	openInfo: function(downloads) {
 		let w = window.openDialog(
 			"chrome://dta/content/dta/manager/info.xul","_blank",
@@ -807,7 +720,7 @@ var Dialog = {
 
 			// Refresh status bar
 			this.statusText.label = _("currentdownloadstats",
-				[this.completed, Tree.downloadCount, Tree.rowCount, this._running.length]);
+				[this.completed, Tree.downloadCount, Tree.rowCount - 1, this._running.length]);
 			if (!this._running.length) {
 				this.statusSpeed.hidden = true;
 			}
@@ -824,7 +737,7 @@ var Dialog = {
 						this.statusSpeed.label,
 						this.completed,
 						Tree.downloadCount,
-						Tree.rowCount
+						Tree.rowCount - 1
 					]);
 				}
 				else {
@@ -851,7 +764,7 @@ var Dialog = {
 						this.statusSpeed.label,
 						this.completed,
 						Tree.downloadCount,
-						Tree.rowCount
+						Tree.rowCount - 1
 					]);
 				}
 				else {
@@ -897,7 +810,7 @@ var Dialog = {
 					document.title = _('titleidlefiltered', [
 						this.completed,
 						Tree.downloadCount,
-						Tree.rowCount
+						Tree.rowCount - 1
 					]);
 				}
 				else {
@@ -1885,6 +1798,27 @@ QueueItem.prototype = {
 	},
 	get largeIcon() {
 		return getLargeIcon(this.destinationName, 'metalink' in this);
+	},
+	get remainingString() {
+		if (this.partialSize <= 0 || this.totalSize <= 0) {
+			return TextCache_UNKNOWN;
+		}
+		else if (this.state === COMPLETE || this.state === FINISHING) {
+			return Utils.formatBytes(0);
+		}
+		return Utils.formatBytes(this.totalSize - this.partialSize);
+	},
+	get partialString() {
+		if (this.partialSize <= 0) {
+			return TextCache_UNKNOWN;
+		}
+		return Utils.formatBytes(this.partialSize);
+	},
+	get totalString() {
+		if (this.totalSize <= 0) {
+			return TextCache_UNKNOWN;
+		}
+		return Utils.formatBytes(this.totalSize);
 	},
 	get dimensionString() {
 		if (this.partialSize <= 0) {

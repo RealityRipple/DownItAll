@@ -30,17 +30,17 @@ FileExtensionSheet.prototype = Object.freeze({
 		let entry = this._entries.get(ext);
 		if (!entry) {
 			entry = "FileIcon" + ext.replace(/\W/g, '');
-			let icon16 = getIcon('file.' + ext, metalink || ext === 'metalink' || ext === "meta4", 16);
 			let icon32 = getIcon('file.' + ext, metalink || ext === 'metalink' || ext === "meta4", 32);
+			let icon64 = getIcon('file.' + ext, metalink || ext === 'metalink' || ext === "meta4", 64);
 			let rule = `
 treechildren::-moz-tree-image(iconic,${entry.toString()}) {
-	list-style-image: url(${icon16}) !important;
+	list-style-image: url(${icon32}) !important;
 	-moz-image-region: auto !important;
-	width: 16px !important;
+	width: 32px !important;
 }
 @media (min-resolution: 2dppx) {
 	treechildren::-moz-tree-image(iconic,${entry.toString()}) {
-		list-style-image: url(${icon32}) !important;
+		list-style-image: url(${icon64}) !important;
 	}
 }`;
 			this._toadd.push(rule);

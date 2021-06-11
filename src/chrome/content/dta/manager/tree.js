@@ -61,7 +61,12 @@ var Tree = {
 
 		addEventListener('blur', () => Tree.stopTip(), false);
 
-		this.elem.addEventListener('select', () => this.selectionChanged(), false);
+		this.elem.addEventListener('select', evt => {
+   if (this.selection.isSelected(this.rowCount - 1)) {
+    this.selection.toggleSelect(this.rowCount - 1);
+   }
+   this.selectionChanged();
+  }, false);
 		this.elem.addEventListener('click', evt => {
 			if (evt.button === 1) {
 				this.showInfo();
@@ -70,6 +75,57 @@ var Tree = {
 
 		let dtree = $('downloadList');
 		dtree.addEventListener('dragstart', event => this.onDragStart(event), false);
+		dtree.addEventListener('click', function(event) {
+   let r = {}, c = {}, p = {};
+   elem.treeBoxObject.getCellAt(event.clientX, event.clientY, r, c, p);
+   if (r.value === -1)
+    return;
+   if (c.value === null)
+    return;
+   if (c.value.index !== 0)
+    return;
+   console.log('start or stop item ' + r.value);
+   let pret = Tree.getCellProperties(r.value, c.value);
+   switch (pret)
+   {
+    case Tree._cpprop_iconic:
+     Tree.resume();
+     break;
+    case Tree._cpprop_iconiccomplete:
+     console.log('complete');
+     break;
+    case Tree._cpprop_iconicfinishing:
+     console.log('finishing');
+     break;
+    case Tree._cpprop_iconicverified:
+     console.log('verified');
+     break;
+    case Tree._cpprop_iconicpaused:
+     Tree.resume();
+     break;
+    case Tree._cpprop_iconicpausedundetermined:
+     Tree.resume();
+     break;
+    case Tree._cpprop_iconicpausedretrying:
+     console.log('paused (retrying)');
+     break;
+    case Tree._cpprop_iconicpausedundeterminedretrying:
+     console.log('paused (undetermined & retrying)');
+     break;
+    case Tree._cpprop_iconicinprogress:
+     Tree.pause();
+     break;
+    case Tree._cpprop_iconiccanceled:
+     Tree.resume();
+     break;
+    case Tree._cpprop_iconicadd:
+     Dialog.openAdd();
+     break;
+    default:
+     console.log('UNKNOWN: [' + pret + ']');
+     break;
+   }
+		}, false);
 		dtree.addEventListener('dblclick', function(event) {
 			event.preventDefault();
 			event.stopPropagation();
@@ -121,7 +177,7 @@ var Tree = {
 				mi.setAttribute('label', filter.label);
 				if (filter.iconExt) {
 					mi.setAttribute('class', 'menuitem-iconic');
-					mi.style.listStyleImage = "url(" + getIcon("file." + filter.iconExt) + ")";
+					mi.style.listStyleImage = "url(" + getIcon("file." + filter.iconExt, false, 32) + ")";
 					mi.style.MozImageRegion = 'auto';
 				}
 				else {
@@ -303,7 +359,7 @@ var Tree = {
 		return this._downloads.length;
 	},
 	get rowCount() {
-		return this._filtered.length;
+		return this._filtered.length + 1;
 	},
 	setTree: function(box) {
 		if (!box) {
@@ -336,6 +392,14 @@ var Tree = {
 				}
 				return function(d) {
 					return d.urlManager.usable;
+				};
+			case 'colDown':
+				return function(d) {
+					return d.partialSize;
+				};
+			case 'colRemain':
+				return function(d) {
+					return (d.totalSize - d.partialSize);
 				};
 			case 'colSize':
 				return function(d) {
@@ -385,7 +449,7 @@ var Tree = {
 			// save selection
 			let selectedIds = this._getSelectedFilteredIds();
 
-			this._box.rowCountChanged(0, -this.rowCount);
+			this._box.rowCountChanged(0, -1 * (this.rowCount - 1));
 			if (this.filtered) {
 				this._filtered = this._matcher.filter(this._downloads);
 			}
@@ -395,7 +459,7 @@ var Tree = {
 					this._filtered[i].filteredPosition = i;
 				}
 			}
-			this._box.rowCountChanged(0, this.rowCount);
+			this._box.rowCountChanged(0, this.rowCount - 1);
 
 			// restore selection
 			// (with range merging)
@@ -490,28 +554,42 @@ var Tree = {
 		return 0;
 	},
 	getCellText: function(idx, col) {
+  if (idx === this.rowCount - 1) {
+   if (col !== 0) {
+    return '';
+   }
+   return '';
+  }
 		const d = this._filtered[idx];
 		if (!d) {
 			return '';
 		}
 
 		switch (col.index) {
-			case 0:  return Prefs.showOnlyFilenames ? d.destinationName : d.urlManager.usable;
-			case 1:  return d.urlManager.domain;
-			case 3:  return d.percent;
-			case 4:  return d.dimensionString;
-			case 5:  return d.status;
-			case 6:  return d.speed;
-			case 7:  return d.parts;
-			case 8:  return d.mask;
-			case 9:  return d.destinationPath;
-			case 10: return d.prettyHash;
+   case 0:
+    
+    return '';
+			case 1:  return Prefs.showOnlyFilenames ? d.destinationName : d.urlManager.usable;
+			case 2:  return d.urlManager.domain;
+			case 4:  return d.percent;
+			case 5:  return d.partialString;
+			case 6:  return d.remainingString;
+			case 7:  return d.totalString;
+			case 8:  return d.speed;
+			case 9:  return d.status;
+			case 10:  return d.parts;
+			case 11:  return d.mask;
+			case 12:  return d.destinationPath;
+			case 13: return d.prettyHash;
 		}
 		return '';
 	},
 	setCellText: function(idx, col, text) {
+  if (idx === this.rowCount - 1) {
+   return;
+  }
 		text = Utils.getUsableFileName(text);
-		if (col.index || !text) {
+		if (col.index !== 1 || !text) {
 			return;
 		}
 		const d = this._filtered[idx];
@@ -555,12 +633,15 @@ var Tree = {
 	isContainerOpen: function(idx) { return false; },
 	isContainerEmpty: function(idx) { return false; },
 	isSeparator: function(idx) { return false; },
-	isEditable: function(row, col) { return !col.index; },
+	isEditable: function(row, col) { return col.index === 1; },
 
 	// will grab the "icon" for a cell.
 	getImageSrc: function(idx, col) {},
 	getProgressMode : function(idx, col) {
-		if (col.index === 2) {
+  if (idx === this.rowCount - 1) {
+   return 3;
+  }
+		if (col.index === 3) {
 			const d = this._filtered[idx];
 			if (!d) {
 				return 2;
@@ -578,7 +659,10 @@ var Tree = {
 	},
 	// will be called for cells other than textcells
 	getCellValue: function(idx, col) {
-		if (col.index === 2) {
+  if (idx === this.rowCount - 1) {
+   return null;
+  }
+		if (col.index === 3) {
 			const d = this._filtered[idx];
 			if (!d) {
 				return 0;
@@ -590,22 +674,38 @@ var Tree = {
 		}
 		return null;
 	},
-	_cpprop_iconic: "iconic progress",
-	_cpprop_iconiccomplete: "iconic progress completed",
-	_cpprop_iconicfinishing: "iconic progress finishing",
-	_cpprop_iconicverified: "iconic progress completed verified",
-	_cpprop_iconicpaused: "iconic progress paused",
-	_cpprop_iconicpausedundetermined: "iconic progress paused pausedUndetermined",
-	_cpprop_iconicpausedretrying: "iconic progress paused pausedAutoretrying",
-	_cpprop_iconicpausedundeterminedretrying: "iconic progress paused pausedUndetermined pausedAutoretrying",
-	_cpprop_iconicinprogress: "iconic progress inprogress",
-	_cpprop_iconicicanceled: "iconic progress canceled",
+	_cpprop_iconic: "iconic",
+	_cpprop_iconiccomplete: "iconic completed",
+	_cpprop_iconicfinishing: "iconic finishing",
+	_cpprop_iconicverified: "iconic completed verified",
+	_cpprop_iconicpaused: "iconic paused",
+	_cpprop_iconicpausedundetermined: "iconic paused pausedUndetermined",
+	_cpprop_iconicpausedretrying: "iconic paused pausedAutoretrying",
+	_cpprop_iconicpausedundeterminedretrying: "iconic paused pausedUndetermined pausedAutoretrying",
+	_cpprop_iconicinprogress: "iconic inprogress",
+	_cpprop_iconiccanceled: "iconic canceled",
+	_cpprop_iconicadd: "iconic addbutton",
+	_cpprop_prog: "progress",
+	_cpprop_progcomplete: "progress completed",
+	_cpprop_progfinishing: "progress finishing",
+	_cpprop_progverified: "progress completed verified",
+	_cpprop_progpaused: "progress paused",
+	_cpprop_progpausedundetermined: "progress paused pausedUndetermined",
+	_cpprop_progpausedretrying: "progress paused pausedAutoretrying",
+	_cpprop_progpausedundeterminedretrying: "progress paused pausedUndetermined pausedAutoretrying",
+	_cpprop_proginprogress: "progress inprogress",
+	_cpprop_progcanceled: "progress canceled",
 	getCellProperties: function(idx, col) {
 		const cidx = col.index;
-		if (cidx !== 2 && cidx !== 0) {
+  if (idx === this.rowCount - 1) {
+   if (cidx !== 0)
+    return "";
+   return this._cpprop_iconicadd;
+  }
+		if (cidx !== 0 && cidx !== 1 && cidx !== 3) {
 			return "";
 		}
-		else if (cidx === 2) {
+		else if (cidx === 0) {
 			let d = this._filtered[idx];
 			if (!d) {
 				return this._cpprop_iconic;
@@ -634,15 +734,47 @@ var Tree = {
 			case RUNNING:
 				return this._cpprop_iconicinprogress;
 			case CANCELED:
-				return this._cpprop_iconicicanceled;
+				return this._cpprop_iconiccanceled;
 			}
 		}
-		else if (cidx === 0) {
+		else if (cidx === 1) {
 			let d = this._filtered[idx];
 			if (!d) {
 				return "";
 			}
 			return d.iconProp;
+		}
+		else if (cidx === 3) {
+			let d = this._filtered[idx];
+			if (!d) {
+				return this._cpprop_prog;
+			}
+			switch (d.state) {
+			case QUEUED:
+				return this._cpprop_prog;
+			case COMPLETE:
+				if (d.hashCollection) {
+					return this._cpprop_progverified;
+				}
+				return this._cpprop_progcomplete;
+			case PAUSED:
+				if (!d.totalSize || d.progress < 5) {
+					if (d.autoRetrying) {
+						return this._cpprop_progpausedundeterminedretrying;
+					}
+					return this._cpprop_progpausedundetermined;
+				}
+				if (d.autoRetrying) {
+					return this._cpprop_progpausedretrying;
+				}
+				return this._cpprop_progpaused;
+			case FINISHING:
+				return this._cpprop_progfinishing;
+			case RUNNING:
+				return this._cpprop_proginprogress;
+			case CANCELED:
+				return this._cpprop_progcanceled;
+			}
 		}
 		return "";
 	},
@@ -806,8 +938,8 @@ var Tree = {
 			}
 
 			let pageLength = this._box.getPageLength();
-			if (this.rowCount - fp <= pageLength) {
-				this._box.scrollToRow(this.rowCount - pageLength);
+			if ((this.rowCount - 1) - fp <= pageLength) {
+				this._box.scrollToRow((this.rowCount - 1) - pageLength);
 			}
 			else {
 				this._box.scrollToRow(fp);
@@ -1354,28 +1486,28 @@ var Tree = {
 		Tooltip.stop();
 	},
 	_refreshTools_item: [
-		{item: 'cmdResume', f: function(d) { return d.isOf(PAUSED | QUEUED | CANCELED); }},
-		{item: 'cmdPause', f: function(d) { return (d.isOf(RUNNING) && d.resumable) || d.isOf(QUEUED | PAUSED); }},
-		{item: 'cmdCancel', f: function(d) { return d.isOf(PAUSED | RUNNING | QUEUED | COMPLETE); }},
+		{item: 'cmdResume', f: function(d) { if (d.maxId === Tree._downloads.length) return false; return d.isOf(PAUSED | QUEUED | CANCELED); }},
+		{item: 'cmdPause', f: function(d) { if (d.maxId === Tree._downloads.length) return false; return (d.isOf(RUNNING) && d.resumable) || d.isOf(QUEUED | PAUSED); }},
+		{item: 'cmdCancel', f: function(d) { if (d.maxId === Tree._downloads.length) return false; return d.isOf(PAUSED | RUNNING | QUEUED | COMPLETE); }},
 
-		{item: 'cmdMoveUp', f: function(d) { return !Tree.filtered && d.min > 0; }},
-		{item: 'cmdMoveTop', f: function(d) { return d.minId > 0; }},
-		{item: 'cmdMoveDown', f: function(d) { return !Tree.filtered && d.max !== d.rows - 1; }},
-		{item: 'cmdMoveBottom', f: function(d) { return d.maxId !== Tree._downloads.length - 1; }}
+		{item: 'cmdMoveUp', f: function(d) { if (d.maxId === Tree._downloads.length) return false; return !Tree.filtered && d.min > 0; }},
+		{item: 'cmdMoveTop', f: function(d) { if (d.maxId === Tree._downloads.length) return false; return d.minId > 0; }},
+		{item: 'cmdMoveDown', f: function(d) { if (d.maxId === Tree._downloads.length) return false; return !Tree.filtered && d.max !== d.rows - 1; }},
+		{item: 'cmdMoveBottom', f: function(d) { if (d.maxId === Tree._downloads.length) return false; return d.maxId !== Tree._downloads.length - 1; }}
 	],
 	_refreshTools_items: [
-		{items: ["cmdDelete", "delete"], f: function(d) { return d.state === COMPLETE; }},
+		{items: ["cmdDelete", "delete"], f: function(d) { if (d.maxId === Tree._downloads.length) return false; return d.state === COMPLETE; }},
 
 		{items: ['cmdRemoveSelected', 'cmdExport', 'cmdGetInfo', 'perDownloadSpeedLimit'],
-			f: function(d) { return !!d.count; }},
+			f: function(d) { if (d.maxId === Tree._downloads.length) return false; return !!d.count; }},
 		{items: ['cmdMirrors', 'cmdAddLimits', 'cmdRename'],
-			f: function(d) { return d.count === 1; }},
+			f: function(d) { if (d.maxId === Tree._downloads.length) return false; return d.count === 1; }},
 		{items: ['cmdAddChunk', 'cmdRemoveChunk', 'cmdForceStart'],
-			f: function(d) { return d.isOf(QUEUED | RUNNING | PAUSED | CANCELED); }},
+			f: function(d) { if (d.maxId === Tree._downloads.length) return false; return d.isOf(QUEUED | RUNNING | PAUSED | CANCELED); }},
 	],
 	_refreshTools_items_deferred: [
-		{items: ['cmdLaunch', "launch"], f: function(d) { return !!d.curFile; }},
-		{items: ["cmdOpenFolder", "folder"], f: function(d) { return !!d.curFolder; }},
+		{items: ['cmdLaunch', "launch"], f: function(d) { if (d.maxId === Tree._downloads.length) return false; return !!d.curFile; }},
+		{items: ["cmdOpenFolder", "folder"], f: function(d) { if (d.maxId === Tree._downloads.length) return false; return !!d.curFolder; }},
 	],
 	_refreshTools_init: function() {
 		this._refreshTools_item.forEach(function(e) { e.item = $(e.item); });
@@ -1407,8 +1539,8 @@ var Tree = {
 				is: function(s) { return this.state & s; },
 				isOf: QueueItem.prototype.isOf,
 				count: this.selection.count,
-				rows: this.rowCount,
-				min: this.rowCount,
+				rows: this.rowCount - 1,
+				min: this.rowCount - 1,
 				max: 0,
 				minId: this._downloads.length,
 				maxId: 0,
@@ -1585,7 +1717,7 @@ var Tree = {
 		try {
 			let ci = {value: -1};
 			this.selection.getRangeAt(0, ci, {});
-			if (ci.value > -1 && ci.value < this.rowCount) {
+			if (ci.value > -1 && ci.value < this.rowCount - 1) {
 				return this._filtered[ci.value];
 			}
 		}
@@ -1597,12 +1729,15 @@ var Tree = {
 	// get the currently focused item.
 	get focused() {
 		let ci = this.selection.currentIndex;
-		if (ci > -1 && ci < this.rowCount) {
+		if (ci > -1 && ci < this.rowCount - 1) {
 			return this._filtered[ci];
 		}
 		return null;
 	},
 	at: function(idx) {
+  if (idx === this.rowCount - 1) {
+   return null;
+  }
 		return this._filtered[idx];
 	},
 	some: function(f, t) {
@@ -1757,7 +1892,7 @@ var Tree = {
 			this.beginUpdate();
 			let ids;
 			try {
-				let rowCount = this.rowCount;
+				let rowCount = this.rowCount - 1;
 				ids = mapInSitu(
 					this._getSelectedIds(true),
 					function(id, idx) {
@@ -1780,7 +1915,7 @@ var Tree = {
 				this.endUpdate();
 			}
 			// readjust view
-			this._box.ensureRowIsVisible(Math.min(ids[0], this.rowCount - 1));
+			this._box.ensureRowIsVisible(Math.min(ids[0], this.rowCount - 2));
 		}
 		catch (ex) {
 			log(LOG_ERROR, "Mover::down", ex);
@@ -1811,7 +1946,7 @@ var Tree = {
 		try {
 			let ci = {value: -1};
 			this.selection.getRangeAt(0, ci, {});
-			if (ci.value < 0 || ci.value >= this.rowCount) {
+			if (ci.value < 0 || ci.value >= this.rowCount - 1) {
 				return;
 			}
 			this.elem.setAttribute("editable", true);

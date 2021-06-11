@@ -28,8 +28,6 @@
 <!ENTITY lp.contact "Contact">
 <!ENTITY lp.pleasenote "Please note:">
 
-<!ENTITY lp.donate2 "Please consider making a contribution">
-
 <!ENTITY lp.tut.firsttitle "Your first download">
 <!ENTITY lp.tut.fd2 "Downloading a file in dTa is fairly easy but also very powerful. If prompted to open or save a file you may use the Get'emAll! item. After choosing where to save the download, you may start to download immediately or queue the file to be downloaded later.">
 <!ENTITY lp.tut.selecttitle "Using the selection window">

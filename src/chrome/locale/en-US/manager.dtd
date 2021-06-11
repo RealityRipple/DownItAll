@@ -1,6 +1,5 @@
 <!ENTITY tooladddownload.label "Add Downloads">
 <!ENTITY tooladd.tooltip "Manually add a download to Get'emAll">
-<!ENTITY tooldonate.tooltiptext "You can help us make Get'emAll even better. Consider making a small donation!">
 
 <!ENTITY movetop.label "Top">
 <!ENTITY movebottom.label "Bottom">
@@ -9,13 +8,15 @@
 
 <!ENTITY search.placeholder "Search downloads">
 
-<!ENTITY download.label "Download/Name">
+<!ENTITY download.label "Name">
 <!ENTITY domain.label "Domain">
 <!ENTITY percent.label "Percent">
 <!ENTITY pct.label "Progress">
+<!ENTITY dld.label "Downloaded">
+<!ENTITY rmn.label "Remaining">
 <!ENTITY dim.label "Size">
 <!-- LOCALIZATION NOTE (time2.label):  Est. == Estimated -->
-<!ENTITY time2.label "Est. Time">
+<!ENTITY time2.label "ETA">
 <!ENTITY parts.label "Segments">
 <!ENTITY speed.label "Speed">
 <!ENTITY infoURLTitle.value "From:">

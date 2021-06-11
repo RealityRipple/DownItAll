@@ -109,20 +109,15 @@ maskbutton .toolbarbutton-text,
 	min-width: 0px;
 }*/
 
-#donate {
-	font-style:italic;
-	text-align:right !important;
-	font-size: 9px !important;
-	cursor: pointer;
-}
-
 .toolbarbutton-menu-dropmarker {
 	list-style-image: none;
 }
 
+/*
 treechildren::-moz-tree-cell-text(selected) {
 	font-weight: bold;
 }
+*/
 
 treechildren::-moz-tree-row {
 	min-height: 21px;
