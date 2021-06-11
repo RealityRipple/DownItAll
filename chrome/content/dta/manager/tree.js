@@ -1935,7 +1935,14 @@ var Tree = {
    }
    this.elem.setAttribute("editable", true);
    try {
-    this.elem.startEditing(ci.value, this.box.columns.getFirstColumn());
+    this.elem.startEditing(ci.value, this.box.columns.getColumnAt(1));
+    window.setTimeout(function(field) {
+     let stx = field.value;
+     if (stx.indexOf('.') === -1)
+      field.setSelectionRange(0, stx.length);
+     else
+      field.setSelectionRange(0, stx.lastIndexOf('.'));
+    }, 33, this.elem.inputField);
    }
    finally {
     this.elem.removeAttribute("editable");
