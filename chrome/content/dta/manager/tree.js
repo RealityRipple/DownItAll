@@ -84,42 +84,26 @@ var Tree = {
     return;
    if (c.value.index !== 0)
     return;
-   console.log('start or stop item ' + r.value);
    let pret = Tree.getCellProperties(r.value, c.value);
    switch (pret)
    {
     case Tree._cpprop_iconic:
-     Tree.resume();
-     break;
-    case Tree._cpprop_iconiccomplete:
-     console.log('complete');
-     break;
-    case Tree._cpprop_iconicfinishing:
-     console.log('finishing');
-     break;
-    case Tree._cpprop_iconicverified:
-     console.log('verified');
-     break;
     case Tree._cpprop_iconicpaused:
-     Tree.resume();
-     break;
     case Tree._cpprop_iconicpausedundetermined:
+    case Tree._cpprop_iconiccanceled:
      Tree.resume();
-     break;
-    case Tree._cpprop_iconicpausedretrying:
-     console.log('paused (retrying)');
-     break;
-    case Tree._cpprop_iconicpausedundeterminedretrying:
-     console.log('paused (undetermined & retrying)');
      break;
     case Tree._cpprop_iconicinprogress:
      Tree.pause();
      break;
-    case Tree._cpprop_iconiccanceled:
-     Tree.resume();
-     break;
     case Tree._cpprop_iconicadd:
      Dialog.openAdd();
+     break;
+    case Tree._cpprop_iconiccomplete:
+    case Tree._cpprop_iconicfinishing:
+    case Tree._cpprop_iconicverified:
+    case Tree._cpprop_iconicpausedretrying:
+    case Tree._cpprop_iconicpausedundeterminedretrying:
      break;
     default:
      console.log('UNKNOWN: [' + pret + ']');
