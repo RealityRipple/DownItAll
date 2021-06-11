@@ -128,11 +128,6 @@ treechildren::-moz-tree-image(iconic) {
 	padding-right: 0.5ex;
 }
 
-textbox[readonly], menulist[disabled] {
-	cursor: default !important;
-	background-color: -moz-dialog !important;
-	color: GrayText !important;
-}
 textbox[readonly] html|*.textbox-input {
 	color: GrayText !important;
 	font-style: italic;
