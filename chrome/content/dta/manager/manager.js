@@ -756,8 +756,14 @@ var Dialog = {
     }
    }
    else if (this._running.length > 0) {
-    let p = Math.floor(this.completed * 1000 / Tree.downloadCount);
-    let pt = Math.floor(this.completed * 100 / Tree.downloadCount) + '%';
+    let cs = 0;
+    let ts = 0;
+    for (let i = 0; i < this._running.length; i++) {
+     cs += this._running[i].partialSize;
+     ts += this._running[i].totalSize;
+    }
+    let p = Math.floor((cs / ts) * 1000);
+    let pt = Math.floor((cs / ts) * 100) + '%';
     if (Tree.filtered) {
      document.title = _('titlespeedfiltered', [
       pt,
