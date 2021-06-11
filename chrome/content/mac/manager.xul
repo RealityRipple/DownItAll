@@ -11,49 +11,49 @@
 <?xul-overlay href="chrome://browser/content/baseMenuOverlay.xul"?>
 
 <!DOCTYPE overlay [
-	<!ENTITY % mainmenuDTD SYSTEM "chrome://dta/locale/mainmenu.dtd">
-	%mainmenuDTD;
-	<!ENTITY % defmainmenuDTD SYSTEM "chrome://dta-locale/content/mainmenu.dtd">
-	%defmainmenuDTD;
-	<!ENTITY % managerDTD SYSTEM "chrome://dta/locale/manager.dtd">
-	%managerDTD;
-	<!ENTITY % defmanagerDTD SYSTEM "chrome://dta-locale/content/manager.dtd">
-	%defmanagerDTD;
+ <!ENTITY % mainmenuDTD SYSTEM "chrome://dta/locale/mainmenu.dtd">
+ %mainmenuDTD;
+ <!ENTITY % defmainmenuDTD SYSTEM "chrome://dta-locale/content/mainmenu.dtd">
+ %defmainmenuDTD;
+ <!ENTITY % managerDTD SYSTEM "chrome://dta/locale/manager.dtd">
+ %managerDTD;
+ <!ENTITY % defmanagerDTD SYSTEM "chrome://dta-locale/content/manager.dtd">
+ %defmanagerDTD;
 ]>
 
 <overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" id="dtamanagerplatformoverlay">
-	<!-- XXX: re-enable fullscreenbutton once more stable -->
-	<window id="DownThemAll" fullscreenbutton="false">
-		<stringbundleset id="stringbundleset" />
-		<keyset id="baseMenuKeyset" />
-		<commandset id="baseMenuCommandSet" />
-	</window>
+ <!-- XXX: re-enable fullscreenbutton once more stable -->
+ <window id="DownThemAll" fullscreenbutton="false">
+  <stringbundleset id="stringbundleset" />
+  <keyset id="baseMenuKeyset" />
+  <commandset id="baseMenuCommandSet" />
+ </window>
 
-	<keyset id="mainkeys">
-		<key id="kLaunch" modifiers="accel" key="O" command="cmdLaunch" />
-		<key id="kGetInfo" modifiers="accel" key="I" command="cmdGetInfo" />
-		<key id="kSelectInv" modifiers="accel,shift" key="I" command="cmdSelectInv" />
-		<key id="kOpenFolder" modifiers="accel,shift" key="O" command="cmdOpenFolder" />
-		<key id="kRename" keycode="VK_RETURN" command="cmdRename"/>
-	</keyset>
+ <keyset id="mainkeys">
+  <key id="kLaunch" modifiers="accel" key="O" command="cmdLaunch" />
+  <key id="kGetInfo" modifiers="accel" key="I" command="cmdGetInfo" />
+  <key id="kSelectInv" modifiers="accel,shift" key="I" command="cmdSelectInv" />
+  <key id="kOpenFolder" modifiers="accel,shift" key="O" command="cmdOpenFolder" />
+  <key id="kRename" keycode="VK_RETURN" command="cmdRename"/>
+ </keyset>
 
-	<notificationbox id="notifications">
-		<menubar insertbefore="mainstack" id="mainmenu">
-			<menu id="file-menu" label="&fileMenu.label;" accesskey="&fileMenu.accesskey;">
-				<menupopup id="menu_FilePopup">
-					<menuitem id="menu_addnewdownload" label="&tooladddownload.label;" command="cmdAddUrl" key="kAddUrl" tooltiptext="&tooladd.tooltip;" />
-					<menuseparator />
-					<menuitem id="menu_newNavigator" label="&newNavigatorCmd.label;" key="kNewWin" command="cmdNewWin" />
-					<menuitem id="menu_newNavigatorTab" label="&tabCmd.label;" command="cmdNewTab" key="kNewTab" />
-					<menuseparator />
-					<menuitem id="menu_closeWindow" command="cmdClose" key="kCloseMac" label="&closeWindow.label;" />
-				</menupopup>
-			</menu>
-			<menu id="tasksMenu" /><!-- Seamonkey -->
-			<menu id="windowMenu" /><!-- Firefox, Seamonkey -->
-			<menupopup id="menu_ToolsPopup" /><!-- Mac menu -->
-			<menu id="menu_Help" /><!-- Seamonkey -->
-			<menu id="helpMenu" /><!-- Firefox -->
-		</menubar>
-	</notificationbox>
+ <notificationbox id="notifications">
+  <menubar insertbefore="mainstack" id="mainmenu">
+   <menu id="file-menu" label="&fileMenu.label;" accesskey="&fileMenu.accesskey;">
+    <menupopup id="menu_FilePopup">
+     <menuitem id="menu_addnewdownload" label="&tooladddownload.label;" command="cmdAddUrl" key="kAddUrl" tooltiptext="&tooladd.tooltip;" />
+     <menuseparator />
+     <menuitem id="menu_newNavigator" label="&newNavigatorCmd.label;" key="kNewWin" command="cmdNewWin" />
+     <menuitem id="menu_newNavigatorTab" label="&tabCmd.label;" command="cmdNewTab" key="kNewTab" />
+     <menuseparator />
+     <menuitem id="menu_closeWindow" command="cmdClose" key="kCloseMac" label="&closeWindow.label;" />
+    </menupopup>
+   </menu>
+   <menu id="tasksMenu" /><!-- Seamonkey -->
+   <menu id="windowMenu" /><!-- Firefox, Seamonkey -->
+   <menupopup id="menu_ToolsPopup" /><!-- Mac menu -->
+   <menu id="menu_Help" /><!-- Seamonkey -->
+   <menu id="helpMenu" /><!-- Firefox -->
+  </menubar>
+ </notificationbox>
 </overlay>

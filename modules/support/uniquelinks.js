@@ -14,16 +14,16 @@
  * @returns {Array} Filtered array (identity)
  */
 exports.filterInSitu = function filterInSitu(arr, cb, tp) {
-	tp = tp || null;
-	let i, k, e;
-	for (i = 0, k = 0, e = arr.length; i < e; i++) {
-		let a = arr[k] = arr[i]; // replace filtered items
-		if (a && cb.call(tp, a, i, arr)) {
-			k += 1;
-		}
-	}
-	arr.length = k; // truncate
-	return arr;
+ tp = tp || null;
+ let i, k, e;
+ for (i = 0, k = 0, e = arr.length; i < e; i++) {
+  let a = arr[k] = arr[i]; // replace filtered items
+  if (a && cb.call(tp, a, i, arr)) {
+   k += 1;
+  }
+ }
+ arr.length = k; // truncate
+ return arr;
 };
 
 /**
@@ -34,11 +34,11 @@ exports.filterInSitu = function filterInSitu(arr, cb, tp) {
  * @returns {Array} Mapped array (identity)
  */
 exports.mapInSitu = function mapInSitu(arr, cb, tp) {
-	tp = tp || null;
-	for (let i = 0, e = arr.length; i < e; i++) {
-		arr[i] = cb.call(tp, arr[i], i, arr);
-	}
-	return arr;
+ tp = tp || null;
+ for (let i = 0, e = arr.length; i < e; i++) {
+  arr[i] = cb.call(tp, arr[i], i, arr);
+ }
+ return arr;
 };
 
 /**
@@ -50,17 +50,17 @@ exports.mapInSitu = function mapInSitu(arr, cb, tp) {
  * @returns {Array} Filtered and mapped array (identity)
  */
 exports.filterMapInSitu = function filterMapInSitu(arr, filterStep, mapStep, tp) {
-	tp = tp || null;
-	let i, k, e;
-	for (i = 0, k = 0, e = arr.length; i < e; i++) {
-		let a = arr[i]; // replace filtered items
-		if (a && filterStep.call(tp, a, i, arr)) {
-			arr[k] = mapStep.call(tp, a, i, arr);
-			k += 1;
-		}
-	}
-	arr.length = k; // truncate
-	return arr;
+ tp = tp || null;
+ let i, k, e;
+ for (i = 0, k = 0, e = arr.length; i < e; i++) {
+  let a = arr[i]; // replace filtered items
+  if (a && filterStep.call(tp, a, i, arr)) {
+   arr[k] = mapStep.call(tp, a, i, arr);
+   k += 1;
+  }
+ }
+ arr.length = k; // truncate
+ return arr;
 };
 
 /**
@@ -73,32 +73,32 @@ exports.filterMapInSitu = function filterMapInSitu(arr, filterStep, mapStep, tp)
  * @returns {Array} Mapped and filtered array (identity)
  */
 exports.mapFilterInSitu = function mapFilterInSitu(arr, mapStep, filterStep, tp) {
-	tp = tp || null;
-	let i, k, e;
-	for (i = 0, k = 0, e = arr.length; i < e; i++) {
-		let a = arr[k] = mapStep.call(tp, arr[i], i, arr); // replace filtered items
-		if (a && filterStep.call(tp, a, i, arr)) {
-			k += 1;
-		}
-	}
-	arr.length = k; // truncate
-	return arr;
+ tp = tp || null;
+ let i, k, e;
+ for (i = 0, k = 0, e = arr.length; i < e; i++) {
+  let a = arr[k] = mapStep.call(tp, arr[i], i, arr); // replace filtered items
+  if (a && filterStep.call(tp, a, i, arr)) {
+   k += 1;
+  }
+ }
+ arr.length = k; // truncate
+ return arr;
 };
 
 exports.unique = i => {
-	return exports.filterInSitu(i, function(e) {
-		let u = e.url.spec;
-		let other = this[u];
-		if (other) {
-			if (!other.description) {
-				other.description = e.description;
-			}
-			if (!other.fileName) {
-				other.fileName = e.fileName;
-			}
-			return false;
-		}
-		this[u] = e;
-		return true;
-	}, Object.create(null));
+ return exports.filterInSitu(i, function(e) {
+  let u = e.url.spec;
+  let other = this[u];
+  if (other) {
+   if (!other.description) {
+    other.description = e.description;
+   }
+   if (!other.fileName) {
+    other.fileName = e.fileName;
+   }
+   return false;
+  }
+  this[u] = e;
+  return true;
+ }, Object.create(null));
 };

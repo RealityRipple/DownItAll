@@ -1,6 +1,6 @@
 .treecol-filterbutton {
-	display: none;
+ display: none;
 }
 treecol:hover .treecol-filterbutton {
-	display: -moz-box;
+ display: -moz-box;
 }

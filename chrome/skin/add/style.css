@@ -3,21 +3,21 @@
 @namespace html url("http://www.w3.org/1999/xhtml");
 
 dialog {
-	width: 590px;
-	min-width: 500px;
-	max-width: 900px;
+ width: 590px;
+ min-width: 500px;
+ max-width: 900px;
 }
 
 grid > rows > row > label {
-	text-overflow: ellipsis;
+ text-overflow: ellipsis;
 }
 
 #icon {
-	list-style-image: url(chrome://dtaicon/content/icon64.png);
-	padding: 1ex;
+ list-style-image: url(chrome://dtaicon/content/icon64.png);
+ padding: 1ex;
 }
 
 textbox[invalid="true"],
 menulist[invalid="true"] {
-	box-shadow: 0pt 0pt 1.5px 1px red;
+ box-shadow: 0pt 0pt 1.5px 1px red;
 }

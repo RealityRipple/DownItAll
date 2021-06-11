@@ -7,37 +7,37 @@
 importScripts("resource://gre/modules/osfile.jsm");
 
 const log = function log(...args) {
-	postMessage({
-		log: args.toString()
-	});
+ postMessage({
+  log: args.toString()
+ });
 };
 
 onmessage = function({data}) {
-	if (!data) {
-		log("going down");
-		postMessage({exit: true});
-		self.close();
-		return;
-	}
-	try {
-		OS.File.move(data.from, data.to, {
-			noOverwrite: !data.overwriteOk
-		});
-		postMessage({jobid: data.jobid});
-	}
-	catch (ex) {
-		log(ex);
-		postMessage({
-			jobid: data.jobid,
-			error: {
-				message: (ex.message || ex.toString()),
-				fileName: ex.fileName,
-				lineNumber: ex.lineNumber,
-				unixErrno: (ex.unixErrno || 0),
-				winLastError: (ex.winLastError || 0)
-			}
-		});
-	}
+ if (!data) {
+  log("going down");
+  postMessage({exit: true});
+  self.close();
+  return;
+ }
+ try {
+  OS.File.move(data.from, data.to, {
+   noOverwrite: !data.overwriteOk
+  });
+  postMessage({jobid: data.jobid});
+ }
+ catch (ex) {
+  log(ex);
+  postMessage({
+   jobid: data.jobid,
+   error: {
+    message: (ex.message || ex.toString()),
+    fileName: ex.fileName,
+    lineNumber: ex.lineNumber,
+    unixErrno: (ex.unixErrno || 0),
+    winLastError: (ex.winLastError || 0)
+   }
+  });
+ }
 };
 
 log("ready");

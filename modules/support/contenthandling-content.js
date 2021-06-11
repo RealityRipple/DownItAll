@@ -6,15 +6,15 @@
 "use strict";
 
 function handleGetURI(m) {
-	sendAsyncMessage(m.data.topic, {
-		location: content.location.href,
-		characterSet: content.document.characterSet
-	});
+ sendAsyncMessage(m.data.topic, {
+  location: content.location.href,
+  characterSet: content.document.characterSet
+ });
 }
 
 function handleShutdown() {
-	removeMessageListener("DTA:ch:getURI", handleGetURI);
-	removeMessageListener("DTA:ch:shutdown", handleShutdown);
+ removeMessageListener("DTA:ch:getURI", handleGetURI);
+ removeMessageListener("DTA:ch:shutdown", handleShutdown);
 
 }
 

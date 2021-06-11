@@ -7,10 +7,10 @@ const {addObserver, getExt} = require("preferences");
 const {ByteBucket} = require("support/bytebucket");
 exports.GlobalBucket = new ByteBucket(getExt('speedlimit', -1), 1.2, "global");
 exports.GlobalBucket.Observer = {
-	observe: function(s,t,d) {
-		let limit = getExt("speedlimit", -1);
-		exports.GlobalBucket.byteRate = limit;
-		log(LOG_DEBUG, "new global speed limit " + limit + " " + exports.GlobalBucket.byteRate);
-	}
+ observe: function(s,t,d) {
+  let limit = getExt("speedlimit", -1);
+  exports.GlobalBucket.byteRate = limit;
+  log(LOG_DEBUG, "new global speed limit " + limit + " " + exports.GlobalBucket.byteRate);
+ }
 };
 addObserver("extensions.dta.speedlimit", exports.GlobalBucket.Observer);

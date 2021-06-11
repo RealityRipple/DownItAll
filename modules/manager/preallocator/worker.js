@@ -7,31 +7,31 @@
 /* global onmessage:true */
 
 try {
-	importScripts("win.js");
+ importScripts("win.js");
 }
 catch (ex) {
-	importScripts("unix.js");
+ importScripts("unix.js");
 }
 
 function log(ex) {
-	postMessage({log: ex.message || ex });
+ postMessage({log: ex.message || ex });
 }
 
 onmessage = function(event) {
-	let data = event.data;
-	if (data === "close") {
-		close();
-		return;
-	}
+ let data = event.data;
+ if (data === "close") {
+  close();
+  return;
+ }
 
-	try {
-		log("allocating: " + JSON.stringify(data));
-		data.result = prealloc(data.file, data.size, data.perms, data.sparseOK);
-	}
-	catch (ex) {
-		data.result = false;
-	}
-	postMessage(data);
+ try {
+  log("allocating: " + JSON.stringify(data));
+  data.result = prealloc(data.file, data.size, data.perms, data.sparseOK);
+ }
+ catch (ex) {
+  data.result = false;
+ }
+ postMessage(data);
 };
 
 postMessage(false);

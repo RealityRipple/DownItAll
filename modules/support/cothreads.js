@@ -6,103 +6,103 @@
 const {defer} = require("./defer");
 
 const CoThreadBase = {
-	_idx: 0,
-	_ran: false,
-	_finishFunc: null,
+ _idx: 0,
+ _ran: false,
+ _finishFunc: null,
 
-	init: function CoThreadBase_init(func, yieldEvery, thisCtx) {
-		this._thisCtx = thisCtx ? thisCtx : this;
+ init: function CoThreadBase_init(func, yieldEvery, thisCtx) {
+  this._thisCtx = thisCtx ? thisCtx : this;
 
-		// default to 0 (adjust)
-		this._yieldEvery = typeof yieldEvery === 'number' ? Math.floor(yieldEvery) : 0;
+  // default to 0 (adjust)
+  this._yieldEvery = typeof yieldEvery === 'number' ? Math.floor(yieldEvery) : 0;
 
-		if (typeof func !== 'function' && !(func instanceof Function)) {
-			throw Cr.NS_ERROR_INVALID_ARG;
-		}
-		this._func = func;
-		this.init = function() {};
-	},
+  if (typeof func !== 'function' && !(func instanceof Function)) {
+   throw Cr.NS_ERROR_INVALID_ARG;
+  }
+  this._func = func;
+  this.init = function() {};
+ },
 
-	start: function CoThreadBase_run(finishFunc) {
-		if (this._ran) {
-			throw new Error("You cannot run a CoThread/CoThreadListWalker instance more than once.");
-		}
-		this._finishFunc = finishFunc;
-		this._ran = true;
-		defer(this, 0);
-	},
+ start: function CoThreadBase_run(finishFunc) {
+  if (this._ran) {
+   throw new Error("You cannot run a CoThread/CoThreadListWalker instance more than once.");
+  }
+  this._finishFunc = finishFunc;
+  this._ran = true;
+  defer(this, 0);
+ },
 
-	QueryInterface: XPCOMUtils.generateQI([Ci.nsISupports, Ci.nsICancelable, Ci.nsIRunnable]),
+ QueryInterface: XPCOMUtils.generateQI([Ci.nsISupports, Ci.nsICancelable, Ci.nsIRunnable]),
 
-	_terminated: false,
+ _terminated: false,
 
-	run: function CoThreadBase_run() {
-		if (this._terminated) {
-			return;
-		}
+ run: function CoThreadBase_run() {
+  if (this._terminated) {
+   return;
+  }
 
-		let y = this._yieldEvery;
-		let g = this._generator;
-		let f = this._func;
-		let ctx = this._thisCtx;
-		let callf = this._callf;
-		const isStar = !('send' in g);
-		try {
-			if (y > 0) {
-				let start = +new Date();
-				for (let i = 0; i < y; ++i) {
-					let next = g.next();
-					if (isStar) {
-						if (next.done) {
-							throw "complete";
-						}
-						next = next.value;
-					}
-					if (!callf(ctx, next, this._idx++, f)) {
-						throw 'complete';
-					}
-				}
-				let diff = (+new Date()) - start;
-				if (diff > 150 || diff < 30) {
-					this._yieldEvery = Math.max(1, Math.round(y * 60 / diff));
-				}
-			}
-			else {
-				// adjustment pass
-				let start = +new Date();
-				let i = 0;
-				for(; start + 60 > +new Date(); ++i) {
-					let next = g.next();
-					if (isStar) {
-						if (next.done) {
-							throw "complete";
-						}
-						next = next.value;
-					}
-					if (!callf(ctx, next, this._idx++, f)) {
-						throw 'complete';
-					}
-				}
-				this._yieldEvery = Math.max(i, 1);
-			}
-			if (!this._terminated) {
-				defer(this);
-			}
-		}
-		catch (ex) {
-			this.cancel();
-		}
-	},
+  let y = this._yieldEvery;
+  let g = this._generator;
+  let f = this._func;
+  let ctx = this._thisCtx;
+  let callf = this._callf;
+  const isStar = !('send' in g);
+  try {
+   if (y > 0) {
+    let start = +new Date();
+    for (let i = 0; i < y; ++i) {
+     let next = g.next();
+     if (isStar) {
+      if (next.done) {
+       throw "complete";
+      }
+      next = next.value;
+     }
+     if (!callf(ctx, next, this._idx++, f)) {
+      throw 'complete';
+     }
+    }
+    let diff = (+new Date()) - start;
+    if (diff > 150 || diff < 30) {
+     this._yieldEvery = Math.max(1, Math.round(y * 60 / diff));
+    }
+   }
+   else {
+    // adjustment pass
+    let start = +new Date();
+    let i = 0;
+    for(; start + 60 > +new Date(); ++i) {
+     let next = g.next();
+     if (isStar) {
+      if (next.done) {
+       throw "complete";
+      }
+      next = next.value;
+     }
+     if (!callf(ctx, next, this._idx++, f)) {
+      throw 'complete';
+     }
+    }
+    this._yieldEvery = Math.max(i, 1);
+   }
+   if (!this._terminated) {
+    defer(this);
+   }
+  }
+  catch (ex) {
+   this.cancel();
+  }
+ },
 
-	cancel: function CoThreadBase_cancel() {
-		if (this._terminated) {
-			return;
-		}
-		this._terminated = true;
-		if (this._finishFunc) {
-			this._finishFunc.call(this._thisCtx, this._yieldEvery);
-		}
-	}
+ cancel: function CoThreadBase_cancel() {
+  if (this._terminated) {
+   return;
+  }
+  this._terminated = true;
+  if (this._finishFunc) {
+   this._finishFunc.call(this._thisCtx, this._yieldEvery);
+  }
+ }
 };
 
 /**
@@ -132,21 +132,21 @@ const CoThreadBase = {
  *                 (or if omitted in the scope of the CoThread instance)
  */
 exports.CoThread = function CoThread(func, yieldEvery, thisCtx) {
-	this.init(func, yieldEvery, thisCtx);
-	// fake generator so we may use a common implementation. ;)
-	this._generator = (function*() {
-		for(;;) {
-			yield null;
-		}
-	})();
+ this.init(func, yieldEvery, thisCtx);
+ // fake generator so we may use a common implementation. ;)
+ this._generator = (function*() {
+  for(;;) {
+   yield null;
+  }
+ })();
 };
 exports.CoThread.prototype = Object.create(CoThreadBase, {
-	_callf: {
-		value: function CoThread__callf(ctx, i, idx, fn) {
-			return fn.call(ctx, idx);
-		},
-		enumerable: true
-	}
+ _callf: {
+  value: function CoThread__callf(ctx, i, idx, fn) {
+   return fn.call(ctx, idx);
+  },
+  enumerable: true
+ }
 });
 
 /**
@@ -180,14 +180,14 @@ exports.CoThread.prototype = Object.create(CoThreadBase, {
  *                 (or if omitted in the scope of the CoThread instance)
  */
 exports.CoThreadInterleaved = function CoThreadInterleaved(generator, yieldEvery, thisCtx) {
-	this.init(() => true, yieldEvery, thisCtx);
-	this._generator = typeof(generator) === "function" ? generator() : generator;
+ this.init(() => true, yieldEvery, thisCtx);
+ this._generator = typeof(generator) === "function" ? generator() : generator;
 };
 exports.CoThreadInterleaved.prototype = Object.create(CoThreadBase, {
-	_callf: {
-		value: function() { return true; },
-		enumerable: true
-	}
+ _callf: {
+  value: function() { return true; },
+  enumerable: true
+ }
 });
 
 /**
@@ -223,29 +223,29 @@ exports.CoThreadInterleaved.prototype = Object.create(CoThreadBase, {
  *                  (or if omitted in the scope of the CoThread instance)
  */
 exports.CoThreadListWalker = function CoThreadListWalker(func, arrayOrGenerator, yieldEvery, thisCtx) {
-	this.init(func, yieldEvery, thisCtx);
+ this.init(func, yieldEvery, thisCtx);
 
-	if (Array.isArray(arrayOrGenerator)) {
-		// make a generator
-		this._generator = (function*() {
-			for (let i of arrayOrGenerator) {
-				yield i;
-			}
-		})();
-	}
-	else {
-		this._generator = arrayOrGenerator;
-	}
+ if (Array.isArray(arrayOrGenerator)) {
+  // make a generator
+  this._generator = (function*() {
+   for (let i of arrayOrGenerator) {
+    yield i;
+   }
+  })();
+ }
+ else {
+  this._generator = arrayOrGenerator;
+ }
 
-	if (this._lastFunc && (typeof func !== 'function' && !(func instanceof Function))) {
-		throw Cr.NS_ERROR_INVALID_ARG;
-	}
+ if (this._lastFunc && (typeof func !== 'function' && !(func instanceof Function))) {
+  throw Cr.NS_ERROR_INVALID_ARG;
+ }
 };
 exports.CoThreadListWalker.prototype = Object.create(CoThreadBase, {
-	_callf: {
-		value: function CoThreadListWalker__callf(ctx, item, idx, fn) {
-			return fn.call(ctx, item, idx);
-		},
-		enumerable: true
-	}
+ _callf: {
+  value: function CoThreadListWalker__callf(ctx, item, idx, fn) {
+   return fn.call(ctx, item, idx);
+  },
+  enumerable: true
+ }
 });

@@ -4,7 +4,7 @@
 "use strict";
 
 const {
-	createOptimizedImplementation
+ createOptimizedImplementation
 } = require("support/optimpl");
 
 const {prealloc: _asynccopier} = require("./preallocator/asynccopier");
@@ -14,23 +14,23 @@ const SIZE_MIN = (require("version").OS === 'winnt' ? 256 : 2048) * 1024;
 const SIZE_COTHREAD_MAX = (1<<24);
 
 const _impl = createOptimizedImplementation(
-	"manager/preallocator/worker",
-	function(impl) {
-		return function (file, size, perms, sparseOK, callback) {
-			let data = Object.create(null);
-			data.file = file.path;
-			data.size = size;
-			data.perms = perms;
-			data.sparseOK = sparseOK;
-			return impl(data, callback);
-		};
-	},
-	function(file, size, perms, sparseOK, callback) {
-		if (size < SIZE_COTHREAD_MAX) {
-			return _cothread(file, size, perms, sparseOK, callback);
-		}
-		return _asynccopier(file, size, perms, sparseOK, callback);
-	});
+ "manager/preallocator/worker",
+ function(impl) {
+  return function (file, size, perms, sparseOK, callback) {
+   let data = Object.create(null);
+   data.file = file.path;
+   data.size = size;
+   data.perms = perms;
+   data.sparseOK = sparseOK;
+   return impl(data, callback);
+  };
+ },
+ function(file, size, perms, sparseOK, callback) {
+  if (size < SIZE_COTHREAD_MAX) {
+   return _cothread(file, size, perms, sparseOK, callback);
+  }
+  return _asynccopier(file, size, perms, sparseOK, callback);
+ });
 
 /**
  * Pre-allocates a given file on disk
@@ -44,12 +44,12 @@ const _impl = createOptimizedImplementation(
  * @return (nsICancelable) Pre-allocation object.
  */
 exports.prealloc = function prealloc(file, size, perms, sparseOk) {
-	if (size <= SIZE_MIN || !isFinite(size)) {
-		log(LOG_INFO, "pa: not preallocating: " + file);
-		return null;
-	}
-	log(LOG_INFO, "pa: preallocating: " + file + " size: " + size);
-	return new Promise(function(resolve, reject) {
-		_impl.callImpl(file, size, perms, sparseOk, r => resolve(r));
-	});
+ if (size <= SIZE_MIN || !isFinite(size)) {
+  log(LOG_INFO, "pa: not preallocating: " + file);
+  return null;
+ }
+ log(LOG_INFO, "pa: preallocating: " + file + " size: " + size);
+ return new Promise(function(resolve, reject) {
+  _impl.callImpl(file, size, perms, sparseOk, r => resolve(r));
+ });
 };

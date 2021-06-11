@@ -4,26 +4,26 @@
 "use strict";
 
 const COMMON_ATOMS = [
-	"iconic", "completed", "inprogress", "paused", "canceled",
-	"pausedUndetermined", "pausedAutoretrying",
-	"verified", "progress", "private"
-	];
+ "iconic", "completed", "inprogress", "paused", "canceled",
+ "pausedUndetermined", "pausedAutoretrying",
+ "verified", "progress", "private"
+ ];
 
 const _as = Cc["@mozilla.org/atom-service;1"].getService(Ci.nsIAtomService);
 
 function Atoms() {
-	for (let i = 0; i < arguments.length; ++i) {
-		this.getAtom(arguments[i]);
-	}
+ for (let i = 0; i < arguments.length; ++i) {
+  this.getAtom(arguments[i]);
+ }
 }
 Atoms.prototype = {
-	getAtom: function(atom) {
-		return this[atom] || (this[atom] = _as.getAtom(atom));
-	}
+ getAtom: function(atom) {
+  return this[atom] || (this[atom] = _as.getAtom(atom));
+ }
 };
 exports.Atoms = Atoms;
 
 for (let atom of COMMON_ATOMS) {
-	exports[atom + "Atom"] = _as.getAtom(atom);
+ exports[atom + "Atom"] = _as.getAtom(atom);
 }
 Object.freeze(exports);

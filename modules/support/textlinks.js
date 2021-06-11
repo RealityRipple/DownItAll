@@ -17,26 +17,26 @@ const regWWW = /^www/i;
 const regDTrim = /[<>._-]+$|#.*?$/g;
 
 function mapper(e) {
-	try {
-		if (regShortened.test(e)) {
-			return null;
-		}
-		if (regWWW.test(e)) {
-			if (e.indexOf("/") < 0) {
-				e = "http://" + e + "/";
-			}
-			else {
-				e = "http://" + e;
-			}
+ try {
+  if (regShortened.test(e)) {
+   return null;
+  }
+  if (regWWW.test(e)) {
+   if (e.indexOf("/") < 0) {
+    e = "http://" + e + "/";
+   }
+   else {
+    e = "http://" + e;
+   }
 
-		}
-		return e.replace(regHttp, "http$1")
-			.replace(regFtp, "ftp")
-			.replace(regDTrim, "");
-	}
-	catch (ex) {
-		return null;
-	}
+  }
+  return e.replace(regHttp, "http$1")
+   .replace(regFtp, "ftp")
+   .replace(regDTrim, "");
+ }
+ catch (ex) {
+  return null;
+ }
 }
 
 /**
@@ -47,22 +47,22 @@ function mapper(e) {
  * @see DOMElement
  */
 function FakeLink(url, title) {
-	this.src = this.href = url;
-	if (!!title) {
-		this.title = title;
-	}
+ this.src = this.href = url;
+ if (!!title) {
+  this.title = title;
+ }
 }
 FakeLink.prototype = Object.freeze({
-	childNodes: Object.freeze([]),
-	hasAttribute: function(attr) {
-		return (attr in this);
-	},
-	getAttribute: function(attr) {
-		return (attr in this) ? this[attr] : null;
-	},
-	toString: function() {
-		return this.href;
-	}
+ childNodes: Object.freeze([]),
+ hasAttribute: function(attr) {
+  return (attr in this);
+ },
+ getAttribute: function(attr) {
+  return (attr in this) ? this[attr] : null;
+ },
+ toString: function() {
+  return this.href;
+ }
 });
 
 /**
@@ -73,20 +73,20 @@ FakeLink.prototype = Object.freeze({
  * @return (array) results
  */
 function getTextLinks(text, fakeLinks) {
-	let rv = text.match(regLinks);
-	if (!rv) {
-		return [];
-	}
-	let i, k, e;
-	for (i = 0, k = 0, e = rv.length; i < e; i++) {
-		let a = mapper(rv[i]);
-		if (a) {
-			rv[k] = fakeLinks ? new FakeLink(a) : a;
-			k += 1;
-		}
-	}
-	rv.length = k; // truncate
-	return rv;
+ let rv = text.match(regLinks);
+ if (!rv) {
+  return [];
+ }
+ let i, k, e;
+ for (i = 0, k = 0, e = rv.length; i < e; i++) {
+  let a = mapper(rv[i]);
+  if (a) {
+   rv[k] = fakeLinks ? new FakeLink(a) : a;
+   k += 1;
+  }
+ }
+ rv.length = k; // truncate
+ return rv;
 }
 
 exports.getTextLinks = getTextLinks;

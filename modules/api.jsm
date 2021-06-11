@@ -11,14 +11,14 @@ Cu.import("chrome://dta-modules/content/glue.jsm");
 let api = require("api");
 
 for (let [k,v] in Iterator(api)) {
-	let [_k,_v] = [k,v];
-	/* jshint -W083 */
-	Object.defineProperty(this, _k, {
-		get: function() {
-			Cu.reportError("deprecated Get'emAll! API access; see glue.jsm/require(). Symbol was " + _k);
-			return _v;
-		},
-		enumerable: true
-	});
-	EXPORTED_SYMBOLS.push(_k);
+ let [_k,_v] = [k,v];
+ /* jshint -W083 */
+ Object.defineProperty(this, _k, {
+  get: function() {
+   Cu.reportError("deprecated Get'emAll! API access; see glue.jsm/require(). Symbol was " + _k);
+   return _v;
+  },
+  enumerable: true
+ });
+ EXPORTED_SYMBOLS.push(_k);
 }

@@ -17,60 +17,60 @@ let isWindowPrivate = function() { return false; };
 let isChannelPrivate = function() { return false; };
 
 try {
-	let {PrivateBrowsingUtils} = requireJSM("resource://gre/modules/PrivateBrowsingUtils.jsm");
-	if ("isWindowPrivate" in PrivateBrowsingUtils) {
-		let iwp = PrivateBrowsingUtils.isWindowPrivate.bind(PrivateBrowsingUtils);
-		if ("isContentWindowPrivate" in PrivateBrowsingUtils) {
-			iwp = PrivateBrowsingUtils.isContentWindowPrivate.bind(PrivateBrowsingUtils);
-		}
-		isWindowPrivate = function(window) {
-			try {
-				return iwp(window);
-			}
-			catch (ex) {
-				log(LOG_ERROR, "isWindowPrivate call failed, defaulting to false", ex);
-			}
-			return false;
-		};
-		isChannelPrivate = function(channel) {
-			return (channel instanceof Ci.nsIPrivateBrowsingChannel) && channel.isChannelPrivate;
-		};
-	}
+ let {PrivateBrowsingUtils} = requireJSM("resource://gre/modules/PrivateBrowsingUtils.jsm");
+ if ("isWindowPrivate" in PrivateBrowsingUtils) {
+  let iwp = PrivateBrowsingUtils.isWindowPrivate.bind(PrivateBrowsingUtils);
+  if ("isContentWindowPrivate" in PrivateBrowsingUtils) {
+   iwp = PrivateBrowsingUtils.isContentWindowPrivate.bind(PrivateBrowsingUtils);
+  }
+  isWindowPrivate = function(window) {
+   try {
+    return iwp(window);
+   }
+   catch (ex) {
+    log(LOG_ERROR, "isWindowPrivate call failed, defaulting to false", ex);
+   }
+   return false;
+  };
+  isChannelPrivate = function(channel) {
+   return (channel instanceof Ci.nsIPrivateBrowsingChannel) && channel.isChannelPrivate;
+  };
+ }
 }
 catch (ex) {
-	log(LOG_DEBUG, "no PrivateBrowsingUtils");
+ log(LOG_DEBUG, "no PrivateBrowsingUtils");
 }
 
 
 const purgeObserver = {
-	obsFns: [],
-	observe: function(s, topic, d) {
-		log(LOG_DEBUG, topic);
-		for (let fn of this.obsFns) {
-			try {
-				fn();
-			}
-			catch (ex) {
-				log(LOG_ERROR, "pbm purger threw", ex);
-			}
-		}
-	}
+ obsFns: [],
+ observe: function(s, topic, d) {
+  log(LOG_DEBUG, topic);
+  for (let fn of this.obsFns) {
+   try {
+    fn();
+   }
+   catch (ex) {
+    log(LOG_ERROR, "pbm purger threw", ex);
+   }
+  }
+ }
 };
 obs.add(purgeObserver, "last-pb-context-exited");
 unload(function removePurgeObserver() {
-	purgeObserver.obsFns = [];
+ purgeObserver.obsFns = [];
 });
 
 function registerPrivatePurger(fn) {
-	purgeObserver.obsFns.push(fn);
+ purgeObserver.obsFns.push(fn);
 }
 function unregisterPrivatePurger(fn) {
-	filterInSitu(purgeObserver.obsFns, e => e !== fn);
+ filterInSitu(purgeObserver.obsFns, e => e !== fn);
 }
 
 Object.defineProperties(exports, {
-	isWindowPrivate: {value: isWindowPrivate, enumerable: true},
-	isChannelPrivate: {value: isChannelPrivate, enumerable: true},
-	registerPrivatePurger: {value: registerPrivatePurger, enumerable: true},
-	unregisterPrivatePurger: {value: unregisterPrivatePurger, enumerable: true}
+ isWindowPrivate: {value: isWindowPrivate, enumerable: true},
+ isChannelPrivate: {value: isChannelPrivate, enumerable: true},
+ registerPrivatePurger: {value: registerPrivatePurger, enumerable: true},
+ unregisterPrivatePurger: {value: unregisterPrivatePurger, enumerable: true}
 });

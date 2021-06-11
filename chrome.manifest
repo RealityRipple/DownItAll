@@ -1,18 +1,18 @@
 ## actual content packages ##
-content	dta	chrome/content/
-content	dtaicon	./
-skin	dta	classic/1.0 chrome/skin/
-content	dta-locale chrome/locale/en-US/
-locale	dta	en-US	chrome/locale/en-US/
-content dta-public	chrome/public/ contentaccessible
-skin	dta-public	classic/1.0 chrome/public/
+content dta chrome/content/
+content dtaicon ./
+skin dta classic/1.0 chrome/skin/
+content dta-locale chrome/locale/en-US/
+locale dta en-US chrome/locale/en-US/
+content dta-public chrome/public/ contentaccessible
+skin dta-public classic/1.0 chrome/public/
 
 ## aux packages ##
-content	dta-modules	modules/
+content dta-modules modules/
 
 ## platform package ##
-content dta-platform	chrome/content/ platform
-skin	dta-platform	classic/1.0 chrome/skin/
+content dta-platform chrome/content/ platform
+skin dta-platform classic/1.0 chrome/skin/
 
 # Hack to prevent .Net Framework Assistant from messing up the browser, courtesy of AdBlock Plus
 override chrome://dotnetassistant/content/bootstrap.xul data:text/xml,<nada/>

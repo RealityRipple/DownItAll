@@ -2,52 +2,52 @@
 
 /* rebind as a workaround for the hidden image */
 menu.menu-iconic {
-	-moz-binding: url(chrome://dta/content/common/bindings.xml#menu-iconic-addressable);
+ -moz-binding: url(chrome://dta/content/common/bindings.xml#menu-iconic-addressable);
 }
 
 /* splitmenu */
 splitmenu {
-	-moz-binding: url(chrome://dta/content/common/bindings.xml#splitmenu);
+ -moz-binding: url(chrome://dta/content/common/bindings.xml#splitmenu);
 }
 .splitmenu-menu > .menu-text,
 .splitmenu-menu > .menu-accel-container,
 .splitmenu-menuitem > .menu-accel-container {
-	display: none;
+ display: none;
 }
 
 /* closebox */
 .closer {
-	-moz-binding: url(chrome://dta/content/common/bindings.xml#closebox);
+ -moz-binding: url(chrome://dta/content/common/bindings.xml#closebox);
 }
 .closer .childrenbox {
-	margin-left: 13px;
+ margin-left: 13px;
 }
 .closer > .closebox-title {
-	-moz-binding: url(chrome://dta/content/common/bindings.xml#closebox-title);
+ -moz-binding: url(chrome://dta/content/common/bindings.xml#closebox-title);
 }
 .closebox-title {
-	cursor: pointer !important;
+ cursor: pointer !important;
 }
 .closebox-title:hover {
-	text-decoration: underline;
+ text-decoration: underline;
 }
 .closer[closed="true"] {
-	border:0px; margin: 0px; padding: 0px;
+ border:0px; margin: 0px; padding: 0px;
 }
 
 /* saveddropdown */
 saveddropdown {
-	-moz-binding: url(chrome://dta/content/common/bindings.xml#saveddropdown);
+ -moz-binding: url(chrome://dta/content/common/bindings.xml#saveddropdown);
 }
 
 /* metalinker */
 richlistbox.metalinker .item {
-	-moz-binding: url(chrome://dta/content/common/bindings.xml#metalinker-item);
+ -moz-binding: url(chrome://dta/content/common/bindings.xml#metalinker-item);
 }
 
 /* hashinput */
 hashinput {
-	-moz-binding: url(chrome://dta/content/common/bindings.xml#hashinput);
+ -moz-binding: url(chrome://dta/content/common/bindings.xml#hashinput);
 }
 
 /* speed list */
@@ -55,5 +55,5 @@ menupopup.speedlimitlist-popup {
     -moz-binding: url(chrome://dta/content/common/bindings.xml#speed-limit-list-popup);
 }
 menu > menupopup.speedlimitlist-popup menuitem[checked] {
-	font-weight: bold;
+ font-weight: bold;
 }
