@@ -91,6 +91,8 @@ var Tree = {
     case Tree._cpprop_iconicpaused:
     case Tree._cpprop_iconicpausedundetermined:
     case Tree._cpprop_iconiccanceled:
+    case Tree._cpprop_iconicpausedretrying:
+    case Tree._cpprop_iconicpausedundeterminedretrying:
      Tree.resume();
      break;
     case Tree._cpprop_iconicinprogress:
@@ -102,8 +104,6 @@ var Tree = {
     case Tree._cpprop_iconiccomplete:
     case Tree._cpprop_iconicfinishing:
     case Tree._cpprop_iconicverified:
-    case Tree._cpprop_iconicpausedretrying:
-    case Tree._cpprop_iconicpausedundeterminedretrying:
      break;
     default:
      console.log('UNKNOWN: [' + pret + ']');
