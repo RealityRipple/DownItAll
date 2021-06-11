@@ -1488,7 +1488,7 @@ var Tree = {
 	_refreshTools_item: [
 		{item: 'cmdResume', f: function(d) { if (d.maxId === Tree._downloads.length) return false; return d.isOf(PAUSED | QUEUED | CANCELED); }},
 		{item: 'cmdPause', f: function(d) { if (d.maxId === Tree._downloads.length) return false; return (d.isOf(RUNNING) && d.resumable) || d.isOf(QUEUED | PAUSED); }},
-		{item: 'cmdCancel', f: function(d) { if (d.maxId === Tree._downloads.length) return false; return d.isOf(PAUSED | RUNNING | QUEUED | COMPLETE); }},
+		{item: 'cmdCancel', f: function(d) { if (d.maxId === Tree._downloads.length) return false; return d.isOf(PAUSED | RUNNING | QUEUED); }},
 
 		{item: 'cmdMoveUp', f: function(d) { if (d.maxId === Tree._downloads.length) return false; return !Tree.filtered && d.min > 0; }},
 		{item: 'cmdMoveTop', f: function(d) { if (d.maxId === Tree._downloads.length) return false; return d.minId > 0; }},
