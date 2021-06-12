@@ -76,6 +76,9 @@ var Tree = {
   let dtree = $('downloadList');
   dtree.addEventListener('dragstart', event => this.onDragStart(event), false);
   dtree.addEventListener('click', function(event) {
+   if (event.button !== 0) {
+    return;
+   }
    let r = {}, c = {}, p = {};
    elem.treeBoxObject.getCellAt(event.clientX, event.clientY, r, c, p);
    if (r.value === -1)
