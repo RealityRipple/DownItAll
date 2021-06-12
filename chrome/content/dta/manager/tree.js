@@ -1486,6 +1486,7 @@ var Tree = {
   {item: 'cmdMoveTop', f: function(d) { return d.minId > 0; }},
   {item: 'cmdMoveDown', f: function(d) { return !Tree.filtered && d.max !== d.rows - 1; }},
   {item: 'cmdMoveBottom', f: function(d) { return d.maxId !== Tree._downloads.length - 1; }},
+  {item: 'cmdRemoveCompleted', f: function(d) { for (let i = 0; i < Tree._downloads.length; i++) { if (Tree._downloads[i].isOf(COMPLETE)) return true; } return false; }}
  ],
  _refreshTools_items: [
   {items: ["cmdDelete", "delete"], f: function(d) { return d.state === COMPLETE; }},
