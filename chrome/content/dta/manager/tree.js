@@ -1479,7 +1479,7 @@ var Tree = {
  },
  _refreshTools_item: [
   {item: 'cmdResume', f: function(d) { return d.isOf(PAUSED | QUEUED | CANCELED); }},
-  {item: 'cmdPause', f: function(d) { return (d.isOf(RUNNING) && d.resumable) || d.isOf(QUEUED | PAUSED); }},
+  {item: 'cmdPause', f: function(d) { return (d.isOf(RUNNING) && d.resumable) || d.isOf(QUEUED); }},
   {item: 'cmdCancel', f: function(d) { return d.isOf(PAUSED | RUNNING | QUEUED); }},
 
   {item: 'cmdMoveUp', f: function(d) { return !Tree.filtered && d.min > 0; }},
