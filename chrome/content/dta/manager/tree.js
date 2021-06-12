@@ -125,6 +125,11 @@ var Tree = {
   let mirrorCNodes = $('mirrors-cascaded', 'mirrors-cascaded-sep');
   $('popup').addEventListener('popupshowing', event => {
    let current = this.current;
+   if (current === null)
+   {
+    event.preventDefault();
+    return;
+   }
    let cascadeMirrors = !current || current.urlManager.length < 2;
    for (let e of mirrorNodes) {
     e.hidden = cascadeMirrors;
@@ -1473,28 +1478,28 @@ var Tree = {
   Tooltip.stop();
  },
  _refreshTools_item: [
-  {item: 'cmdResume', f: function(d) { if (d.maxId === Tree._downloads.length) return false; return d.isOf(PAUSED | QUEUED | CANCELED); }},
-  {item: 'cmdPause', f: function(d) { if (d.maxId === Tree._downloads.length) return false; return (d.isOf(RUNNING) && d.resumable) || d.isOf(QUEUED | PAUSED); }},
-  {item: 'cmdCancel', f: function(d) { if (d.maxId === Tree._downloads.length) return false; return d.isOf(PAUSED | RUNNING | QUEUED); }},
+  {item: 'cmdResume', f: function(d) { return d.isOf(PAUSED | QUEUED | CANCELED); }},
+  {item: 'cmdPause', f: function(d) { return (d.isOf(RUNNING) && d.resumable) || d.isOf(QUEUED | PAUSED); }},
+  {item: 'cmdCancel', f: function(d) { return d.isOf(PAUSED | RUNNING | QUEUED); }},
 
-  {item: 'cmdMoveUp', f: function(d) { if (d.maxId === Tree._downloads.length) return false; return !Tree.filtered && d.min > 0; }},
-  {item: 'cmdMoveTop', f: function(d) { if (d.maxId === Tree._downloads.length) return false; return d.minId > 0; }},
-  {item: 'cmdMoveDown', f: function(d) { if (d.maxId === Tree._downloads.length) return false; return !Tree.filtered && d.max !== d.rows - 1; }},
-  {item: 'cmdMoveBottom', f: function(d) { if (d.maxId === Tree._downloads.length) return false; return d.maxId !== Tree._downloads.length - 1; }}
+  {item: 'cmdMoveUp', f: function(d) { return !Tree.filtered && d.min > 0; }},
+  {item: 'cmdMoveTop', f: function(d) { return d.minId > 0; }},
+  {item: 'cmdMoveDown', f: function(d) { return !Tree.filtered && d.max !== d.rows - 1; }},
+  {item: 'cmdMoveBottom', f: function(d) { return d.maxId !== Tree._downloads.length - 1; }},
  ],
  _refreshTools_items: [
-  {items: ["cmdDelete", "delete"], f: function(d) { if (d.maxId === Tree._downloads.length) return false; return d.state === COMPLETE; }},
+  {items: ["cmdDelete", "delete"], f: function(d) { return d.state === COMPLETE; }},
 
   {items: ['cmdRemoveSelected', 'cmdExport', 'cmdGetInfo', 'perDownloadSpeedLimit'],
-   f: function(d) { if (d.maxId === Tree._downloads.length) return false; return !!d.count; }},
+   f: function(d) { return !!d.count; }},
   {items: ['cmdMirrors', 'cmdAddLimits', 'cmdRename'],
-   f: function(d) { if (d.maxId === Tree._downloads.length) return false; return d.count === 1; }},
+   f: function(d) { return d.count === 1; }},
   {items: ['cmdAddChunk', 'cmdRemoveChunk', 'cmdForceStart'],
-   f: function(d) { if (d.maxId === Tree._downloads.length) return false; return d.isOf(QUEUED | RUNNING | PAUSED | CANCELED); }},
+   f: function(d) { return d.isOf(QUEUED | RUNNING | PAUSED | CANCELED); }},
  ],
  _refreshTools_items_deferred: [
-  {items: ['cmdLaunch', "launch"], f: function(d) { if (d.maxId === Tree._downloads.length) return false; return !!d.curFile; }},
-  {items: ["cmdOpenFolder", "folder"], f: function(d) { if (d.maxId === Tree._downloads.length) return false; return !!d.curFolder; }},
+  {items: ['cmdLaunch', "launch"], f: function(d) { return !!d.curFile; }},
+  {items: ["cmdOpenFolder", "folder"], f: function(d) { return !!d.curFolder; }},
  ],
  _refreshTools_init: function() {
   this._refreshTools_item.forEach(function(e) { e.item = $(e.item); });
