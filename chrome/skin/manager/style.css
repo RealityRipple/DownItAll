@@ -537,7 +537,7 @@ treechildren::-moz-tree-image(iconic,addbutton) {
 #removeAll {
  -moz-image-region: rect(64px,64px,80px,48px);
 }
-#removeMenu[disabled="true"],
+#removeMenu[disabled="true"] > menuitem,
 #removeSelected[disabled="true"],
 #removeAll[disabled="true"] {
  -moz-image-region: rect(80px,64px,96px,48px);
@@ -547,7 +547,7 @@ treechildren::-moz-tree-image(iconic,addbutton) {
 #removeCompleted {
  -moz-image-region: rect(64px,16px,80px,0px);
 }
-#removeCompletedMenu[disabled="true"],
+#removeCompletedMenu[disabled="true"] > menuitem,
 #removeCompleted[disabled="true"] {
  -moz-image-region: rect(80px,16px,96px,0px);
 }
@@ -748,7 +748,7 @@ toolbarbutton.listselectinv, menuitem#listselectinv {
  #removeAll {
   -moz-image-region: rect(128px,128px,160px,96px);
  }
- #removeMenu[disabled="true"],
+ #removeMenu[disabled="true"] > menuitem,
  #removeSelected[disabled="true"],
  #removeAll[disabled="true"] {
   -moz-image-region: rect(160px,128px,192px,96px);
@@ -758,7 +758,7 @@ toolbarbutton.listselectinv, menuitem#listselectinv {
  #removeCompleted {
   -moz-image-region: rect(128px,32px,160px,0px);
  }
- #removeCompletedMenu[disabled="true"],
+ #removeCompletedMenu[disabled="true"] > menuitem,
  #removeCompleted[disabled="true"] {
   -moz-image-region: rect(160px,32px,192px,0px);
  }
