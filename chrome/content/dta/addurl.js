@@ -105,7 +105,7 @@ var Dialog = {
       }
       else if ("_url" in a.url) {
        if (a.url._url.fileName && a.url._url.fileExtension) {
-        filename.value = a.url._url.fileName;
+        filename.value = decodeURIComponent(a.url._url.fileName);
        }
       }
       address.readOnly = true;
@@ -146,7 +146,7 @@ var Dialog = {
       }
       if ("_url" in url) {
        if (url._url.fileName && url._url.fileExtension) {
-        filename.value = url._url.fileName;
+        filename.value = decodeURIComponent(url._url.fileName);
        }
       }
       address.value = url.spec;

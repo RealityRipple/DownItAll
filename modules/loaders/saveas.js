@@ -186,7 +186,7 @@ function load(window, document) {
     filename = newURI.fileName;
    }
    else if (prevURI.fileName && prevURI.fileExtension) {
-    filename = prevURI.fileName;
+    filename = decodeURIComponent(prevURI.fileName);
    }
   }
 
