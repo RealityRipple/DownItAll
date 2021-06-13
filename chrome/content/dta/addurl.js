@@ -103,6 +103,11 @@ var Dialog = {
       if ("fileName" in a) {
        filename.value = a.fileName;
       }
+      else if ("_url" in a.url) {
+       if (a.url._url.fileName && a.url._url.fileExtension) {
+        filename.value = a.url._url.fileName;
+       }
+      }
       address.readOnly = true;
       $('batcheslabel').style.display = 'none';
       $('batches').collapsed = true;
@@ -138,6 +143,11 @@ var Dialog = {
       if (url.hash) {
        hash = url.hash;
        delete url.hash;
+      }
+      if ("_url" in url) {
+       if (url._url.fileName && url._url.fileExtension) {
+        filename.value = url._url.fileName;
+       }
       }
       address.value = url.spec;
       address.select();
@@ -313,6 +323,9 @@ var Dialog = {
  downloadItem: function(start, hash) {
   let item = $("address")._item;
   item.fileName = $("filename").value || null;
+  if (item.fileName.indexOf('.') === -1 && "_url" in item.url && item.url._url.fileExtension) {
+   item.fileName += '.' + item.url._url.fileExtension;
+  }
   item.description = $('description').value;
   item.referrer = $('URLref').value;
   item.numIstance = DTA.currentSeries();

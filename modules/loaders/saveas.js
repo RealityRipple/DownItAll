@@ -88,7 +88,7 @@ function load(window, document) {
    log(LOG_DEBUG, "save-as reverted!");
   };
 
-  let url, referrer, mask, isPrivate;
+  let url, filename, referrer, mask, isPrivate;
 
   let download = turbo => {
    if (turbo) {
@@ -100,6 +100,8 @@ function load(window, document) {
     "description": "",
     "isPrivate": isPrivate
    };
+   if (filename)
+    item.fileName = filename;
 
    DTA.saveSingleItem(window, turbo, item);
    let de = document.documentElement;
@@ -163,6 +165,7 @@ function load(window, document) {
 
   isPrivate = isWindowPrivate(dialog.mContext);
 
+  let prevSpec = dialog.mLauncher.source.spec;
   url = ContentHandling.getRedirect(dialog.mLauncher.source, isPrivate);
   try {
    referrer = dialog.mContext.QueryInterface(Ci.nsIWebNavigation).currentURI.spec;
@@ -173,6 +176,19 @@ function load(window, document) {
 
   let ml = DTA.getLinkPrintMetalink(url);
   url = new DTA.URL(ml ? ml : url);
+  if (!ml)
+  {
+   let newSpec = url._url.spec;
+   let ioService = Components.classes["@mozilla.org/network/io-service;1"].getService(Components.interfaces.nsIIOService);
+   let prevURI = ioService.newURI(prevSpec).QueryInterface(Components.interfaces.nsIURL);
+   let newURI = ioService.newURI(newSpec).QueryInterface(Components.interfaces.nsIURL);
+   if (newURI.fileName && newURI.fileExtension) {
+    filename = newURI.fileName;
+   }
+   else if (prevURI.fileName && prevURI.fileExtension) {
+    filename = prevURI.fileName;
+   }
+  }
 
   ddDirectory.isPrivate = isPrivate;
   mask = DTA.getDropDownValue('renaming', isPrivate);
