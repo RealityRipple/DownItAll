@@ -52,7 +52,7 @@ try {
 
   let _oc = Dialog.onclose;
   Dialog.onclose = function(evt) {
-   if (self.prefs.getExt("downthemall", false) &&
+   if (self.prefs.getExt("downitall", false) &&
     (self.prefs.getExt("minimizeon", 1) & (1<<1))) {
     evt.preventDefault();
     return false;
@@ -88,7 +88,7 @@ var Prefs = {
   ['removeCompleted', true],
   ['removeAborted', false],
   ['removeCanceled', false],
-  ['autoClose', 'closedta', false],
+  ['autoClose', 'closedia', false],
   ['timeout', 300],
   ['maxInProgress', 'ntask', 4],
   ['maxChunks', 4],
@@ -129,7 +129,7 @@ var Prefs = {
   try {
    this._resetConnPrefs();
    this._refreshPrefs();
-   let unload = Preferences.addObserver("extensions.dta.", this);
+   let unload = Preferences.addObserver("extensions.dia.", this);
    addEventListener("unload", function PrefUnload() {
     removeEventListener("unload", PrefUnload, false);
     unload();
@@ -177,8 +177,8 @@ var Prefs = {
   }
   this.dirPermissions = perms;
 
-  if (!prefName || prefName === 'extensions.dta.saveTemp' ||
-   prefName === 'extensions.dta.tempLocation') {
+  if (!prefName || prefName === 'extensions.dia.saveTemp' ||
+   prefName === 'extensions.dia.tempLocation') {
    this._constructTemp();
   }
   // Make this KB
@@ -190,10 +190,10 @@ var Prefs = {
   }
 
   if (Preferences.getExt('exposeInUA', false)) {
-   RequestManipulation.registerHttp('dtaua', /./, RequestManipulation.amendUA);
+   RequestManipulation.registerHttp('diaua', /./, RequestManipulation.amendUA);
   }
   else {
-   RequestManipulation.unregisterHttp('dtaua');
+   RequestManipulation.unregisterHttp('diaua');
   }
 
   Dialog.scheduler = null;
@@ -223,7 +223,7 @@ var Prefs = {
     // hash the profD, as it would be otherwise a minor information leak
     this.tempLocation = Services.dirsvc.get("TmpD", Ci.nsIFile);
     let profD = hash(Services.dirsvc.get("ProfD", Ci.nsIFile).leafName);
-    this.tempLocation.append("dtatmp-" + profD);
+    this.tempLocation.append("diatmp-" + profD);
    }
    else {
     this.tempLocation = new Instances.LocalFile(this.tempLocation);
@@ -248,7 +248,7 @@ var Prefs = {
     }
     else {
      // Hacky way to check if directory is indeed writable
-     tl.append('.dta-check');
+     tl.append('.dia-check');
      try {
       if (!tl.exists()) {
        tl.create(tl.NORMAL_FILE_TYPE, this.permissions);

@@ -16,7 +16,7 @@ var UNKNOWN_STACK = {
  columnNumber: 0
 };
 Object.freeze(UNKNOWN_STACK);
-const GLUE = "chrome://dta-modules/content/glue.jsm -> ";
+const GLUE = "chrome://dia-modules/content/glue.jsm -> ";
 
 function prepareStack(stack) {
  let message;
@@ -60,7 +60,7 @@ function prepareStack(stack) {
 
 lazy(global, "file", function() {
  let file = Services.dirsvc.get("ProfD", Ci.nsIFile);
- file.append("downthemall.net");
+ file.append("downitall.realityripple.com");
  file.append('log.txt');
  if (file.exists() && file.fileSize > (256 * 1024)) {
   try {
@@ -173,7 +173,7 @@ exports.log = function(level, message, exception) {
     levelMsg = "debug";
   }
 
-  message = `Get'emAll! (${levelMsg}) - ${message}`;
+  message = `DownItAll! (${levelMsg}) - ${message}`;
 
   const scriptError = new Instances.ScriptError(
    message,

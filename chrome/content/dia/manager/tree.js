@@ -4,7 +4,7 @@
 "use strict";
 /* global $, $e, $$, _, Utils, Timers, FilterManager, getIcon, Preferences, Task, OS */
 /* global mapInSitu, filterInSitu, mapFilterInSitu, filterMapInSitu */
-/* global DTA, Dialog, QueueItem, Prefs, QueueStore, Prompts, ImportExport, Metalinker */
+/* global DIA, Dialog, QueueItem, Prefs, QueueStore, Prompts, ImportExport, Metalinker */
 /* global asyncMoveFile, showPreferences, Tooltip, CoThreadListWalker */
 /* global COMPLETE, CANCELED, RUNNING, PAUSED, QUEUED, FINISHING */
 /* global TextCache_PAUSED */
@@ -811,7 +811,7 @@ var Tree = {
       transfer.mozSetDataAt("application/x-moz-file", new FileDataProvider(qi, file), i++);
      }
     }
-    transfer.setData("application/x-dta-position", qi.position); i++;
+    transfer.setData("application/x-dia-position", qi.position); i++;
    }
    catch (ex) {
     log(LOG_ERROR, "dnd failure", ex);
@@ -820,7 +820,7 @@ var Tree = {
   }
  },
  canDrop: function(index, orient, dt) {
-  let rv = dt.types.contains("application/x-dta-position");
+  let rv = dt.types.contains("application/x-dia-position");
   if (rv) {
    dt.dropEffect = "move";
   }
@@ -1317,7 +1317,7 @@ var Tree = {
   }
   let mirrors = this.current.urlManager.toArray();
   window.openDialog(
-   'chrome://dta/content/dta/mirrors.xul',
+   'chrome://dia/content/dia/mirrors.xul',
    null,
    "chrome,dialog,resizable,modal,centerscreen",
    mirrors
@@ -1399,7 +1399,7 @@ var Tree = {
     }
     ImportExport.parseTextFile(fp.file, function importcb(lnks) {
      if (lnks.length) {
-      DTA.saveLinkArray(window, lnks, []);
+      DIA.saveLinkArray(window, lnks, []);
      }
     });
    }

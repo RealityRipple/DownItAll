@@ -6,8 +6,8 @@
 /* **
  * Lazy getters
  */
-/* global DTA, ContentHandling, Preferences, isWindowPrivate, gFlashGotDMDialog */
-lazy(this, 'DTA', () => require("api"));
+/* global DIA, ContentHandling, Preferences, isWindowPrivate, gFlashGotDMDialog */
+lazy(this, 'DIA', () => require("api"));
 lazy(this, 'ContentHandling', () => require("support/contenthandling").ContentHandling);
 lazy(this, 'Preferences', () => require("preferences"));
 lazy(this, "isWindowPrivate", () => require("support/pbm").isWindowPrivate);
@@ -39,13 +39,13 @@ function load(window, document) {
 
   const basicBox = $('basicBox');
   const normalBox = $('normalBox');
-  const normal = $('downthemall');
-  const turbo = $('turbodta');
-  const turboExec = $('turbodtaexec');
+  const normal = $('downitall');
+  const turbo = $('turbodia');
+  const turboExec = $('turbodiaexec');
   const mode = $('mode');
   const remember = $("rememberChoice");
   const settingsChange = $("settingsChange");
-  const ddDirectory = $('tdtalist');
+  const ddDirectory = $('tdialist');
 
   const revertUI = () => {
    let nodes = normalBox.querySelectorAll("separator");
@@ -103,7 +103,7 @@ function load(window, document) {
    if (filename)
     item.fileName = filename;
 
-   DTA.saveSingleItem(window, turbo, item);
+   DIA.saveSingleItem(window, turbo, item);
    let de = document.documentElement;
    try {
     de.removeAttribute('ondialogaccept');
@@ -160,7 +160,7 @@ function load(window, document) {
    log(LOG_DEBUG, "not overlaying");
    return;
   }
-  $('downthemallcontainer').collapsed = false;
+  $('downitallcontainer').collapsed = false;
   normal.disabled = false;
 
   isPrivate = isWindowPrivate(dialog.mContext);
@@ -174,8 +174,8 @@ function load(window, document) {
    referrer = url.spec;
   }
 
-  let ml = DTA.getLinkPrintMetalink(url);
-  url = new DTA.URL(ml ? ml : url);
+  let ml = DIA.getLinkPrintMetalink(url);
+  url = new DIA.URL(ml ? ml : url);
   if (!ml)
   {
    let newSpec = url._url.spec;
@@ -191,8 +191,8 @@ function load(window, document) {
   }
 
   ddDirectory.isPrivate = isPrivate;
-  mask = DTA.getDropDownValue('renaming', isPrivate);
-  if (!($("tdta").hidden = (!DTA.getDropDownValue('directory', isPrivate) || !mask))) {
+  mask = DIA.getDropDownValue('renaming', isPrivate);
+  if (!($("tdia").hidden = (!DIA.getDropDownValue('directory', isPrivate) || !mask))) {
    turbo.disabled = false;
    turboExec.disabled = false;
   }

@@ -4,7 +4,7 @@
 "use strict";
 /*global window, close, document, opener, removeEventListener, addEventListener */
 
-var all = ['dta-button', 'dta-turbo-button', 'dta-turboselect-button', 'dta-manager-button'];
+var all = ['dia-button', 'dia-turbo-button', 'dia-turboselect-button', 'dia-manager-button'];
 
 function $(id) {
  return document.getElementById(id);

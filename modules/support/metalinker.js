@@ -12,11 +12,11 @@ const NS_METALINKER3 = 'http://www.metalinker.org/';
  */
 const NS_METALINK_RFC5854 = 'urn:ietf:params:xml:ns:metalink';
 
-const DTA = require("api");
+const DIA = require("api");
 const Preferences = require("preferences");
 const {LOCALE} = require("version");
 const {UrlManager} = require("./urlmanager");
-const {NS_DTA, NS_HTML, normalizeMetaPrefs} = require("utils");
+const {NS_DIA, NS_HTML, normalizeMetaPrefs} = require("utils");
 
 const XPathResult = Ci.nsIDOMXPathResult;
 
@@ -53,8 +53,8 @@ Base.prototype = {
   switch (prefix) {
   case 'html':
    return NS_HTML;
-  case 'dta':
-   return NS_DTA;
+  case 'dia':
+   return NS_DIA;
   }
   return this._NS;
  },
@@ -156,28 +156,28 @@ Metalinker3.prototype = {
     throw new Exception("LocalFile name not provided!");
    }
    let referrer = null;
-   if (file.hasAttributeNS(NS_DTA, 'referrer')) {
-    referrer = file.getAttributeNS(NS_DTA, 'referrer');
+   if (file.hasAttributeNS(NS_DIA, 'referrer')) {
+    referrer = file.getAttributeNS(NS_DIA, 'referrer');
    }
    else {
     referrer = aReferrer;
    }
    let num = null;
-   if (file.hasAttributeNS(NS_DTA, 'num')) {
+   if (file.hasAttributeNS(NS_DIA, 'num')) {
     try {
-     num = parseInt(file.getAttributeNS(NS_DTA, 'num'), 10);
+     num = parseInt(file.getAttributeNS(NS_DIA, 'num'), 10);
     }
     catch (ex) {
      /* no-op */
     }
    }
    if (!num) {
-    num = DTA.currentSeries();
+    num = DIA.currentSeries();
    }
    let startDate = new Date();
-   if (file.hasAttributeNS(NS_DTA, 'startDate')) {
+   if (file.hasAttributeNS(NS_DIA, 'startDate')) {
     try {
-     startDate = new Date(parseInt(file.getAttributeNS(NS_DTA, 'startDate'), 10));
+     startDate = new Date(parseInt(file.getAttributeNS(NS_DIA, 'startDate'), 10));
     }
     catch (ex) {
      /* no-op */
@@ -189,8 +189,8 @@ Metalinker3.prototype = {
    for (var url of urlNodes) {
     let preference = 1;
     let charset = doc.characterSet;
-    if (url.hasAttributeNS(NS_DTA, 'charset')) {
-     charset = url.getAttributeNS(NS_DTA, 'charset');
+    if (url.hasAttributeNS(NS_DIA, 'charset')) {
+     charset = url.getAttributeNS(NS_DIA, 'charset');
     }
 
     let uri = null;
@@ -224,7 +224,7 @@ Metalinker3.prototype = {
       preference = 100 + preference;
      }
     }
-    urls.push(new DTA.URL(uri, preference));
+    urls.push(new DIA.URL(uri, preference));
    }
    if (!urls.length) {
     continue;
@@ -238,7 +238,7 @@ Metalinker3.prototype = {
    let hash = null;
    for (let h of this.getNodes(file, 'ml:verification/ml:hash')) {
     try {
-     h = new DTA.Hash(h.textContent.trim(), h.getAttribute('type'));
+     h = new DIA.Hash(h.textContent.trim(), h.getAttribute('type'));
      if (!hash || hash.q < h.q) {
       hash = h;
      }
@@ -248,7 +248,7 @@ Metalinker3.prototype = {
     }
    }
    if (hash) {
-    hash = new DTA.HashCollection(hash);
+    hash = new DIA.HashCollection(hash);
     let pieces = this.getNodes(file, 'ml:verification/ml:pieces');
     if (pieces.length) {
      pieces = pieces[0];
@@ -264,7 +264,7 @@ Metalinker3.prototype = {
        try {
         let num = parseInt(piece.getAttribute('piece'), 10);
         if (!maxPiece || (num >= 0 && num <= maxPiece)) {
-         collection[num] =  new DTA.Hash(piece.textContent.trim(), type);
+         collection[num] =  new DIA.Hash(piece.textContent.trim(), type);
         }
         else {
          throw new Exception("out of bound piece");
@@ -288,7 +288,7 @@ Metalinker3.prototype = {
      }
      catch (ex) {
       log(LOG_ERROR, "Failed to parse pieces", ex);
-      hash = new DTA.HashCollection(hash.full);
+      hash = new DIA.HashCollection(hash.full);
      }
     }
    }
@@ -372,28 +372,28 @@ MetalinkerRFC5854.prototype = {
     throw new Exception("LocalFile name not provided!");
    }
    let referrer = null;
-   if (file.hasAttributeNS(NS_DTA, 'referrer')) {
-    referrer = file.getAttributeNS(NS_DTA, 'referrer');
+   if (file.hasAttributeNS(NS_DIA, 'referrer')) {
+    referrer = file.getAttributeNS(NS_DIA, 'referrer');
    }
    else {
     referrer = aReferrer;
    }
    let num = null;
-   if (file.hasAttributeNS(NS_DTA, 'num')) {
+   if (file.hasAttributeNS(NS_DIA, 'num')) {
     try {
-     num = parseInt(file.getAttributeNS(NS_DTA, 'num'), 10);
+     num = parseInt(file.getAttributeNS(NS_DIA, 'num'), 10);
     }
     catch (ex) {
      /* no-op */
     }
    }
    if (!num) {
-    num = DTA.currentSeries();
+    num = DIA.currentSeries();
    }
    let startDate = new Date();
-   if (file.hasAttributeNS(NS_DTA, 'startDate')) {
+   if (file.hasAttributeNS(NS_DIA, 'startDate')) {
     try {
-     startDate = new Date(parseInt(file.getAttributeNS(NS_DTA, 'startDate'), 10));
+     startDate = new Date(parseInt(file.getAttributeNS(NS_DIA, 'startDate'), 10));
     }
     catch (ex) {
      /* no-op */
@@ -405,8 +405,8 @@ MetalinkerRFC5854.prototype = {
    for (var url of urlNodes) {
     let preference = 1;
     let charset = doc.characterSet;
-    if (url.hasAttributeNS(NS_DTA, 'charset')) {
-     charset = url.getAttributeNS(NS_DTA, 'charset');
+    if (url.hasAttributeNS(NS_DIA, 'charset')) {
+     charset = url.getAttributeNS(NS_DIA, 'charset');
     }
 
     let uri = null;
@@ -434,7 +434,7 @@ MetalinkerRFC5854.prototype = {
       preference = Math.max(preference / 4, 1);
      }
     }
-    urls.push(new DTA.URL(uri, preference));
+    urls.push(new DIA.URL(uri, preference));
    }
    if (!urls.length) {
     continue;
@@ -450,7 +450,7 @@ MetalinkerRFC5854.prototype = {
    let hash = null;
    for (let h of this.getNodes(file, 'ml:hash')) {
     try {
-     h = new DTA.Hash(h.textContent.trim(), h.getAttribute('type'));
+     h = new DIA.Hash(h.textContent.trim(), h.getAttribute('type'));
      if (!hash || hash.q < h.q) {
       hash = h;
      }
@@ -460,7 +460,7 @@ MetalinkerRFC5854.prototype = {
     }
    }
    if (hash) {
-    hash = new DTA.HashCollection(hash);
+    hash = new DIA.HashCollection(hash);
     let pieces = this.getNodes(file, 'ml:pieces');
     if (pieces.length) {
      pieces = pieces[0];
@@ -472,7 +472,7 @@ MetalinkerRFC5854.prototype = {
       }
       for (let piece of this.getNodes(pieces, 'ml:hash')) {
        try {
-        hash.add(new DTA.Hash(piece.textContent.trim(), type));
+        hash.add(new DIA.Hash(piece.textContent.trim(), type));
        }
        catch (ex) {
         log(LOG_ERROR, "Failed to parse piece", ex);
@@ -489,7 +489,7 @@ MetalinkerRFC5854.prototype = {
      }
      catch (ex) {
       log(LOG_ERROR, "Failed to parse pieces", ex);
-      hash = new DTA.HashCollection(hash.full);
+      hash = new DIA.HashCollection(hash.full);
      }
     }
    }
@@ -588,7 +588,7 @@ function parse(aURI, aReferrer, aCallback) {
 Object.defineProperties(exports, {
  "parse": {value: parse, enumerable: true},
  "Metalink": {value: Metalink, enumerable: true},
- "NS_DTA": {value: NS_DTA, enumerable: true},
+ "NS_DIA": {value: NS_DIA, enumerable: true},
  "NS_HTML": {value: NS_HTML, enumerable: true},
  "NS_METALINKER3": {value: NS_METALINKER3, enumerable: true},
  "NS_METALINK_RFC5854": {value: NS_METALINK_RFC5854, enumerable: true}

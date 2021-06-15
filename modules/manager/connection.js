@@ -11,7 +11,7 @@ const NS_ERROR_NET_TIMEOUT = NS_ERROR_MODULE_NETWORK + 14;
 const NS_ERROR_NET_RESET = NS_ERROR_MODULE_NETWORK + 20;
 const NS_ERROR_FTP_CWD = NS_ERROR_MODULE_NETWORK + 22;
 
-let DTA = require("api");
+let DIA = require("api");
 /* global RUNNING, CANCELED, PAUSED, FINISHING, ArrayBuffer */
 requireJoined(this, "constants");
 const {formatNumber, StringBundles, getTimestamp} = require("utils");
@@ -34,7 +34,7 @@ const DISCONNECTION_CODES = [
 ];
 
 const _ = (function(global) {
- let bundles = new StringBundles(["chrome://dta/locale/manager.properties"]);
+ let bundles = new StringBundles(["chrome://dia/locale/manager.properties"]);
  return function() {
   if (arguments.length === 1) {
    return bundles.getString(arguments[0]);
@@ -71,7 +71,7 @@ const proxyObserver = {
   }
  }
 };
-Preferences.addObserver("extensions.dta.proxy", proxyObserver);
+Preferences.addObserver("extensions.dia.proxy", proxyObserver);
 proxyObserver.observe();
 
 function maybeTempBlacklisted(conn, item, httpchan) {
@@ -221,7 +221,7 @@ Connection.prototype = {
         true
         );
       }
-      chan.setRequestHeader('Want-Digest', DTA.WANT_DIGEST_STRING, false);
+      chan.setRequestHeader('Want-Digest', DIA.WANT_DIGEST_STRING, false);
      }
 
      if (Preferences.getExt('nokeepalive', true)) {
@@ -311,7 +311,7 @@ Connection.prototype = {
   return null;
  },
  contractID: null,
- classDescription: "Get'emAll! connection",
+ classDescription: "DownItAll! connection",
  classID: null,
  implementationLanguage: Ci.nsIProgrammingLanguage.JAVASCRIPT,
  flags: Ci.nsIClassInfo.MAIN_THREAD_ONLY,
@@ -372,7 +372,7 @@ Connection.prototype = {
    return;
   }
   try {
-   let newurl = new DTA.URL(newChannel.URI.QueryInterface(Ci.nsIURL), this.url.preference);
+   let newurl = new DIA.URL(newChannel.URI.QueryInterface(Ci.nsIURL), this.url.preference);
    d.fileName = getUsableFileName(newurl.usable);
    if (oldChannel instanceof Ci.nsIHttpChannel) {
     try {
@@ -752,7 +752,7 @@ Connection.prototype = {
       newHash.partials = d.hashCollection.partials;
      }
      try {
-      download.hashCollection = DTA.HashCollection.load(newHash);
+      download.hashCollection = DIA.HashCollection.load(newHash);
      }
      catch (e) {
       log(LOG_ERROR, "Rejecting describedby metalink due to corrupted hashes");
@@ -917,7 +917,7 @@ Connection.prototype = {
   }
 
   if (visitor.hash && (!d.hashCollection || !d.hashCollection.full || d.hashCollection.full.q < visitor.hash.q)) {
-   d.hashCollection = new DTA.HashCollection(visitor.hash);
+   d.hashCollection = new DIA.HashCollection(visitor.hash);
   }
 
   // accept range

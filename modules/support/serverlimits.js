@@ -10,9 +10,9 @@ const {ByteBucket} = require("./bytebucket");
 const {filterInSitu} = require("utils");
 const obs = require("./observers");
 
-const TOPIC = 'DTA:serverlimits-changed';
-const PREFS = 'extensions.dta.serverlimit.';
-const LIMITS_PREF  = 'extensions.dta.serverlimit.limits.';
+const TOPIC = 'DIA:serverlimits-changed';
+const PREFS = 'extensions.dia.serverlimit.';
+const LIMITS_PREF  = 'extensions.dia.serverlimit.limits.';
 
 const SCHEDULER_DIR = 'dir';
 const SCHEDULER_FAST = 'fast';

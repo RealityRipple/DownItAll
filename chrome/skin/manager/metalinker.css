@@ -1,4 +1,4 @@
-@import 'chrome://dta/skin/common/style.css';
+@import 'chrome://dia/skin/common/style.css';
 @namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
 @namespace html url("http://www.w3.org/1999/xhtml");
 
@@ -44,7 +44,7 @@ richlistitem {
 }
 
 #context > menuitem {
- list-style-image: url(chrome://dta/skin/common/selection.png);
+ list-style-image: url(chrome://dia/skin/common/selection.png);
  border: 1px solid green;
 }
 #selectall {
@@ -59,7 +59,7 @@ richlistitem {
 
 @media (min-resolution: 2dppx) {
  #context > menuitem {
-  list-style-image: url(chrome://dta/skin/common/selection@2x.png);
+  list-style-image: url(chrome://dia/skin/common/selection@2x.png);
  }
  #selectall {
   -moz-image-region: rect(0px, 32px, 32px, 0px);

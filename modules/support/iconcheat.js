@@ -83,7 +83,7 @@ exports.loadWindow = (function() {
  });
 
  // Create icons if not there yet, or if we got a major version update
- if (!iconDir.exists() || Version.showAbout) {
+ if (!iconDir.exists()) {
   if (!iconDir.exists()) {
    iconDir.create(Ci.nsIFile.DIRECTORY_TYPE, 493 /* 0755 */);
   }

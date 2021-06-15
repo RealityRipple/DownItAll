@@ -15,7 +15,7 @@ const favCache = new LRUMap(200);
  * @author Nils
  * @author Stefano
  * @param link
- *          Some sort of DTA.URL, nsIURI or string to get the icon for
+ *          Some sort of DIA.URL, nsIURI or string to get the icon for
  * @param metalink
  *          Is it a metalink?
  * @param size
@@ -25,18 +25,18 @@ const favCache = new LRUMap(200);
 const getIcon = exports.getIcon = function(link, metalink, size) {
  if (metalink) {
   if (size >= 96) {
-   return "chrome://dta/skin/common/metalink96.png";
+   return "chrome://dia/skin/common/metalink96.png";
   }
   if (size >= 64) {
-   return "chrome://dta/skin/common/metalink64.png";
+   return "chrome://dia/skin/common/metalink64.png";
   }
   if (size >= 48) {
-   return "chrome://dta/skin/common/metalink48.png";
+   return "chrome://dia/skin/common/metalink48.png";
   }
   if (size >= 32) {
-   return "chrome://dta/skin/common/metalink32.png";
+   return "chrome://dia/skin/common/metalink32.png";
   }
-  return "chrome://dta/skin/common/metalink16.png";
+  return "chrome://dia/skin/common/metalink16.png";
  }
  if (typeof(size) !== 'number') {
   size = 16;

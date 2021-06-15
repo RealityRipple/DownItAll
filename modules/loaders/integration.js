@@ -6,10 +6,10 @@
 /* **
  * Lazy getters
  */
-/* global DTA, Mediator, Version, Preferences, recognizeTextLinks, TextLinks */
+/* global DIA, Mediator, Version, Preferences, recognizeTextLinks, TextLinks */
 /* global ContentHandling, CoThreads, getIcon, bundle, isWindowPrivate, identity */
 /*jshint strict:true, globalstrict:true, -W083, -W003*/
-lazy(this, 'DTA', () => require("api"));
+lazy(this, 'DIA', () => require("api"));
 lazy(this, "Mediator", () => require("support/mediator"));
 lazy(this, 'Version', () => require("version"));
 lazy(this, 'Preferences', () => require("preferences"));
@@ -17,7 +17,7 @@ this.__defineGetter__('recognizeTextLinks', () => Preferences.getExt("textlinks"
 lazy(this, "ContentHandling", () => require("support/contenthandling").ContentHandling);
 lazy(this, 'CoThreads', () => require("support/cothreads"));
 lazy(this, 'getIcon', () => require("support/icons").getIcon);
-lazy(this, "bundle", () => new (require("utils").StringBundles)(["chrome://dta/locale/menu.properties"]));
+lazy(this, "bundle", () => new (require("utils").StringBundles)(["chrome://dia/locale/menu.properties"]));
 lazy(this, "isWindowPrivate", () => require("support/pbm").isWindowPrivate);
 lazy(this, "identity", () => require("support/memoize").identity);
 
@@ -32,8 +32,8 @@ const {Task} = requireJSM("resource://gre/modules/Task.jsm");
 var findLinksJob = 0;
 
 const MENU_ITEMS = [
- 'SepBack', 'Pref', 'SepPref', 'TDTA', 'DTA', 'TDTASel',
- 'DTASel', 'SaveLinkT', 'SaveLink', 'SaveImgT', 'SaveImg',
+ 'SepBack', 'Pref', 'SepPref', 'TDIA', 'DIA', 'TDIASel',
+ 'DIASel', 'SaveLinkT', 'SaveLink', 'SaveImgT', 'SaveImg',
  'SaveVideoT', 'SaveVideo', 'SaveAudioT', 'SaveAudio',
  'SaveFormT', 'SaveForm', 'SepFront'
  ];
@@ -45,9 +45,9 @@ function makeURI(u, ml) {
  try {
   let url = Services.io.newURI(u.spec || u, u.originCharset, null);
   if (ml) {
-   url = DTA.getLinkPrintMetalink(url) || url;
+   url = DIA.getLinkPrintMetalink(url) || url;
   }
-  return new DTA.URL(url);
+  return new DIA.URL(url);
  }
  catch (ex) {
   log(LOG_ERROR, "failed to reconstruct: " + JSON.stringify(u), ex);
@@ -168,9 +168,9 @@ exports.load = function load(window, outerEvent) {
      timeout = timeout || 2500;
      let notification = window.PopupNotifications.show(
        gBrowser.selectedBrowser,
-       'downthemall',
+       'downitall',
        message,
-       'downthemall-notification-icon',
+       'downitall-notification-icon',
        null,
        null,
        {timeout: timeout}
@@ -189,7 +189,7 @@ exports.load = function load(window, outerEvent) {
   case 2:
   /* jshint strict:true, globalstrict:true, +W086 */
    require("support/alertservice")
-    .show("Get'emAll!", message, null, "chrome://dtaicon/content/icon64.png");
+    .show("DownItAll!", message, null, "chrome://diaicon/content/icon64.png");
    return;
   default:
    // no notification
@@ -207,14 +207,14 @@ exports.load = function load(window, outerEvent) {
  }
 
  function selectButton() {
-  return $('dta-turboselect-button') || {checked: false};
+  return $('dia-turboselect-button') || {checked: false};
  }
  function getMethod(method, data, target, browser) {
   let b = browser || gBrowser.selectedBrowser;
   return new Promise((resolve, reject) => {
    let job = ++findLinksJob;
    let result = m => {
-    b.messageManager.removeMessageListener(`DTA:${method}:${job}`, result);
+    b.messageManager.removeMessageListener(`DIA:${method}:${job}`, result);
     if (m.data.exception) {
      reject(m.data.exception);
     }
@@ -222,12 +222,12 @@ exports.load = function load(window, outerEvent) {
      resolve(m.data);
     }
    };
-   b.messageManager.addMessageListener(`DTA:${method}:${job}`, result);
+   b.messageManager.addMessageListener(`DIA:${method}:${job}`, result);
    if (!target) {
-    b.messageManager.sendAsyncMessage(`DTA:${method}`, {job:job, args: data});
+    b.messageManager.sendAsyncMessage(`DIA:${method}`, {job:job, args: data});
    }
    else {
-    b.messageManager.sendAsyncMessage(`DTA:${method}`, {job:job, args: data}, {target:target});
+    b.messageManager.sendAsyncMessage(`DIA:${method}`, {job:job, args: data}, {target:target});
    }
   });
  }
@@ -262,10 +262,10 @@ exports.load = function load(window, outerEvent) {
    }
 
    if (turbo) {
-    log(LOG_INFO, "findLinks(): DtaOneClick request from the user");
+    log(LOG_INFO, "findLinks(): DiAOneClick request from the user");
    }
    else {
-    log(LOG_INFO, "findLinks(): DtaStandard request from the user");
+    log(LOG_INFO, "findLinks(): DiAStandard request from the user");
    }
 
    let collectedUrls = [];
@@ -301,13 +301,13 @@ exports.load = function load(window, outerEvent) {
         imagesLength += m.data.images;
        };
        let result = m => {
-        browser.messageManager.removeMessageListener("DTA:findLinks:progress:" + job, progress);
-        browser.messageManager.removeMessageListener("DTA:findLinks:" + job, result);
+        browser.messageManager.removeMessageListener("DIA:findLinks:progress:" + job, progress);
+        browser.messageManager.removeMessageListener("DIA:findLinks:" + job, result);
         resolve(m.data);
        };
-       browser.messageManager.addMessageListener("DTA:findLinks:progress:" + job, progress);
-       browser.messageManager.addMessageListener("DTA:findLinks:" + job, result);
-       browser.messageManager.sendAsyncMessage("DTA:findLinks", {
+       browser.messageManager.addMessageListener("DIA:findLinks:progress:" + job, progress);
+       browser.messageManager.addMessageListener("DIA:findLinks:" + job, result);
+       browser.messageManager.sendAsyncMessage("DIA:findLinks", {
         job: job,
         honorSelection: !all,
         recognizeTextLinks: recognizeTextLinks
@@ -342,7 +342,7 @@ exports.load = function load(window, outerEvent) {
        let sniffed = getSniffedInfoFromLocation(l);
        for (let s of sniffed) {
         let o = {
-         "url": new DTA.URL(s.url),
+         "url": new DIA.URL(s.url),
          "fileName": s.name,
          "referrer": s.ref,
          "description": bundle.getString('sniffedvideo')
@@ -380,13 +380,13 @@ exports.load = function load(window, outerEvent) {
       return;
      }
 
-     DTA.setPrivateMode(window, collectedUrls);
-     DTA.setPrivateMode(window, collectedImages);
+     DIA.setPrivateMode(window, collectedUrls);
+     DIA.setPrivateMode(window, collectedImages);
 
      if (turbo) {
-      DTA.turboSaveLinkArray(window, collectedUrls, collectedImages, function(queued) {
+      DIA.turboSaveLinkArray(window, collectedUrls, collectedImages, function(queued) {
        if (!queued) {
-        DTA.saveLinkArray(
+        DIA.saveLinkArray(
          window,
          collectedUrls,
          collectedImages,
@@ -402,7 +402,7 @@ exports.load = function load(window, outerEvent) {
       });
       return;
      }
-     DTA.saveLinkArray(window, collectedUrls, collectedImages);
+     DIA.saveLinkArray(window, collectedUrls, collectedImages);
     }
     catch (ex) {
      log(LOG_ERROR, "findLinksTask", ex);
@@ -437,8 +437,8 @@ exports.load = function load(window, outerEvent) {
 
  function findSniff(event, turbo) {
   const target = event.explicitOriginalTarget;
-  if (target.classList.contains("dta-sniff-element") && target.info) {
-   DTA.saveSingleItem(window, turbo, target.info);
+  if (target.classList.contains("dia-sniff-element") && target.info) {
+   DIA.saveSingleItem(window, turbo, target.info);
   }
  }
 
@@ -466,7 +466,7 @@ exports.load = function load(window, outerEvent) {
     }
     if (turbo) {
      try {
-      DTA.saveSingleItem(window, true, item);
+      DIA.saveSingleItem(window, true, item);
       notifyInfo(bundle.getFormattedString('queued', [url]));
       return;
      }
@@ -475,7 +475,7 @@ exports.load = function load(window, outerEvent) {
       notifyError(bundle.getString('error'), bundle.getString('error.information'));
      }
     }
-    DTA.saveSingleItem(window, false, item);
+    DIA.saveSingleItem(window, false, item);
    }
    catch (ex) {
     log(LOG_ERROR, "Failed to process single link", ex);
@@ -531,7 +531,7 @@ exports.load = function load(window, outerEvent) {
 
     if (turbo) {
      try {
-      DTA.saveSingleItem(window, true, item);
+      DIA.saveSingleItem(window, true, item);
       return;
      }
      catch (ex) {
@@ -539,7 +539,7 @@ exports.load = function load(window, outerEvent) {
       notifyError(bundle.getString('error'), bundle.getString('error.information'));
      }
     }
-    DTA.saveSingleItem(window, false, item);
+    DIA.saveSingleItem(window, false, item);
    }
    catch (ex) {
     log(LOG_ERROR, 'findForm', ex);
@@ -565,9 +565,9 @@ exports.load = function load(window, outerEvent) {
      }
      _n = window.PopupNotifications.show(
       gBrowser.selectedBrowser,
-      'downthemall',
+      'downitall',
       message,
-      'downthemall-notification-icon'
+      'downitall-notification-icon'
       );
     };
     return notifyProgress(message);
@@ -603,7 +603,7 @@ exports.load = function load(window, outerEvent) {
     }
    }
    try {
-    DTA.saveSingleItem(window, true, item);
+    DIA.saveSingleItem(window, true, item);
     notifyInfo(bundle.getFormattedString('queued', [url]));
     return;
    }
@@ -611,7 +611,7 @@ exports.load = function load(window, outerEvent) {
     log(LOG_ERROR, 'saveSingleLink', ex);
     notifyError(bundle.getString('error'), bundle.getString('error.information'));
    }
-   DTA.saveSingleItem(window, false, item);
+   DIA.saveSingleItem(window, false, item);
   }
   catch (ex) {
    log(LOG_ERROR, "Failed to process single link", ex);
@@ -625,11 +625,11 @@ exports.load = function load(window, outerEvent) {
   }
  }
 
- window.messageManager.addMessageListener("DTA:selected", saveSelected);
- window.messageManager.addMessageListener("DTA:new", newFrameScript);
+ window.messageManager.addMessageListener("DIA:selected", saveSelected);
+ window.messageManager.addMessageListener("DIA:new", newFrameScript);
  unloadWindow(window, () => {
-  window.messageManager.removeMessageListener("DTA:selected", saveSelected);
-  window.messageManager.removeMessageListener("DTA:new", newFrameScript);
+  window.messageManager.removeMessageListener("DIA:selected", saveSelected);
+  window.messageManager.removeMessageListener("DIA:new", newFrameScript);
  });
 
  // these are only valid after the load event.
@@ -637,10 +637,10 @@ exports.load = function load(window, outerEvent) {
  let compact = {};
  let tools = {};
 
- let ctxBase = $('dtaCtxCompact');
- let toolsBase = $('dtaToolsMenu');
- let toolsMenu = $('dtaToolsPopup');
- let toolsSep = $('dtaToolsSep');
+ let ctxBase = $('diaCtxCompact');
+ let toolsBase = $('diaToolsMenu');
+ let toolsMenu = $('diaToolsPopup');
+ let toolsSep = $('diaToolsSep');
 
  let ctx = ctxBase.parentNode;
  let menu = toolsBase.parentNode;
@@ -681,10 +681,10 @@ exports.load = function load(window, outerEvent) {
    let sel = ctx && ctx.isContentSelected;
    if (sel) {
     if (items[0]) {
-     show.push(menu.DTASel);
+     show.push(menu.DIASel);
     }
     if (items[1]) {
-     show.push(menu.TDTASel);
+     show.push(menu.TDIASel);
     }
    }
 
@@ -719,7 +719,7 @@ exports.load = function load(window, outerEvent) {
      }
     }
    }
-   else if (ctxdata && ctxdata.addonInfo && ctxdata.addonInfo["DTA:onform"]) {
+   else if (ctxdata && ctxdata.addonInfo && ctxdata.addonInfo["DIA:onform"]) {
     if (items[0]) {
      show.push(menu.SaveForm);
     }
@@ -730,10 +730,10 @@ exports.load = function load(window, outerEvent) {
    // regular
    else if (!sel) {
     if (items[0]) {
-     show.push(menu.DTA);
+     show.push(menu.DIA);
     }
     if (items[1]) {
-     show.push(menu.TDTA);
+     show.push(menu.TDIA);
     }
    }
 
@@ -771,7 +771,7 @@ exports.load = function load(window, outerEvent) {
    }
   }
   catch(ex) {
-   log(LOG_ERROR, "DTAContext(): ", ex);
+   log(LOG_ERROR, "DIAContext(): ", ex);
   }
  }
 
@@ -798,10 +798,10 @@ exports.load = function load(window, outerEvent) {
    let show = [];
 
    if (menu[0]) {
-    show.push('DTA');
+    show.push('DIA');
    }
    if (menu[1]) {
-    show.push('TDTA');
+    show.push('TDIA');
    }
    // prefs
    if (menu[2]) {
@@ -809,7 +809,7 @@ exports.load = function load(window, outerEvent) {
    }
    toolsSep.hidden = menu.indexOf(0) === -1;
    toolsBase.setAttribute('label',
-    bundle.getString(menu.indexOf(1) !== -1 ? 'moredtatools' : 'simpledtatools'));
+    bundle.getString(menu.indexOf(1) !== -1 ? 'morediatools' : 'simplediatools'));
 
    // show the items.
    for (let i in tools) {
@@ -823,13 +823,13 @@ exports.load = function load(window, outerEvent) {
    }
   }
   catch(ex) {
-   log(LOG_ERROR, "DTATools(): ", ex);
+   log(LOG_ERROR, "DIATools(): ", ex);
   }
  }
 
- function onDTAShowing(evt) {
+ function onDIAShowing(evt) {
   let menu = evt.target;
-  for (let n of menu.querySelectorAll(".dta-sniff-element")) {
+  for (let n of menu.querySelectorAll(".dia-sniff-element")) {
    n.parentNode.removeChild(n);
   }
   if (!Preferences.getExt('listsniffedvideos', false)) {
@@ -846,13 +846,13 @@ exports.load = function load(window, outerEvent) {
    }
 
    let sep = document.createElement("menuseparator");
-   sep.className = "dta-sniff-element";
+   sep.className = "dia-sniff-element";
    menu.appendChild(sep);
 
    let cmd = menu.parentNode.getAttribute("buttoncommand") + "-sniff";
    for (let s of sniffed) {
     let o = {
-     "url": new DTA.URL(s.url),
+     "url": new DIA.URL(s.url),
      "referrer": s.ref,
      "fileName": s.name,
      "description": bundle.getString("sniffedvideo"),
@@ -864,14 +864,14 @@ exports.load = function load(window, outerEvent) {
     mi.setAttribute("image", getIcon(s.name));
     mi.setAttribute("command", cmd);
     mi.info = o;
-    mi.className = "dta-sniff-element menuitem-iconic";
+    mi.className = "dia-sniff-element menuitem-iconic";
     menu.appendChild(mi);
    }
   });
  }
 
- function onDTAViewShowing(button, view) {
-  for (let n of view.querySelectorAll(".dta-sniff-element")) {
+ function onDIAViewShowing(button, view) {
+  for (let n of view.querySelectorAll(".dia-sniff-element")) {
    n.parentNode.removeChild(n);
   }
   if (!Preferences.getExt('listsniffedvideos', false)) {
@@ -890,13 +890,13 @@ exports.load = function load(window, outerEvent) {
    let menu = view.querySelector(".panel-subview-body");
 
    let sep = document.createElement("menuseparator");
-   sep.className = "dta-sniff-element";
+   sep.className = "dia-sniff-element";
    menu.appendChild(sep);
 
    let cmd = button.getAttribute("buttoncommand") + "-sniff";
    for (let s of sniffed) {
     let o = {
-     "url": new DTA.URL(s.url),
+     "url": new DIA.URL(s.url),
      "referrer": s.ref,
      "fileName": s.name,
      "description": bundle.getString("sniffedvideo"),
@@ -908,21 +908,21 @@ exports.load = function load(window, outerEvent) {
     mi.setAttribute("image", getIcon(s.name));
     mi.setAttribute("command", cmd);
     mi.info = o;
-    mi.className = "dta-sniff-element subviewbutton cui-withicon";
+    mi.className = "dia-sniff-element subviewbutton cui-withicon";
     menu.appendChild(mi);
    }
   });
  }
 
  function attachOneClick() {
-  window.messageManager.broadcastAsyncMessage("DTA:selector", {
+  window.messageManager.broadcastAsyncMessage("DIA:selector", {
    enable: true,
    bgimgs: Preferences.getExt('selectbgimages', false)
   });
  }
 
  function detachOneClick() {
-  window.messageManager.broadcastAsyncMessage("DTA:selector", {enable: false});
+  window.messageManager.broadcastAsyncMessage("DIA:selector", {enable: false});
  }
 
  let _keyActive =  false;
@@ -949,27 +949,14 @@ exports.load = function load(window, outerEvent) {
   }*/
  }
  function onToolbarInstall(event) {
-  // white list good locations
-  // note that this is only performed to keep the number of event listeners down
-  // The remote site does not get special privileges!
-  try {
-   if (!/^about:downthemall/.test(event.target.location) &&
-    event.target.location.host !== "about.downthemall.org") {
-    return;
-   }
-  }
-  catch (ex) {
-   // might be another location where there is no .host
-   return;
-  }
   let tbinstall, tbunload, win = event.target;
-  win.addEventListener("DTA:toolbarinstall", tbinstall = (function() {
-   win.removeEventListener("DTA:toolbarinstall", tbinstall, true);
+  win.addEventListener("DIA:toolbarinstall", tbinstall = (function() {
+   win.removeEventListener("DIA:toolbarinstall", tbinstall, true);
    win.removeEventListener("unload", tbunload, true);
    Mediator.showToolbarInstall(window);
   }), true);
   win.addEventListener("unload", tbunload = (function() {
-   win.removeEventListener("DTA:toolbarinstall", tbinstall, true);
+   win.removeEventListener("DIA:toolbarinstall", tbinstall, true);
    win.removeEventListener("unload", tbunload, true);
   }), true);
  }
@@ -1017,7 +1004,7 @@ exports.load = function load(window, outerEvent) {
       return;
      }
      url = Services.io.newURI(url, null, null);
-     url = new DTA.URL(DTA.getLinkPrintMetalink(url) || url);
+     url = new DIA.URL(DIA.getLinkPrintMetalink(url) || url);
      let {ref, title} = yield getFocusedDetails();
      ref = makeURI(ref);
      func(url, ref);
@@ -1061,11 +1048,11 @@ exports.load = function load(window, outerEvent) {
   }
 
   try {
-   let cont = $('dtaCtxSubmenu');
+   let cont = $('diaCtxSubmenu');
 
    for (let id of MENU_ITEMS) {
-    compact[id] = $('dtaCtx' + id);
-    let node = $('dtaCtx' + id).cloneNode(true);
+    compact[id] = $('diaCtx' + id);
+    let node = $('diaCtx' + id).cloneNode(true);
     node.setAttribute('id', node.id + "-direct");
     ctx.insertBefore(node, ctxBase.nextSibling);
     direct[id] = node;
@@ -1073,37 +1060,36 @@ exports.load = function load(window, outerEvent) {
    }
 
    // prepare tools
-   for (let e of ['DTA', 'TDTA', 'Manager']) {
-    tools[e] = $('dtaTools' + e);
+   for (let e of ['DIA', 'TDIA', 'Manager']) {
+    tools[e] = $('diaTools' + e);
    }
 
    let f = bindEvt("command", () => findLinks(false));
-   f($("dta:regular"));
-   f($("dta:regular-sel"));
-   bindEvt("command", () => findLinks(false, true))($("dta:regular-all"));
-   bindEvt("command", () => findSingleLink(false))($("dta:regular-link"));
-   bindEvt("command", () => findSingleImg(false))($("dta:regular-img"));
-   bindEvt("command", () => findSingleVideo(false))($("dta:regular-video"));
-   bindEvt("command", () => findSingleAudio(false))($("dta:regular-audio"));
-   bindEvt("command", () => findForm(false))($("dta:regular-form"));
-   bindEvt("command", e => findSniff(e, false))($("dta:regular-sniff"));
+   f($("dia:regular"));
+   f($("dia:regular-sel"));
+   bindEvt("command", () => findLinks(false, true))($("dia:regular-all"));
+   bindEvt("command", () => findSingleLink(false))($("dia:regular-link"));
+   bindEvt("command", () => findSingleImg(false))($("dia:regular-img"));
+   bindEvt("command", () => findSingleVideo(false))($("dia:regular-video"));
+   bindEvt("command", () => findSingleAudio(false))($("dia:regular-audio"));
+   bindEvt("command", () => findForm(false))($("dia:regular-form"));
+   bindEvt("command", e => findSniff(e, false))($("dia:regular-sniff"));
 
    f = bindEvt("command", () => findLinks(true));
-   f($("dta:turbo"));
-   f($("dta:turbo-sel"));
-   bindEvt("command", () => findLinks(true, true))($("dta:turbo-all"));
-   bindEvt("command", () => findSingleLink(true))($("dta:turbo-link"));
-   bindEvt("command", () => findSingleImg(true))($("dta:turbo-img"));
-   bindEvt("command", () => findSingleVideo(true))($("dta:turbo-video"));
-   bindEvt("command", () => findSingleAudio(true))($("dta:turbo-audio"));
-   bindEvt("command", () => findForm(true))($("dta:turbo-form"));
-   bindEvt("command", e => findSniff(e, true))($("dta:turbo-sniff"));
+   f($("dia:turbo"));
+   f($("dia:turbo-sel"));
+   bindEvt("command", () => findLinks(true, true))($("dia:turbo-all"));
+   bindEvt("command", () => findSingleLink(true))($("dia:turbo-link"));
+   bindEvt("command", () => findSingleImg(true))($("dia:turbo-img"));
+   bindEvt("command", () => findSingleVideo(true))($("dia:turbo-video"));
+   bindEvt("command", () => findSingleAudio(true))($("dia:turbo-audio"));
+   bindEvt("command", () => findForm(true))($("dia:turbo-form"));
+   bindEvt("command", e => findSniff(e, true))($("dia:turbo-sniff"));
 
-   bindEvt("command", () => toggleOneClick())($("dta:turboselect"));
-   bindEvt("command", () => DTA.openManager(window))($("dta:manager"));
-   bindEvt("command", () => Mediator.showPreferences(window))($("dta:prefs"));
-   bindEvt("command", () => Mediator.showToolbarInstall(window))($("dta:tbinstall"));
-   bindEvt("command", () => Mediator.showAbout(window))($("dta:about"));
+   bindEvt("command", () => toggleOneClick())($("dia:turboselect"));
+   bindEvt("command", () => DIA.openManager(window))($("dia:manager"));
+   bindEvt("command", () => Mediator.showPreferences(window))($("dia:prefs"));
+   bindEvt("command", () => Mediator.showToolbarInstall(window))($("dia:tbinstall"));
 
    bindEvt("popupshowing", onContextShowing)(ctx);
    bindEvt("popupshowing", onToolsShowing)(menu);
@@ -1154,7 +1140,7 @@ exports.load = function load(window, outerEvent) {
       let ownerWindow = el.ownerDocument.defaultView;
       let {area} = ownerWindow.CustomizableUI.getPlacementOfWidget(el.id);
       let view = el.getAttribute("panelview");
-      onDTAViewShowing(el, $(view));
+      onDIAViewShowing(el, $(view));
       ownerWindow.PanelUI.showSubView(view, el, area);
       e.preventDefault();
       return false;
@@ -1165,14 +1151,14 @@ exports.load = function load(window, outerEvent) {
     }
     $(el.getAttribute("buttoncommand")).doCommand();
    }
-   let dta_button = $t('dta-button');
-   dta_button.addEventListener('popupshowing', onDTAShowing, true);
-   unloadWindow(window, () => dta_button.removeEventListener('popupshowing', onDTAShowing, true));
-   dta_button.addEventListener('command', onCommand, true);
-   unloadWindow(window, () => dta_button.removeEventListener('command', onCommand, true));
+   let dia_button = $t('dia-button');
+   dia_button.addEventListener('popupshowing', onDIAShowing, true);
+   unloadWindow(window, () => dia_button.removeEventListener('popupshowing', onDIAShowing, true));
+   dia_button.addEventListener('command', onCommand, true);
+   unloadWindow(window, () => dia_button.removeEventListener('command', onCommand, true));
 
-   setupDrop(dta_button, function(url, ref) {
-    DTA.saveSingleItem(window, false, {
+   setupDrop(dia_button, function(url, ref) {
+    DIA.saveSingleItem(window, false, {
      "url": url,
      "referrer": ref,
      "description": "",
@@ -1180,13 +1166,13 @@ exports.load = function load(window, outerEvent) {
     });
    });
 
-   let dta_turbo_button = $t('dta-turbo-button');
-   dta_turbo_button.addEventListener('popupshowing', onDTAShowing, true);
-   unloadWindow(window, () => dta_turbo_button.removeEventListener('popupshowing', onDTAShowing, true));
-   dta_turbo_button.addEventListener('command', onCommand, true);
-   unloadWindow(window, () => dta_turbo_button.removeEventListener('command', onCommand, true));
+   let dia_turbo_button = $t('dia-turbo-button');
+   dia_turbo_button.addEventListener('popupshowing', onDIAShowing, true);
+   unloadWindow(window, () => dia_turbo_button.removeEventListener('popupshowing', onDIAShowing, true));
+   dia_turbo_button.addEventListener('command', onCommand, true);
+   unloadWindow(window, () => dia_turbo_button.removeEventListener('command', onCommand, true));
 
-   setupDrop(dta_turbo_button, function(url, ref) {
+   setupDrop(dia_turbo_button, function(url, ref) {
     let item = {
      "url": url,
      "referrer": ref,
@@ -1194,11 +1180,11 @@ exports.load = function load(window, outerEvent) {
      "isPrivate": isWindowPrivate(window)
     };
     try {
-     DTA.saveSingleItem(window, true, item);
+     DIA.saveSingleItem(window, true, item);
     }
     catch (ex) {
      log(LOG_ERROR, "failed to turbo drop, retrying normal", ex);
-     DTA.saveSingleItem(window, false, item);
+     DIA.saveSingleItem(window, false, item);
     }
    });
 
@@ -1233,5 +1219,5 @@ exports.load = function load(window, outerEvent) {
    target.doCommand();
   }
  }
- log(LOG_DEBUG, "dTa integration done");
+ log(LOG_DEBUG, "DiA integration done");
 };

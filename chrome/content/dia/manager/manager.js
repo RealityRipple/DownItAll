@@ -2,7 +2,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 "use strict";
-/* global _, DTA, $, $$, Utils, Preferences, getDefaultDownloadsDirectory, unloadWindow */
+/* global _, DIA, $, $$, Utils, Preferences, getDefaultDownloadsDirectory, unloadWindow */
 /* global $e, mapInSitu, filterMapInSitu, filterInSitu, mapFilterInSitu, setTimeoutOnlyFun */
 /* global toURI, toURL, showPreferences, openUrl, getLargeIcon */
 /* global Tree, Prefs */
@@ -115,7 +115,7 @@ function _moveFile(destination, self) {
 function dieEarly() {
  window.removeEventListener("unload", dieEarly, false);
  let evt = document.createEvent("Event");
- evt.initEvent("DTA:diedEarly", true, false);
+ evt.initEvent("DIA:diedEarly", true, false);
  window.dispatchEvent(evt);
 }
 window.addEventListener("unload", dieEarly, false);
@@ -138,10 +138,10 @@ var Dialog = {
   'quit-application-requested',
   'quit-application-granted',
   'network:offline-status-changed',
-  'DTA:filterschanged',
-  'DTA:clearedQueueStore',
-  'DTA:shutdownQueueStore',
-  "DTA:upgrade",
+  'DIA:filterschanged',
+  'DIA:clearedQueueStore',
+  'DIA:shutdownQueueStore',
+  "DIA:upgrade",
  ],
  _initialized: false,
  _autoRetrying: [],
@@ -241,12 +241,12 @@ var Dialog = {
       PrivateBrowsing.isWindowPrivate(event.dataTransfer.mozSourceNode.ownerDocument.defaultView);
      url = Services.io.newURI(url, null, null);
      let item = {
-      "url": new DTA.URL(DTA.getLinkPrintMetalink(url) || url),
+      "url": new DIA.URL(DIA.getLinkPrintMetalink(url) || url),
       "referrer": null,
       'description': "",
       "isPrivate": isPrivate
      };
-     DTA.saveSingleItem(window, false, item);
+     DIA.saveSingleItem(window, false, item);
     }
     catch (ex) {
      log(LOG_ERROR, "failed to process ondrop", ex);
@@ -301,10 +301,10 @@ var Dialog = {
    let de = document.documentElement;
    Version.getInfo(function(version) {
     let cv = version.VERSION + ".toolitems" + $('tools').childNodes.length;
-    let shouldAutofit = !de.hasAttribute('dtaAutofitted');
+    let shouldAutofit = !de.hasAttribute('diaAutofitted');
     if (!shouldAutofit) {
      try {
-      let lv = de.getAttribute('dtaAutofitted');
+      let lv = de.getAttribute('diaAutofitted');
       shouldAutofit = !!version.compareVersion(cv, lv);
      }
      catch (ex) {
@@ -312,7 +312,7 @@ var Dialog = {
      }
     }
     if (shouldAutofit) {
-     document.documentElement.setAttribute('dtaAutofitted', cv);
+     document.documentElement.setAttribute('diaAutofitted', cv);
      $('tools').setAttribute('mode', 'icons');
     }
    });
@@ -477,10 +477,10 @@ var Dialog = {
    d.relaxSize = !!down.relaxSize;
 
    if (down.hashCollection) {
-    d.hashCollection = DTA.HashCollection.load(down.hashCollection);
+    d.hashCollection = DIA.HashCollection.load(down.hashCollection);
    }
    else if (down.hash) {
-    d.hashCollection = new DTA.HashCollection(new DTA.Hash(down.hash, down.hashType));
+    d.hashCollection = new DIA.HashCollection(new DIA.Hash(down.hash, down.hashType));
    }
    if ('maxChunks' in down) {
     d._maxChunks = down.maxChunks;
@@ -561,7 +561,7 @@ var Dialog = {
 
  openAdd: function() {
   window.openDialog(
-   'chrome://dta/content/dta/addurl.xul',
+   'chrome://dia/content/dia/addurl.xul',
    '_blank',
    Version.OS === 'darwin' ? 'chrome,modal,dependent=yes' : 'chrome,centerscreen,dialog=no,dependent=yes'
   );
@@ -569,7 +569,7 @@ var Dialog = {
 
  openInfo: function(downloads) {
   let w = window.openDialog(
-   "chrome://dta/content/dta/manager/info.xul","_blank",
+   "chrome://dia/content/dia/manager/info.xul","_blank",
    "chrome, centerscreen, dialog=no",
    downloads,
    this
@@ -593,7 +593,7 @@ var Dialog = {
   $('loadingbox').parentNode.removeChild($('loadingbox'));
   window.removeEventListener("unload", dieEarly, false);
   let evt = document.createEvent("Event");
-  evt.initEvent("DTA:ready", true, false);
+  evt.initEvent("DIA:ready", true, false);
   window.dispatchEvent(evt);
  },
 
@@ -638,7 +638,7 @@ var Dialog = {
     }
    }
   }
-  else if (topic === "DTA:upgrade") {
+  else if (topic === "DIA:upgrade") {
    Preferences.setExt("rebootOnce", true);
    if (!this._canClose()) {
     delete this._forceClose;
@@ -665,13 +665,13 @@ var Dialog = {
   else if (topic === 'network:offline-status-changed') {
    this.offline = data === "offline";
   }
-  else if (topic === 'DTA:filterschanged') {
+  else if (topic === 'DIA:filterschanged') {
    Tree.assembleMenus();
   }
-  else if (topic === 'DTA:clearedQueueStore') {
+  else if (topic === 'DIA:clearedQueueStore') {
    this.reinit(true);
   }
-  else if (topic === 'DTA:shutdownQueueStore') {
+  else if (topic === 'DIA:shutdownQueueStore') {
    log(LOG_INFO, "saving running");
    this.saveRunning();
   }
@@ -1230,7 +1230,7 @@ var Dialog = {
   let tmpEnum = Prefs.tempLocation.directoryEntries;
   let unknown = [];
   for (let f of new Utils.SimpleIterator(tmpEnum, Ci.nsIFile)) {
-   if (f.leafName.match(/\.dtapart$/) && !~known.indexOf(f.leafName)) {
+   if (f.leafName.match(/\.diapart$/) && !~known.indexOf(f.leafName)) {
     unknown.push(f);
    }
   }
@@ -1269,7 +1269,7 @@ var Dialog = {
   if (this._mustReload) {
    unload("shutdown");
    try {
-    Cu.import("chrome://dta-modules/content/glue.jsm", {});
+    Cu.import("chrome://dia-modules/content/glue.jsm", {});
    }
    catch (ex) {
     // may fail, if the add-on was disabled in between
@@ -1327,7 +1327,7 @@ var Metalinker = {
      e.isPrivate = aIsPrivate;
     }
     window.openDialog(
-     'chrome://dta/content/dta/manager/metaselect.xul',
+     'chrome://dia/content/dia/manager/metaselect.xul',
      '_blank',
      'chrome,centerscreen,dialog=yes,modal',
      res.downloads,
@@ -1651,7 +1651,7 @@ QueueItem.prototype = {
    if (fn.length > 60) {
     fn = fn.substring(0, 60);
    }
-   dest.append(fn + "-" + Utils.newUUIDString() + '.dtapart');
+   dest.append(fn + "-" + Utils.newUUIDString() + '.diapart');
    this._tmpFile = dest;
   }
   return this._tmpFile;
@@ -1661,7 +1661,7 @@ QueueItem.prototype = {
   return this._hashCollection;
  },
  set hashCollection(nv) {
-  if (nv && !(nv instanceof DTA.HashCollection)) {
+  if (nv && !(nv instanceof DIA.HashCollection)) {
    throw new Exception("Not a hash collection");
   }
   this._hashCollection = nv;
@@ -2805,7 +2805,7 @@ var ConflictManager = {
     newDest: Utils.cropCenter(newDest.leafName, 45)
    };
    window.openDialog(
-    "chrome://dta/content/dta/manager/conflicts.xul",
+    "chrome://dia/content/dia/manager/conflicts.xul",
     "_blank",
     "chrome,centerscreen,resizable=no,dialog,close=no,dependent",
     options, dialog
@@ -2899,8 +2899,8 @@ function CustomAction(download, command) {
 var startDownloads = (function() {
  const series = {};
  lazy(series, "num", function() {
-  let rv = DTA.currentSeries();
-  DTA.incrementSeries();
+  let rv = DIA.currentSeries();
+  DIA.incrementSeries();
   return rv;
  });
  let busy = false;
@@ -2925,7 +2925,7 @@ var startDownloads = (function() {
     let qi = new QueueItem();
     let lnk = e.url;
     if (typeof lnk === 'string') {
-     qi.urlManager = new UrlManager([new DTA.URL(Services.io.newURI(lnk, null, null))]);
+     qi.urlManager = new UrlManager([new DIA.URL(Services.io.newURI(lnk, null, null))]);
     }
     else if (lnk instanceof UrlManager) {
      qi.urlManager = lnk;
@@ -2984,10 +2984,10 @@ var startDownloads = (function() {
      qi.hashCollection = e.url.hashCollection;
     }
     else if (e.hash) {
-     qi.hashCollection = new DTA.HashCollection(e.hash);
+     qi.hashCollection = new DIA.HashCollection(e.hash);
     }
     else if (e.url.hash) {
-     qi.hashCollection = new DTA.HashCollection(e.url.hash);
+     qi.hashCollection = new DIA.HashCollection(e.url.hash);
     }
     else {
      qi.hashCollection = null; // to initialize prettyHash

@@ -11,27 +11,27 @@
 
 <?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://global/skin/toolbar.css" type="text/css"?>
-<?xml-stylesheet href="chrome://dta/skin/select/style.css" type="text/css"?>
-<?xml-stylesheet href="chrome://dta-platform/skin/select.css" type="text/css"?>
+<?xml-stylesheet href="chrome://dia/skin/select/style.css" type="text/css"?>
+<?xml-stylesheet href="chrome://dia-platform/skin/select.css" type="text/css"?>
 
 <!DOCTYPE dialog [
  <!ENTITY % globalDTD SYSTEM "chrome://global/locale/">
  %globalDTD;
- <!ENTITY % commonDTD SYSTEM "chrome://dta/locale/">
+ <!ENTITY % commonDTD SYSTEM "chrome://dia/locale/">
  %commonDTD;
- <!ENTITY % defcommonDTD SYSTEM "chrome://dta-locale/content/dta.dtd">
+ <!ENTITY % defcommonDTD SYSTEM "chrome://dia-locale/content/dia.dtd">
  %defcommonDTD;
- <!ENTITY % selectDTD SYSTEM "chrome://dta/locale/select.dtd">
+ <!ENTITY % selectDTD SYSTEM "chrome://dia/locale/select.dtd">
  %selectDTD;
- <!ENTITY % defselectDTD SYSTEM "chrome://dta-locale/content/select.dtd">
+ <!ENTITY % defselectDTD SYSTEM "chrome://dia-locale/content/select.dtd">
  %defselectDTD;
 ]>
 
 <window
  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
- title="Get'emAll! - &title;"
+ title="DownItAll! - &title;"
  width="675" height="575"
- id="DownThemAll"
+ id="DownItAll"
  class="selectlinks"
  onload="Dialog.load();"
  persist="width height screenX screenY"
@@ -39,12 +39,12 @@
 >
  <script type="application/x-javascript" src="chrome://global/content/globalOverlay.js"/>
 
- <script type="text/javascript" src="chrome://dta/content/common/internalFunctions.js" />
- <script type="text/javascript" src="chrome://dta/content/dta/select.js" />
+ <script type="text/javascript" src="chrome://dia/content/common/internalFunctions.js" />
+ <script type="text/javascript" src="chrome://dia/content/dia/select.js" />
 
- <stringbundleset xmlns="http://www.downthemall.net/properties#">
-  <stringbundle src="chrome://dta/locale/common.properties"/>
-  <stringbundle src="chrome://dta/locale/select.properties"/>
+ <stringbundleset xmlns="http://downitall.realityripple.com/properties#">
+  <stringbundle src="chrome://dia/locale/common.properties"/>
+  <stringbundle src="chrome://dia/locale/select.properties"/>
   <stringbundle src="chrome://global/locale/dialog.properties"/>
  </stringbundleset>
 
@@ -128,7 +128,7 @@
    <toolbarbutton class="toolbarbuttonDown" id="viewpics" label="&tab.media.label;" command="cmdChangeToImages" />
   </toolbar>
  </toolbox>
- <vbox id="dta-select" flex="1">
+ <vbox id="dia-select" flex="1">
   <notificationbox id="notifications" flex="1">
    <tree
     id="urlList"

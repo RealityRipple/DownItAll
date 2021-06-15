@@ -7,7 +7,7 @@ const EXPORTED_SYMBOLS = [
  'getMostRecent', 'getMostRecentByUrl', 'getAllByType',
  'openExternal', 'openUrl', 'tryOpenUrl', 'openWindow',
  'addListener', 'removeListener',
- 'showNotice', 'showAbout', 'showPreferences', 'showToolbarInstall'
+ 'showPreferences', 'showToolbarInstall'
 ];
 
 const Prefs = require("preferences");
@@ -162,17 +162,11 @@ function removeListener(listener) {
  Services.wm.removeListener(listener);
 }
 
-function showNotice(window) {
- openUrl(window, 'about:downthemall#privacy');
-}
-function showAbout(window) {
- openUrl(window, 'about:downthemall');
-}
 function showPreferences(window, pane, command) {
  var instantApply = Prefs.get("browser.preferences.instantApply", false);
  window.openDialog(
-  'chrome://dta/content/preferences/prefs.xul',
-  'dtaPrefs',
+  'chrome://dia/content/preferences/prefs.xul',
+  'diaPrefs',
   'chrome,titlebar,toolbar,resizable,centerscreen'+ (instantApply ? ',dialog=no' : ''),
   pane,
   command
@@ -180,7 +174,7 @@ function showPreferences(window, pane, command) {
 }
 function showToolbarInstall(browserWindow) {
  browserWindow.openDialog(
-  "chrome://dta/content/integration/toolbarinstall.xul",
+  "chrome://dia/content/integration/toolbarinstall.xul",
   null,
   "chrome,dialog,centerscreen");
 }
@@ -189,7 +183,7 @@ for (let i of [
  'getMostRecent', 'getMostRecentByUrl', 'getAllByType',
  'openExternal', 'openUrl', 'tryOpenUrl', 'openWindow',
  'addListener', 'removeListener',
- 'showNotice', 'showAbout', 'showPreferences', 'showToolbarInstall'
+ 'showPreferences', 'showToolbarInstall'
 ]) {
  exports[i] = this[i];
 }

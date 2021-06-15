@@ -2,7 +2,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-/* dTa-only code! - DO NOT include in overlays or such! */
+/* DiA-only code! - DO NOT include in overlays or such! */
 "use strict";
 /* jshint strict:true, globalstrict:true, browser:true */
 /* global _, Cc:true, Ci:true, Cr:true, Cu:true, ctor:true, Exception:true */
@@ -15,7 +15,7 @@ var Exception = Components.Exception;
 
 // shared state defines
 
-Cu.import("chrome://dta-modules/content/glue.jsm", this);
+Cu.import("chrome://dia-modules/content/glue.jsm", this);
 (function() {
  for (let [k,v] in new Iterator(require("constants"))) {
   Object.defineProperty(this, k, {value: v, enumerable:true});
@@ -26,7 +26,7 @@ var Mediator = require("support/mediator");
 var {FilterManager} = require("support/filtermanager");
 var {toURI, toURL} = require("support/stringfuncs");
 var {unloadWindow} = require("support/overlays");
-var DTA = require("api");
+var DIA = require("api");
 
 function showPreferences(pane, command) {
  return Mediator.showPreferences(window, pane, command);

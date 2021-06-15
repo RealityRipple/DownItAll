@@ -11,19 +11,19 @@
 <?xul-overlay href="chrome://browser/content/baseMenuOverlay.xul"?>
 
 <!DOCTYPE overlay [
- <!ENTITY % mainmenuDTD SYSTEM "chrome://dta/locale/mainmenu.dtd">
+ <!ENTITY % mainmenuDTD SYSTEM "chrome://dia/locale/mainmenu.dtd">
  %mainmenuDTD;
- <!ENTITY % defmainmenuDTD SYSTEM "chrome://dta-locale/content/mainmenu.dtd">
+ <!ENTITY % defmainmenuDTD SYSTEM "chrome://dia-locale/content/mainmenu.dtd">
  %defmainmenuDTD;
- <!ENTITY % managerDTD SYSTEM "chrome://dta/locale/manager.dtd">
+ <!ENTITY % managerDTD SYSTEM "chrome://dia/locale/manager.dtd">
  %managerDTD;
- <!ENTITY % defmanagerDTD SYSTEM "chrome://dta-locale/content/manager.dtd">
+ <!ENTITY % defmanagerDTD SYSTEM "chrome://dia-locale/content/manager.dtd">
  %defmanagerDTD;
 ]>
 
-<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" id="dtamanagerplatformoverlay">
+<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" id="diamanagerplatformoverlay">
  <!-- XXX: re-enable fullscreenbutton once more stable -->
- <window id="DownThemAll" fullscreenbutton="false">
+ <window id="DownItAll" fullscreenbutton="false">
   <stringbundleset id="stringbundleset" />
   <keyset id="baseMenuKeyset" />
   <commandset id="baseMenuCommandSet" />

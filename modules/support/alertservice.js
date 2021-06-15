@@ -30,9 +30,9 @@ function XULAlertsService() {
  // The implementation should be kept in sync.
 }
 XULAlertsService.prototype = Object.freeze({
- classDescription: "Get'emAll! xul alerts service",
+ classDescription: "DownItAll! xul alerts service",
  classID: Components.ID('{066c7f30-ba84-11e3-a5e2-0800200c9a66}'),
- contractID: '@downthemall.net/xul-alerts-service;1',
+ contractID: '@downitall.realityripple.com/xul-alerts-service;1',
 
  QueryInterface: QI([Ci.nsIAlertsService]),
 
@@ -89,7 +89,7 @@ let supportsClickable = true;
  catch (ex) {
   log(LOG_DEBUG, "Using xul alerts service because: ", ex);
   supportsClickable = true;
-  service = Cc['@downthemall.net/xul-alerts-service;1'].getService(Ci.nsIAlertsService);
+  service = Cc['@downitall.realityripple.com/xul-alerts-service;1'].getService(Ci.nsIAlertsService);
  }
 })();
 
@@ -109,13 +109,13 @@ exports.show = function alertservice_show(title, msg, callback, icon) {
   }
 
   service.showAlertNotification(
-   icon || "chrome://dtaicon/content/icon64.png",
+   icon || "chrome://diaicon/content/icon64.png",
    title,
    msg,
    clickable,
-   "downthemall",
+   "downitall",
    obs,
-   "@downthemall.net/" + Date.now().toString()
+   "@downitall.realityripple.com/" + Date.now().toString()
    );
  }
  catch (ex if ex.result === Cr.NS_ERROR_NOT_IMPLEMENTED) {

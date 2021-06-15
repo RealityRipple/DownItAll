@@ -6,7 +6,7 @@
 const BUFFER_SIZE = 5 * 1024 * 1024;
 const FREQ = 250;
 
-const DTA = require("api");
+const DIA = require("api");
 const {TimerManager} = require("support/timers");
 const Prefs = require("preferences");
 

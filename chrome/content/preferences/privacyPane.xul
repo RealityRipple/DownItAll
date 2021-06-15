@@ -9,9 +9,9 @@
  *
  * ***** END LICENSE BLOCK ***** -->
 <!DOCTYPE window [
- <!ENTITY % prefsDTD SYSTEM "chrome://dta/locale/prefpanes.dtd">
+ <!ENTITY % prefsDTD SYSTEM "chrome://dia/locale/prefpanes.dtd">
  %prefsDTD;
- <!ENTITY % defprefsDTD SYSTEM "chrome://dta-locale/content/prefpanes.dtd">
+ <!ENTITY % defprefsDTD SYSTEM "chrome://dia-locale/content/prefpanes.dtd">
  %defprefsDTD;
 ]>
 <overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
@@ -20,19 +20,19 @@
  <prefpane id="panePrivacy" label="&privacypane.label;"
   onpaneload="Privacy.load();" orient="vertical">
   <preferences>
-   <preference id="dtarmcomp" name="extensions.dta.removecompleted"
+   <preference id="diarmcomp" name="extensions.dia.removecompleted"
     type="bool" />
-   <preference id="dtarmcanc" name="extensions.dta.removecanceled"
+   <preference id="diarmcanc" name="extensions.dia.removecanceled"
     type="bool" />
-   <preference id="dtarmabort" name="extensions.dta.removeaborted"
+   <preference id="diarmabort" name="extensions.dia.removeaborted"
     type="bool" />
-   <preference id="dtadonation" name="extensions.dta.infophrases"
+   <preference id="diadonation" name="extensions.dia.infophrases"
     type="bool" />
-   <preference id="dtastatistics" name="extensions.dta.statistics"
+   <preference id="diastatistics" name="extensions.dia.statistics"
     type="bool" />
-   <preference id="dtadump" name="extensions.dta.logging"
+   <preference id="diadump" name="extensions.dia.logging"
     type="bool" />
-   <preference id="dtahistory" name="extensions.dta.history"
+   <preference id="diahistory" name="extensions.dia.history"
     type="int" />
   </preferences>
 
@@ -46,15 +46,15 @@
      <groupbox>
       <caption id="closing" label="&privacypane.closing.caption;" />
       <checkbox id="removecompleted" label="&privacypane.removecompleted2.label;"
-       preference="dtarmcomp" />
+       preference="diarmcomp" />
       <checkbox id="removecanceled" label="&privacypane.removecanceled2.label;"
-       preference="dtarmcanc" />
+       preference="diarmcanc" />
       <checkbox id="removeaborted" label="&privacypane.removeaborted2.label;"
-       preference="dtarmabort" />
+       preference="diarmabort" />
      </groupbox>
 
      <groupbox>
-      <caption id="dtaddown" label="&privacypane.dropdowns.caption;" />
+      <caption id="diaddown" label="&privacypane.dropdowns.caption;" />
       <vbox flex="1" align="center">
        <label value="&privacypane.dropdownresults2.label;" flex="1"
         control="history" />
@@ -76,7 +76,7 @@
   </grid>
   <groupbox orient="vertical">
    <caption label="&privacypane.logs.caption;" />
-   <checkbox label="&privacypane.enablelogs.label;" preference="dtadump" />
+   <checkbox label="&privacypane.enablelogs.label;" preference="diadump" />
    <spacer flex="1" />
    <hbox class="clears">
     <button id="butShowLog" label="&privacypane.showlog.label;"
@@ -86,13 +86,6 @@
     <button id="butDelLog" label="&privacypane.deletelog.label;"
      oncommand="Privacy.deleteLog();" />
    </hbox>
-  </groupbox>
-
-  <groupbox>
-   <caption label="&privacypane.notice.caption;" />
-   <description value="&privacypane.notice.desc;" />
-   <label class="text-link" value="&privacypane.privacynotice.label;"
-    onclick="Privacy.showNotice();" />
   </groupbox>
  </prefpane>
 </overlay>

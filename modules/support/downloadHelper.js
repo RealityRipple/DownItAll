@@ -10,7 +10,7 @@ if (available) {
  lazy(this, "getUsableFileNameWithFlatten", () => require("./stringfuncs").getUsableFileNameWithFlatten);
  lazy(this, "utils", () => require("utils"));
  lazy(this, "bundle",
-  () => new (require("utils").StringBundles)(["chrome://dta/locale/downloadHelper.properties"]));
+  () => new (require("utils").StringBundles)(["chrome://dia/locale/downloadHelper.properties"]));
  lazy(this, "isWindowPrivate", () => require("./pbm").isWindowPrivate);
 
  const core = Cc["@downloadhelper.net/core;1"].getService(Ci.dhICore);
@@ -30,7 +30,7 @@ if (available) {
 
   QueryInterface: QI([Ci.dhIProcessor, Ci.sehISecretHelperProcessorExtra]),
 
-  get provider() { return "Get'emAll!"; },
+  get provider() { return "DownItAll!"; },
   get enabled() { return true; },
 
   canHandle: function(desc) { return desc.has("media-url") || desc.has("links"); },
@@ -121,11 +121,11 @@ if (available) {
  const processors = [];
 
  processors.push(new ProcessorImpl(
-  false, "dta-regular",
-  bundle.getString('dta-regular'), bundle.getString('dta-regular-desc')
+  false, "dia-regular",
+  bundle.getString('dia-regular'), bundle.getString('dia-regular-desc')
   ));
  processors.push(new ProcessorImpl(
-  true, "dta-turbo",
-  bundle.getString('dta-turbo'), bundle.getString('dta-turbo-desc')
+  true, "dia-turbo",
+  bundle.getString('dia-turbo'), bundle.getString('dia-turbo-desc')
   ));
 }

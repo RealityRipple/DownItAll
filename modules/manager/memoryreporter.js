@@ -62,7 +62,7 @@ MemoryReporter.prototype = {
   // KIND_OTHER to stay forwards-compatible.
   callback.callback(
    this.process,
-   "downthemall-downloads-memory-pending",
+   "downitall-downloads-memory-pending",
    Ci.nsIMemoryReporter.KIND_OTHER,
    Ci.nsIMemoryReporter.UNITS_BYTES,
    this._pendingBytes,
@@ -71,7 +71,7 @@ MemoryReporter.prototype = {
    );
   callback.callback(
    this.process,
-   "downthemall-connections-active",
+   "downitall-connections-active",
    Ci.nsIMemoryReporter.KIND_OTHER,
    Ci.nsIMemoryReporter.UNITS_COUNT,
    this._chunksActive,
@@ -80,7 +80,7 @@ MemoryReporter.prototype = {
    );
   callback.callback(
    this.process,
-   "downthemall-connections-suspended",
+   "downitall-connections-suspended",
    Ci.nsIMemoryReporter.KIND_OTHER,
    Ci.nsIMemoryReporter.UNITS_COUNT,
    this._chunksScheduled,
@@ -89,16 +89,16 @@ MemoryReporter.prototype = {
    );
   callback.callback(
    this.process,
-   "downthemall-connections-total",
+   "downitall-connections-total",
    Ci.nsIMemoryReporter.KIND_OTHER,
    Ci.nsIMemoryReporter.UNITS_COUNT,
    this.chunks.length,
-   "Total number of connections that are currently in use by Get'emAll!.",
+   "Total number of connections that are currently in use by DownItAll!.",
    closure
    );
   callback.callback(
    this.process,
-   "downthemall-session-connections",
+   "downitall-session-connections",
    Ci.nsIMemoryReporter.KIND_OTHER,
    Ci.nsIMemoryReporter.UNITS_COUNT_CUMULATIVE,
    this.session.chunks,
@@ -107,7 +107,7 @@ MemoryReporter.prototype = {
    );
   callback.callback(
    this.process,
-   "downthemall-session-bytes",
+   "downitall-session-bytes",
    Ci.nsIMemoryReporter.KIND_OTHER,
    Ci.nsIMemoryReporter.UNITS_BYTES,
    this.session.written,

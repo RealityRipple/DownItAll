@@ -9,25 +9,25 @@
  *
  * ***** END LICENSE BLOCK ***** -->
 <?xml-stylesheet href="chrome://global/skin" type="text/css"?>
-<?xml-stylesheet href="chrome://dta/skin/preferences/style.css"?>
-<?xml-stylesheet href="chrome://dta-platform/skin/preferences.css"?>
+<?xml-stylesheet href="chrome://dia/skin/preferences/style.css"?>
+<?xml-stylesheet href="chrome://dia-platform/skin/preferences.css"?>
 
 <!DOCTYPE window [
- <!ENTITY % commonDTD SYSTEM "chrome://dta/locale/">
+ <!ENTITY % commonDTD SYSTEM "chrome://dia/locale/">
  %commonDTD;
- <!ENTITY % defcommonDTD SYSTEM "chrome://dta-locale/content/dta.dtd">
+ <!ENTITY % defcommonDTD SYSTEM "chrome://dia-locale/content/dia.dtd">
  %defcommonDTD;
- <!ENTITY % prefsDTD SYSTEM "chrome://dta/locale/prefpanes.dtd">
+ <!ENTITY % prefsDTD SYSTEM "chrome://dia/locale/prefpanes.dtd">
  %prefsDTD;
- <!ENTITY % defprefsDTD SYSTEM "chrome://dta-locale/content/prefpanes.dtd">
+ <!ENTITY % defprefsDTD SYSTEM "chrome://dia-locale/content/prefpanes.dtd">
  %defprefsDTD;
 ]>
 
 <prefwindow
- id="DownThemAll"
+ id="DownItAll"
  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
- windowtype="DTA:Preferences"
- title="&dtaPreferences.title;"
+ windowtype="DIA:Preferences"
+ title="&diaPreferences.title;"
  buttons="accept,cancel,extra2,help"
  buttonlabelextra2="&buttonlabelextra2;"
  ondialogextra2="Prefs.restoreAll();"
@@ -35,19 +35,19 @@
  onload="Prefs.load();"
  style="&windowstyle.3;"
  >
- <stringbundleset id="bundlesPrefs" xmlns="http://www.downthemall.net/properties#">
-  <stringbundle src="chrome://dta/locale/common.properties" />
-  <stringbundle src="chrome://dta/locale/prefpanes.properties" />
+ <stringbundleset id="bundlesPrefs" xmlns="http://downitall.realityripple.com/properties#">
+  <stringbundle src="chrome://dia/locale/common.properties" />
+  <stringbundle src="chrome://dia/locale/prefpanes.properties" />
  </stringbundleset>
 
- <prefpane id="paneMain" label="&mainpane.label;" src="chrome://dta/content/preferences/mainPane.xul" />
- <prefpane id="paneInterface" label="&uipane.label;" src="chrome://dta/content/preferences/interfacePane.xul" />
- <prefpane id="paneServers" label="&serverspane.label;" src="chrome://dta/content/preferences/serversPane.xul" />
- <prefpane id="panePrivacy" label="&privacypane.label;" src="chrome://dta/content/preferences/privacyPane.xul" />
- <prefpane id="paneFilters" label="&filterspane.label;" src="chrome://dta/content/preferences/filtersPane.xul" />
- <prefpane id="paneSchedule" label="&schedpane.label;" src="chrome://dta/content/preferences/schedulePane.xul" />
- <prefpane id="paneAdvanced" label="&advancedpane.label;" src="chrome://dta/content/preferences/advPane.xul" />
+ <prefpane id="paneMain" label="&mainpane.label;" src="chrome://dia/content/preferences/mainPane.xul" />
+ <prefpane id="paneInterface" label="&uipane.label;" src="chrome://dia/content/preferences/interfacePane.xul" />
+ <prefpane id="paneServers" label="&serverspane.label;" src="chrome://dia/content/preferences/serversPane.xul" />
+ <prefpane id="panePrivacy" label="&privacypane.label;" src="chrome://dia/content/preferences/privacyPane.xul" />
+ <prefpane id="paneFilters" label="&filterspane.label;" src="chrome://dia/content/preferences/filtersPane.xul" />
+ <prefpane id="paneSchedule" label="&schedpane.label;" src="chrome://dia/content/preferences/schedulePane.xul" />
+ <prefpane id="paneAdvanced" label="&advancedpane.label;" src="chrome://dia/content/preferences/advPane.xul" />
 
- <script type="application/javascript" src="chrome://dta/content/common/internalFunctions.js"/>
- <script type="application/javascript" src="chrome://dta/content/preferences/prefs.js"/>
+ <script type="application/javascript" src="chrome://dia/content/common/internalFunctions.js"/>
+ <script type="application/javascript" src="chrome://dia/content/preferences/prefs.js"/>
 </prefwindow>

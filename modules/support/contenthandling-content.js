@@ -13,12 +13,12 @@ function handleGetURI(m) {
 }
 
 function handleShutdown() {
- removeMessageListener("DTA:ch:getURI", handleGetURI);
- removeMessageListener("DTA:ch:shutdown", handleShutdown);
+ removeMessageListener("DIA:ch:getURI", handleGetURI);
+ removeMessageListener("DIA:ch:shutdown", handleShutdown);
 
 }
 
-addMessageListener("DTA:ch:getURI", handleGetURI);
-addMessageListener("DTA:ch:shutdown", handleShutdown);
+addMessageListener("DIA:ch:getURI", handleGetURI);
+addMessageListener("DIA:ch:shutdown", handleShutdown);
 
 })();

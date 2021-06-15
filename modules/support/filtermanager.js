@@ -4,10 +4,10 @@
 "use strict";
 /*globals TextDecoder */
 
-const PREF_FILTERS_BASE = 'extensions.dta.filters.';
+const PREF_FILTERS_BASE = 'extensions.dia.filters.';
 const LINK_FILTER = (1<<0);
 const IMAGE_FILTER = (1<<1);
-const TOPIC_FILTERSCHANGED = 'DTA:filterschanged';
+const TOPIC_FILTERSCHANGED = 'DIA:filterschanged';
 
 const FILTERS_FILE = "filters.json";
 
@@ -87,7 +87,7 @@ function consolidateRegs(regs) {
 /**
  * FilterManager
  */
-// no not create DTA_Filter yourself, managed by FilterManager
+// no not create DIA_Filter yourself, managed by FilterManager
 function Filter(name) {
  this._id = name;
  this._expr = null;
@@ -319,7 +319,7 @@ FilterManagerImpl.prototype = {
   // load those localized labels for default filters.
   this._localizedLabels = {};
   let b = Services.strings
-   .createBundle("chrome://dta/locale/filters.properties");
+   .createBundle("chrome://dia/locale/filters.properties");
   let e = b.getSimpleEnumeration();
   while (e.hasMoreElements()) {
    let prop = e.getNext().QueryInterface(Ci.nsIPropertyElement);

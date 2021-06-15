@@ -16,10 +16,10 @@ const NS_XUL = 'http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul';
 exports.NS_XUL = NS_XUL;
 
 /**
- * Get'emAll! Properties namespace
+ * DownItAll! Properties namespace
  */
-const NS_DTA = 'http://www.downthemall.net/properties#';
-exports.NS_DTA = NS_DTA;
+const NS_DIA = 'http://downitall.realityripple.com/properties#';
+exports.NS_DIA = NS_DIA;
 
 /**
  * XHTML namespace
@@ -472,8 +472,8 @@ function _loadBundles(urls) {
   for (let s of new SimpleIterator(bundle(url), Ci.nsIPropertyElement)) {
    strings[s.key] = s.value;
   }
-  if (uri.host === "dta") {
-   url = "chrome://dta-locale" + uri.path.replace("/locale/", "/content/");
+  if (uri.host === "dia") {
+   url = "chrome://dia-locale" + uri.path.replace("/locale/", "/content/");
    log(LOG_DEBUG, "also loading: " + url);
    for (let s of new SimpleIterator(bundle(url), Ci.nsIPropertyElement)) {
     let k = s.key;
@@ -520,7 +520,7 @@ function StringBundles(documentOrStrings) {
  }
  else {
   this._strings = _loadBundles(Array.map(
-   documentOrStrings.getElementsByTagNameNS(NS_DTA, 'stringbundle'),
+   documentOrStrings.getElementsByTagNameNS(NS_DIA, 'stringbundle'),
    e => e.getAttribute('src')
   ).concat(
    Array.map(
@@ -633,8 +633,8 @@ exports.reveal = function reveal(file) {
 
 /**
  * Convert metalink priorities to start from 1 and give more weitage to ones with lower prioroty,
- * to dta preferences
- * @param array of DTA.URL
+ * to dia preferences
+ * @param array of DIA.URL
  */
 exports.normalizeMetaPrefs = function(urls) {
  if (!urls || !urls.length) {

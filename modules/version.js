@@ -3,11 +3,10 @@
  * You can obtain one at http://mozilla.org/MPL/2.0/ */
 "use strict";
 
-const ID = "{4F45AB64-73D7-4BDE-B9E6-0922ABE8E11A}"
+const ID = "{C0BDE00B-B7AB-5D45-B456-814ED225513F}"
 let _callbacks = [];
 
 Object.defineProperties(exports, {
- TOPIC_SHOWABOUT: {value: "DTA:showAbout", enumerable: true},
  ID: {value: ID, enumerable: true},
  LOCALE: {
   value: Cc["@mozilla.org/chrome/chrome-registry;1"]
@@ -21,9 +20,8 @@ Object.defineProperties(exports, {
  APP_ID: {value: Services.appinfo.ID, enumerable: true},
  VERSION: {value: "0.0", enumerable: true, writable: true},
  BASE_VERSION: {value: "0.0", enumerable: true, writable: true},
- NAME: {value: "Get'emAll!", enumerable: true, writable: true},
+ NAME: {value: "DownItAll!", enumerable: true, writable: true},
  ready: {value: false, enumerable: true, writable: true},
- showAbout: {value: null, enumerable: true, writable: true},
  compareVersion: {value: function(version, cmp) {
   if (!cmp) {
    [version, cmp] = [exports.VERSION, version];

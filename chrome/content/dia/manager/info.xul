@@ -9,31 +9,31 @@
  *
  * ***** END LICENSE BLOCK ***** -->
 <?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://dta/skin/common/style.css" type="text/css" ?>
-<?xml-stylesheet href="chrome://dta/skin/manager/info.css" type="text/css" ?>
-<?xul-overlay href="chrome://dta/content/dta/manager/tooltip.xul"?>
+<?xml-stylesheet href="chrome://dia/skin/common/style.css" type="text/css" ?>
+<?xml-stylesheet href="chrome://dia/skin/manager/info.css" type="text/css" ?>
+<?xul-overlay href="chrome://dia/content/dia/manager/tooltip.xul"?>
 
 <!DOCTYPE dialog [
- <!ENTITY % commonDTD SYSTEM "chrome://dta/locale/">
+ <!ENTITY % commonDTD SYSTEM "chrome://dia/locale/">
  %commonDTD;
- <!ENTITY % defcommonDTD SYSTEM "chrome://dta-locale/content/dta.dtd">
+ <!ENTITY % defcommonDTD SYSTEM "chrome://dia-locale/content/dia.dtd">
  %defcommonDTD;
- <!ENTITY % managerDTD SYSTEM "chrome://dta/locale/manager.dtd">
+ <!ENTITY % managerDTD SYSTEM "chrome://dia/locale/manager.dtd">
  %managerDTD;
- <!ENTITY % defmanagerDTD SYSTEM "chrome://dta-locale/content/manager.dtd">
+ <!ENTITY % defmanagerDTD SYSTEM "chrome://dia-locale/content/manager.dtd">
  %defmanagerDTD;
 ]>
 
-<dialog xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" title="&infoMultiple.value;" id="DownThemAll" buttons="accept,cancel" ondialogaccept="return Dialog.accept();">
+<dialog xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" title="&infoMultiple.value;" id="DownItAll" buttons="accept,cancel" ondialogaccept="return Dialog.accept();">
 
  <script type="application/x-javascript" src="chrome://global/content/nsUserSettings.js" />
 
- <script type="application/javascript" src="chrome://dta/content/common/internalFunctions.js" />
- <script type="application/javascript" src="chrome://dta/content/dta/manager/info.js" />
- <script type="application/javascript" src="chrome://dta/content/dta/manager/utils.js" />
+ <script type="application/javascript" src="chrome://dia/content/common/internalFunctions.js" />
+ <script type="application/javascript" src="chrome://dia/content/dia/manager/info.js" />
+ <script type="application/javascript" src="chrome://dia/content/dia/manager/utils.js" />
 
- <stringbundleset xmlns="http://www.downthemall.net/properties#">
-  <stringbundle src="chrome://dta/locale/common.properties" />
+ <stringbundleset xmlns="http://downitall.realityripple.com/properties#">
+  <stringbundle src="chrome://dia/locale/common.properties" />
  </stringbundleset>
 
  <keyset>

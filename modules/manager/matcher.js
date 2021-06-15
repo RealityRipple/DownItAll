@@ -14,8 +14,8 @@ const {
 
 const _ = (function(global) {
  let bundles = new StringBundles([
-  "chrome://dta/locale/common.properties",
-  "chrome://dta/locale/manager.properties"
+  "chrome://dia/locale/common.properties",
+  "chrome://dia/locale/manager.properties"
   ]);
  return function() {
   if (arguments.length === 1) {

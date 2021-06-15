@@ -20,7 +20,7 @@ function uninstall() {
 function startup(data) {
  // will unload itself
  let _g = {};
- Components.utils.import("chrome://dta-modules/content/glue.jsm", _g);
+ Components.utils.import("chrome://dia-modules/content/glue.jsm", _g);
 
  if (AddonManager.addUpgradeListener && data.instanceID) {
   AddonManager.addUpgradeListener(data.instanceID, upgrade => {
@@ -48,7 +48,7 @@ function shutdown(data, reason) {
   return;
  }
  let _g = {};
- Components.utils.import("chrome://dta-modules/content/glue.jsm", _g);
+ Components.utils.import("chrome://dia-modules/content/glue.jsm", _g);
  _g.unload("shutdown", reason === ADDON_UPGRADE);
- Components.utils.unload("chrome://dta-modules/content/glue.jsm");
+ Components.utils.unload("chrome://dia-modules/content/glue.jsm");
 }

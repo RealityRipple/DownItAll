@@ -4,9 +4,9 @@
  - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
 
 <!DOCTYPE bindings [
- <!ENTITY % prefsDTD SYSTEM "chrome://dta/locale/prefpanes.dtd">
+ <!ENTITY % prefsDTD SYSTEM "chrome://dia/locale/prefpanes.dtd">
  %prefsDTD;
- <!ENTITY % defprefsDTD SYSTEM "chrome://dta-locale/content/prefpanes.dtd">
+ <!ENTITY % defprefsDTD SYSTEM "chrome://dia-locale/content/prefpanes.dtd">
  %defprefsDTD;
 ]>
 <bindings xmlns="http://www.mozilla.org/xbl" xmlns:xbl="http://www.mozilla.org/xbl" xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
@@ -45,7 +45,7 @@
    </method>
   </implementation>
  </binding>
- <binding id="serverlimit" extends="chrome://dta/content/preferences/bindings.xml#serverlimit-base">
+ <binding id="serverlimit" extends="chrome://dia/content/preferences/bindings.xml#serverlimit-base">
   <content>
    <xul:grid flex="1">
     <xul:columns>
@@ -78,7 +78,7 @@
    <property name="segments" onget="return parseInt(this.getAttribute('segments'));" />
   </implementation>
  </binding>
- <binding id="serverlimit-selected" extends="chrome://dta/content/preferences/bindings.xml#serverlimit-base">
+ <binding id="serverlimit-selected" extends="chrome://dia/content/preferences/bindings.xml#serverlimit-base">
   <content>
    <xul:hbox flex="1">
     <xul:grid flex="1">
@@ -142,7 +142,7 @@
    ]]></handler>
   </handlers>
  </binding>
- <binding id="serverlimit-editing" extends="chrome://dta/content/preferences/bindings.xml#serverlimit-base">
+ <binding id="serverlimit-editing" extends="chrome://dia/content/preferences/bindings.xml#serverlimit-base">
   <content>
    <xul:hbox flex="1">
     <xul:grid flex="1" class="serverlimit-grid">

@@ -5,9 +5,9 @@
 <!DOCTYPE bindings [
  <!ENTITY % globalDTD SYSTEM "chrome://global/locale/global.dtd">
  %globalDTD;
- <!ENTITY % mirrorsDTD SYSTEM "chrome://dta/locale/mirrors.dtd">
+ <!ENTITY % mirrorsDTD SYSTEM "chrome://dia/locale/mirrors.dtd">
  %mirrorsDTD;
- <!ENTITY % defmirrorsDTD SYSTEM "chrome://dta-locale/content/mirrors.dtd">
+ <!ENTITY % defmirrorsDTD SYSTEM "chrome://dia-locale/content/mirrors.dtd">
  %defmirrorsDTD;
 ]>
 
@@ -109,7 +109,7 @@
     <body><![CDATA[
      try {
       let glue = {};
-      Components.utils.import("chrome://dta-modules/content/glue.jsm", glue);
+      Components.utils.import("chrome://dia-modules/content/glue.jsm", glue);
       this.hist = glue.require("support/historymanager").getHistory(this._pref, this.isPrivate);
      }
      catch (ex) {
@@ -250,7 +250,7 @@
   <implementation>
    <constructor><![CDATA[
     this._typemap = {};
-    for (x in DTA.SUPPORTED_HASHES) {
+    for (x in DIA.SUPPORTED_HASHES) {
      var e = document.createElement('menuitem');
      e.setAttribute('value', x);
      e.setAttribute('label', x);
@@ -273,7 +273,7 @@
     <getter><![CDATA[
      try {
       if (this._hash.value.length) {
-       new DTA.Hash(this._hash.value, this._type.value);
+       new DIA.Hash(this._hash.value, this._type.value);
       }
       return true;
      }
@@ -285,7 +285,7 @@
    <property name="value">
     <getter><![CDATA[
      if (this._hash.value.length) {
-      return new DTA.Hash(this._hash.value, this._type.value);
+      return new DIA.Hash(this._hash.value, this._type.value);
      }
      return null;
     ]]></getter>
@@ -507,7 +507,7 @@
    <property name="charset" onget="return this.getAttribute('charset');"/>
   </implementation>
  </binding>
- <binding id="mirror-item" extends="chrome://dta/content/common/bindings.xml#mirror-item-base">
+ <binding id="mirror-item" extends="chrome://dia/content/common/bindings.xml#mirror-item-base">
   <content>
    <xul:vbox pack="center">
     <xul:hbox pack="center">
@@ -547,7 +547,7 @@
    ]]></handler>
   </handlers>
  </binding>
- <binding id="mirror-item-editing" extends="chrome://dta/content/common/bindings.xml#mirror-item-base">
+ <binding id="mirror-item-editing" extends="chrome://dia/content/common/bindings.xml#mirror-item-base">
   <content>
    <xul:vbox pack="center">
     <xul:hbox pack="center">

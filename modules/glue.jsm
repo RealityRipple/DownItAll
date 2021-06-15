@@ -47,7 +47,7 @@ var QI = XPCOMUtils.generateQI.bind(XPCOMUtils);
 function canUnload() {
   let cancel = new Instances.SupportsBool();
   cancel.data = false;
-  Services.obs.notifyObservers(cancel, "DTA:upgrade", null);
+  Services.obs.notifyObservers(cancel, "DIA:upgrade", null);
   if (cancel.data) {
    return false;
   }
@@ -512,7 +512,7 @@ LRUMap.prototype = Object.freeze({
    logging.setLogLevel(getExt("logging") ? logging.LOG_DEBUG : logging.LOG_NONE);
   }
  };
- addObserver("extensions.dta.logging", LogPrefObs);
+ addObserver("extensions.dia.logging", LogPrefObs);
  LogPrefObs.observe();
  exports.require("version").getInfo(function setupVersion(v) {
   log(

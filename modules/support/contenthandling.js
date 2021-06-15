@@ -3,7 +3,7 @@
  * You can obtain one at http://mozilla.org/MPL/2.0/. */
 "use strict";
 
-const PREF_SNIFFVIDEOS = 'extensions.dta.listsniffedvideos';
+const PREF_SNIFFVIDEOS = 'extensions.dia.listsniffedvideos';
 
 const HEADER_CT = ['Content-Type', 'Content-Disposition'];
 
@@ -51,9 +51,9 @@ function ContentHandlingImpl() {
  this._init();
 }
 ContentHandlingImpl.prototype = {
- classDescription: "Get'emAll! ContentHandling",
+ classDescription: "DownItAll! ContentHandling",
  classID: Components.ID("366982b8-9db9-4383-aae7-dbc2f40ba6f6"),
- contractID: "@downthemall.net/content/redirects;1",
+ contractID: "@downitall.realityripple.com/content/redirects;1",
  xpcom_categories: ["net-channel-event-sinks"],
 
  QueryInterface: QI([Ci.nsIObserver, Ci.nsIURIContentListener, Ci.nsIFactory, Ci.nsIChannelEventSink]),
@@ -76,17 +76,17 @@ ContentHandlingImpl.prototype = {
   this.getUriJob = 0;
   this.globalMM = Cc["@mozilla.org/globalmessagemanager;1"]
    .getService(Ci.nsIMessageListenerManager);
-  let fs = "chrome://dta-modules/content/support/contenthandling-content.js?" + (+new Date());
+  let fs = "chrome://dia-modules/content/support/contenthandling-content.js?" + (+new Date());
   this.globalMM.loadFrameScript(fs, true);
   unload(() => {
-   this.globalMM.broadcastAsyncMessage("DTA:ch:shutdown");
+   this.globalMM.broadcastAsyncMessage("DIA:ch:shutdown");
    this.globalMM.removeDelayedFrameScript(fs);
   });
   unload(this._uninit.bind(this));
  },
 
  _uninit: function ct__uninit() {
-  Services.prefs.removeObserver('extensions.dta.listsniffedvideos', this);
+  Services.prefs.removeObserver('extensions.dia.listsniffedvideos', this);
   if (this.sniffVideos) {
    this.sniffVideos = false;
    this.unregisterHttpObservers();
@@ -229,12 +229,12 @@ ContentHandlingImpl.prototype = {
         let tfe = lc.topFrameElement;
         let mm = tfe.messageManager;
         let wnd = yield new Promise((resolve, reject) => {
-         let topic = `DTA::getURI:${this.getUriJob++}`;
+         let topic = `DIA::getURI:${this.getUriJob++}`;
          mm.addMessageListener(topic, function load(m) {
           mm.removeMessageListener(topic, load);
           resolve(m.data);
          });
-         mm.sendAsyncMessage("DTA:ch:getURI", {
+         mm.sendAsyncMessage("DIA:ch:getURI", {
           topic: topic
          });
         });

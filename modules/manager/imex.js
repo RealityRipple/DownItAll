@@ -3,11 +3,11 @@
  * You can obtain one at http://mozilla.org/MPL/2.0/ */
 "use strict";
 
-const DTA = require("api");
+const DIA = require("api");
 const Preferences = require("preferences");
 const {getTextLinks} = require("support/textlinks");
 const Version = require("version");
-const {NS_DTA, NS_METALINKER3, NS_METALINK_RFC5854} = require("support/metalinker");
+const {NS_DIA, NS_METALINKER3, NS_METALINK_RFC5854} = require("support/metalinker");
 const {filterInSitu} = require("utils");
 
 const XPathResult = Ci.nsIDOMXPathResult;
@@ -20,7 +20,7 @@ exports.parseTextFile = function parseTextFile(aFile, cb) {
   for (let l of getTextLinks(req.responseText, false)) {
    l = Services.io.newURI(l, null, null);
    links.push({
-    url: new DTA.URL(l),
+    url: new DIA.URL(l),
     referrer: null,
     description: 'imported from ' + aFile.leafName,
     isPrivate: false
@@ -53,7 +53,7 @@ exports.exportToTextFile = function exportToTextFile(aDownloads, aFile, aPermiss
 
 exports.exportToHtmlFile = function exportToHtmlFile(aDownloads, aDocument, aFile, aPermissions) {
  // do not localize?!
- let title = "Get'emAll: exported on " + (new Date).toUTCString();
+ let title = "DownItAll: exported on " + (new Date).toUTCString();
 
  let doctype = aDocument.implementation.createDocumentType('html', null, null);
  let document = aDocument.implementation.createDocument('http://www.w3.org/1999/xhtml', 'html', doctype);
@@ -74,7 +74,7 @@ exports.exportToHtmlFile = function exportToHtmlFile(aDownloads, aDocument, aFil
   n = document.createElement('link');
   n.setAttribute('rel', 'stylesheet');
   n.setAttribute('type', 'text/css');
-  n.setAttribute('href', 'chrome://dta-public/skin/exporthtml.css');
+  n.setAttribute('href', 'chrome://dia-public/skin/exporthtml.css');
   head.appendChild(n);
 
   root.appendChild(head);
@@ -133,8 +133,8 @@ exports.exportToHtmlFile = function exportToHtmlFile(aDownloads, aDocument, aFil
   let foot = document.createElement('p');
   foot.appendChild(document.createTextNode('Exported by '));
   n = document.createElement('a');
-  n.setAttribute('href', 'https://deusrex.neocities.org/xul/getemall/getemall.html');
-  n.textContent = "Get'emAll! " + "Version.VERSION";
+  n.setAttribute('href', 'https://realityripple.com/Software/Mozilla-Extensions/DownItAll/');
+  n.textContent = "DownItAll! " + "Version.VERSION";
   foot.appendChild(n);
   body.appendChild(foot);
 
@@ -152,25 +152,25 @@ exports.exportToMetalinkFile = function exportToMetalinkFile(aDownloads, aDocume
  let root = document.documentElement;
  root.setAttribute('type', 'static');
  root.setAttribute('version', '3.0');
- root.setAttribute('generator', "Get'emAll!/" + Version.BASE_VERSION);
- root.setAttributeNS(NS_DTA, 'version', Version.VERSION);
+ root.setAttribute('generator', "DownItAll!/" + Version.BASE_VERSION);
+ root.setAttributeNS(NS_DIA, 'version', Version.VERSION);
  root.setAttribute('pubdate', new Date().toUTCString());
 
  root.appendChild(document.createComment(
-   "metalink as exported by Get'emAll! on " +
+   "metalink as exported by DownItAll! on " +
    Version.APP_NAME + "/" + Version.APP_VERSION +
-   "\r\nMay contain Get'emAll! specific information in the Get'emAll! namespace: " +
-   NS_DTA
+   "\r\nMay contain DownItAll! specific information in the DownItAll! namespace: " +
+   NS_DIA
    ));
 
  let files = document.createElementNS(NS_METALINKER3, 'files');
  for (let d of aDownloads) {
   let f = document.createElementNS(NS_METALINKER3, 'file');
   f.setAttribute('name', d.fileName);
-  f.setAttributeNS(NS_DTA, 'num', d.bNum);
-  f.setAttributeNS(NS_DTA, 'startDate', d.startDate.getTime());
+  f.setAttributeNS(NS_DIA, 'num', d.bNum);
+  f.setAttributeNS(NS_DIA, 'startDate', d.startDate.getTime());
   if (d.referrer) {
-   f.setAttributeNS(NS_DTA, 'referrer', d.referrer.spec);
+   f.setAttributeNS(NS_DIA, 'referrer', d.referrer.spec);
   }
 
   if (d.description) {
@@ -184,7 +184,7 @@ exports.exportToMetalinkFile = function exportToMetalinkFile(aDownloads, aDocume
    let t = u.spec.match(/^(\w+):/);
    n.setAttribute('type', t[1]);
    n.setAttribute('preference', u.preference);
-   n.setAttributeNS(NS_DTA, 'usable', u.usable);
+   n.setAttributeNS(NS_DIA, 'usable', u.usable);
    n.textContent = u.spec;
    r.appendChild(n);
   }
@@ -221,17 +221,17 @@ exports.exportToMetalink4File = function exportToMetalink4File(aDownloads, aDocu
  let document = aDocument.implementation.createDocument(NS_METALINK_RFC5854, 'metalink', null);
  let root = document.documentElement;
  root.setAttribute('version', '4.0');
- root.setAttributeNS(NS_DTA, 'version', Version.VERSION);
+ root.setAttributeNS(NS_DIA, 'version', Version.VERSION);
 
  root.appendChild(document.createComment(
-   "metalink as exported by Get'emAll! on " +
+   "metalink as exported by DownItAll! on " +
    Version.APP_NAME + "/" + Version.APP_VERSION +
-   "\r\nMay contain Get'emAll! specific information in the Get'emAll! namespace: " +
-   NS_DTA
+   "\r\nMay contain DownItAll! specific information in the DownItAll! namespace: " +
+   NS_DIA
    ));
 
  let generator = document.createElementNS(NS_METALINK_RFC5854, 'generator');
- generator.textContent = "Get'emAll!/" + Version.BASE_VERSION;
+ generator.textContent = "DownItAll!/" + Version.BASE_VERSION;
  root.appendChild(generator);
 
  let published = document.createElementNS(NS_METALINK_RFC5854, "published");
@@ -241,11 +241,11 @@ exports.exportToMetalink4File = function exportToMetalink4File(aDownloads, aDocu
  for (let d of aDownloads) {
   let f = document.createElementNS(NS_METALINK_RFC5854, 'file');
   f.setAttribute('name', d.fileName);
-  f.setAttributeNS(NS_DTA, 'num', d.bNum);
-  f.setAttributeNS(NS_DTA, 'startDate', d.startDate.getTime());
+  f.setAttributeNS(NS_DIA, 'num', d.bNum);
+  f.setAttributeNS(NS_DIA, 'startDate', d.startDate.getTime());
   if (d.referrer) {
    /* extention to include referrer */
-   f.setAttributeNS(NS_DTA, 'referrer', d.referrer.spec);
+   f.setAttributeNS(NS_DIA, 'referrer', d.referrer.spec);
   }
 
   if (d.description) {
@@ -268,7 +268,7 @@ exports.exportToMetalink4File = function exportToMetalink4File(aDownloads, aDocu
    n.textContent = u.spec;
 
    /* extention to include usabality of the url */
-   n.setAttributeNS(NS_DTA, 'usable', u.usable);
+   n.setAttributeNS(NS_DIA, 'usable', u.usable);
    f.appendChild(n);
   }
   if (d.hashCollection) {

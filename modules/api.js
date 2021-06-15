@@ -262,7 +262,7 @@ exports.getLinkPrintMetalink = function getLinkPrintMetalink(url) {
 
 exports.getProfileFile = (function() {
  let _profile = Services.dirsvc.get("ProfD", Ci.nsIFile);
- _profile.append("downthemall.net");
+ _profile.append("downitall.realityripple.com");
  return function getProfileFile(fileName, createDir) {
   var file = _profile.clone();
   file.append(fileName);
@@ -340,7 +340,7 @@ exports.saveSingleItem = function saveSingleItem(window, turbo, item) {
  // else open addurl.xul
  window = window || Mediator.getMostRecent();
  window.openDialog(
-  "chrome://dta/content/dta/addurl.xul",
+  "chrome://dia/content/dia/addurl.xul",
   "_blank",
   "chrome, centerscreen, resizable=yes, dialog=no, all, modal=no, dependent=no",
   item
@@ -383,7 +383,7 @@ exports.saveLinkArray = function saveLinkArray(window, urls, images, error) {
  }
  window = window || Mediator.getMostRecent();
  window.openDialog(
-  "chrome://dta/content/dta/select.xul",
+  "chrome://dia/content/dia/select.xul",
   "_blank",
   "chrome, centerscreen, resizable=yes, dialog=no, all, modal=no, dependent=no",
   urls,
@@ -398,7 +398,7 @@ exports.turboSaveLinkArray = function turboSaveLinkArray(window, urls, images, c
    if (!urls.length && !images.length) {
     throw new Exception("no links");
    }
-   log(LOG_INFO, "turboSaveLinkArray(): DtaOneClick filtering started");
+   log(LOG_INFO, "turboSaveLinkArray(): DiAOneClick filtering started");
 
    let links;
    let type;
@@ -426,7 +426,7 @@ exports.turboSaveLinkArray = function turboSaveLinkArray(window, urls, images, c
     return FilterManager.matchActive(link.url.usable, type);
    });
 
-   log(LOG_INFO, "turboSaveLinkArray(): DtaOneClick has filtered " + links.length + " URLs");
+   log(LOG_INFO, "turboSaveLinkArray(): DiAOneClick has filtered " + links.length + " URLs");
 
    if (!links.length) {
     throw new Exception('no links remaining');
@@ -449,8 +449,8 @@ var isManagerPending = false;
 var managerRequests = [];
 function openManagerCallback(event) {
  log(LOG_DEBUG, "manager ready; pushing queued items");
- event.target.removeEventListener("DTA:dieEarly", openManagerDiedCallback, true);
- event.target.removeEventListener("DTA:ready", openManagerCallback, true);
+ event.target.removeEventListener("DIA:dieEarly", openManagerDiedCallback, true);
+ event.target.removeEventListener("DIA:ready", openManagerCallback, true);
  for (let cb of managerRequests) {
   cb(event.target);
  }
@@ -458,8 +458,8 @@ function openManagerCallback(event) {
  isManagerPending = false;
 }
 function openManagerDiedCallback(event) {
- event.target.removeEventListener("DTA:dieEarly", openManagerDiedCallback, true);
- event.target.removeEventListener("DTA:ready", openManagerCallback, true);
+ event.target.removeEventListener("DIA:dieEarly", openManagerDiedCallback, true);
+ event.target.removeEventListener("DIA:ready", openManagerCallback, true);
  log(LOG_ERROR, "manager died early");
  isManagerPending = false;
  if (managerRequests.length) {
@@ -478,7 +478,7 @@ exports.openManager = function openManager(window, quiet, cb) {
    return;
   }
 
-  let win = Mediator.getMostRecent('DTA:Manager');
+  let win = Mediator.getMostRecent('DIA:Manager');
   if (win) {
    log(LOG_DEBUG, "manager already open; direct");
    if (!cb && !quiet) {
@@ -493,7 +493,7 @@ exports.openManager = function openManager(window, quiet, cb) {
   log(LOG_DEBUG, "manager not open yet; queueing");
   window = window || Mediator.getMostRecent();
   win = window.openDialog(
-   "chrome://dta/content/dta/manager.xul",
+   "chrome://dia/content/dia/manager.xul",
    "_blank",
    "chrome, centerscreen, resizable=yes, dialog=no, all, modal=no, dependent=no",
    !!cb
@@ -502,8 +502,8 @@ exports.openManager = function openManager(window, quiet, cb) {
    managerRequests.push(cb);
   }
   isManagerPending = true;
-  win.addEventListener("DTA:diedEarly", openManagerDiedCallback, true);
-  win.addEventListener("DTA:ready", openManagerCallback, true);
+  win.addEventListener("DIA:diedEarly", openManagerDiedCallback, true);
+  win.addEventListener("DIA:ready", openManagerCallback, true);
  }
  catch(ex) {
   log(LOG_ERROR, "openManager():", ex);
@@ -539,7 +539,7 @@ const Series = {
   this._max = Math.pow(10, this._digits) - 1;
  }
 };
-Preferences.addObserver("extensions.dta.seriesdigits", Series);
+Preferences.addObserver("extensions.dia.seriesdigits", Series);
 Series.observe();
 
 exports.currentSeries = function currentSeries() {

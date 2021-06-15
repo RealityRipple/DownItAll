@@ -30,7 +30,7 @@ catch (ex) {
 
 const [LOG_DEBUG, LOG_INFO, LOG_ERROR] = [0, 1, 2];
 const log = function(level, message, exception) {
- sendAsyncMessage("DTA:log", {
+ sendAsyncMessage("DIA:log", {
   level: level,
   message: message,
   exception: exception && {
@@ -58,7 +58,7 @@ const require = function require_mini(m) {
 
   exports: {}
  };
- let module = "chrome://dta-modules/content/" + m + ".js";
+ let module = "chrome://dia-modules/content/" + m + ".js";
  Services.scriptloader.loadSubScript(module, scope);
  return scope.exports;
 };
@@ -402,7 +402,7 @@ const handleFindLinks = message => {
  let gen = addLinks(win, urls, images, locations, honorSelection, recognizeTextLinks);
  let send = () => {
   try {
-   sendAsyncMessage("DTA:findLinks:" + job, {
+   sendAsyncMessage("DIA:findLinks:" + job, {
     urls: unique(urls),
     images: unique(images),
     locations: locations
@@ -429,7 +429,7 @@ const handleFindLinks = message => {
     return;
    }
   }
-  sendAsyncMessage("DTA:findLinks:progress:" + job, {
+  sendAsyncMessage("DIA:findLinks:progress:" + job, {
    urls: urls.length - lastUrls,
    images: images.length - lastImages
   });
@@ -457,13 +457,13 @@ const handleGetLocations = m => {
   }
  };
  collect(content);
- sendAsyncMessage("DTA:getLocations:" + m.data.job, locations);
+ sendAsyncMessage("DIA:getLocations:" + m.data.job, locations);
 };
 
 const handleGetFocusedDetails = m => {
  log(LOG_DEBUG, "GetFocusedDetails job received" + m.data.job);
  let ref = getRef(content.document);
- sendAsyncMessage("DTA:getFocusedDetails:" + m.data.job, {title: content.title, ref: ref && new URL(ref)});
+ sendAsyncMessage("DIA:getFocusedDetails:" + m.data.job, {title: content.title, ref: ref && new URL(ref)});
 };
 
 const handleGetFormData = m => {
@@ -491,11 +491,11 @@ const handleGetFormData = m => {
   action.desc = extractDescription(form);
   action.title = ctx.ownerDocument.defaultView.title;
   action.ref = getRef(ctx.ownerDocument);
-  sendAsyncMessage("DTA:getFormData:" + m.data.job, action);
+  sendAsyncMessage("DIA:getFormData:" + m.data.job, action);
  }
  catch (ex) {
   log(LOG_ERROR, "Failed to get form data", ex);
-  sendAsyncMessage("DTA:getFormData:" + m.data.job, {exception: ex.message || ex});
+  sendAsyncMessage("DIA:getFormData:" + m.data.job, {exception: ex.message || ex});
  }
 };
 
@@ -544,11 +544,11 @@ const handleSaveTarget = m => {
   rv.desc = extractDescription(cur);
   rv.ref = getRef(doc);
 
-  sendAsyncMessage("DTA:saveTarget:" + m.data.job, rv);
+  sendAsyncMessage("DIA:saveTarget:" + m.data.job, rv);
  }
  catch (ex) {
   log(LOG_ERROR, "Failed to get target data", ex);
-  sendAsyncMessage("DTA:saveTarget:" + m.data.job, {exception: ex.message || ex});
+  sendAsyncMessage("DIA:saveTarget:" + m.data.job, {exception: ex.message || ex});
  }
 };
 
@@ -575,7 +575,7 @@ const handleSelector = m => {
    rv.ref = getRef(doc);
    rv.download = m.download;
 
-   sendAsyncMessage("DTA:selected", rv);
+   sendAsyncMessage("DIA:selected", rv);
    return true;
   });
  }
@@ -592,7 +592,7 @@ const onContextMenuData = function(subject, topic, data) {
   log(LOG_ERROR, "onContextMenuData: no event");
   return;
  }
- subject.addonInfo["DTA:onform"] = "form" in event.target;
+ subject.addonInfo["DIA:onform"] = "form" in event.target;
 };
 
 
@@ -609,15 +609,15 @@ const methods = new Map([
  try {
   const handleShutdown = m => {
    for (let e of methods.entries()) {
-    removeMessageListener(`DTA:${e[0]}`, e[1]);
+    removeMessageListener(`DIA:${e[0]}`, e[1]);
    }
-   removeMessageListener("DTA:shutdown", handleShutdown);
+   removeMessageListener("DIA:shutdown", handleShutdown);
    observers.unload();
   };
   for (let e of methods.entries()) {
-   addMessageListener(`DTA:${e[0]}`, e[1]);
+   addMessageListener(`DIA:${e[0]}`, e[1]);
   }
-  addMessageListener("DTA:shutdown", handleShutdown);
+  addMessageListener("DIA:shutdown", handleShutdown);
   observers.add(onContextMenuData, "content-contextmenu");
  }
  catch (ex) {
@@ -625,6 +625,6 @@ const methods = new Map([
  }
 })();
 
-sendAsyncMessage("DTA:new");
+sendAsyncMessage("DIA:new");
 
 })();

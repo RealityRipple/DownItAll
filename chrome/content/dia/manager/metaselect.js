@@ -6,7 +6,7 @@
 /* jshint browser:true */
 
 var hidpi = window.matchMedia && window.matchMedia("(min-resolution: 2dppx)").matches;
-var METALINK_LOGO = hidpi ? 'chrome://dta/skin/common/metalink64.png' : 'chrome://dta/skin/common/metalink32.png';
+var METALINK_LOGO = hidpi ? 'chrome://dia/skin/common/metalink64.png' : 'chrome://dia/skin/common/metalink32.png';
 
 var Version = require("version");
 

@@ -25,14 +25,14 @@ Date.__defineGetter__("today", function() {
 
 const Timers = new TimerManager();
 
-/* global DTA */
-lazy(this, "DTA", () => require("api"));
+/* global DIA */
+lazy(this, "DIA", () => require("api"));
 /* global QueueStore */
 lazy(this, "QueueStore", () => require("manager/queuestore"));
 
 const Observer = {
  init: function() {
-  Prefs.addObserver("extensions.dta.schedule", this);
+  Prefs.addObserver("extensions.dia.schedule", this);
   unload(() => Observer.unload());
   this.immidiatelyOpened = this.openIfInRange();
   log(LOG_DEBUG, "scheduler running");
@@ -54,7 +54,7 @@ const Observer = {
    Timers.createOneshot(1000, this.openManager.bind(this));
    return;
   }
-  DTA.openManager(wnd);
+  DIA.openManager(wnd);
  },
  openIfQueued: function() {
   QueueStore.loadItems(function(items) {

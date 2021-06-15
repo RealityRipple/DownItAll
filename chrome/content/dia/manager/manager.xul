@@ -8,43 +8,43 @@
  * See LICENSE and GPL for details.
  *
  * ***** END LICENSE BLOCK ***** -->
-<?xml-stylesheet href="chrome://dta/skin/manager/style.css" type="text/css" ?>
-<?xml-stylesheet href="chrome://dta-platform/skin/manager.css" type="text/css" ?>
-<?xul-overlay href="chrome://dta/content/dta/manager/tooltip.xul"?>
-<?xul-overlay href="chrome://dta-platform/content/manager.xul"?>
+<?xml-stylesheet href="chrome://dia/skin/manager/style.css" type="text/css" ?>
+<?xml-stylesheet href="chrome://dia-platform/skin/manager.css" type="text/css" ?>
+<?xul-overlay href="chrome://dia/content/dia/manager/tooltip.xul"?>
+<?xul-overlay href="chrome://dia-platform/content/manager.xul"?>
 
 <!DOCTYPE overlay [
  <!ENTITY % globalDTD SYSTEM "chrome://global/locale/">
  %globalDTD;
- <!ENTITY % commonDTD SYSTEM "chrome://dta/locale/">
+ <!ENTITY % commonDTD SYSTEM "chrome://dia/locale/">
  %commonDTD;
- <!ENTITY % defcommonDTD SYSTEM "chrome://dta-locale/content/dta.dtd">
+ <!ENTITY % defcommonDTD SYSTEM "chrome://dia-locale/content/dia.dtd">
  %defcommonDTD;
- <!ENTITY % managerDTD SYSTEM "chrome://dta/locale/manager.dtd">
+ <!ENTITY % managerDTD SYSTEM "chrome://dia/locale/manager.dtd">
  %managerDTD;
- <!ENTITY % defmanagerDTD SYSTEM "chrome://dta-locale/content/manager.dtd">
+ <!ENTITY % defmanagerDTD SYSTEM "chrome://dia-locale/content/manager.dtd">
  %defmanagerDTD;
 ]>
 
-<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" id="dtamanagermainoverlay">
-<window windowtype="DTA:Manager" title="Get'emAll!" id="DownThemAll" class="downlinks" flex="1" persist="width height screenX screenY sizemode dtaAutofitted">
+<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" id="diamanagermainoverlay">
+<window windowtype="DIA:Manager" title="DownItAll!" id="DownItAll" class="downlinks" flex="1" persist="width height screenX screenY sizemode diaAutofitted">
 
- <audio xmlns="http://www.w3.org/1999/xhtml" src="chrome://dta/skin/sounds/done.ogg" id="sound_done"></audio>
- <audio xmlns="http://www.w3.org/1999/xhtml" src="chrome://dta/skin/sounds/error.ogg" id="sound_error"></audio>
+ <audio xmlns="http://www.w3.org/1999/xhtml" src="chrome://dia/skin/sounds/done.ogg" id="sound_done"></audio>
+ <audio xmlns="http://www.w3.org/1999/xhtml" src="chrome://dia/skin/sounds/error.ogg" id="sound_error"></audio>
 
  <script type="application/x-javascript" src="chrome://global/content/globalOverlay.js" />
  <script type="application/x-javascript" src="chrome://browser/content/utilityOverlay.js" />
 
- <script type="application/javascript" src="chrome://dta/content/common/internalFunctions.js" />
+ <script type="application/javascript" src="chrome://dia/content/common/internalFunctions.js" />
 
- <script type="application/javascript" src="chrome://dta/content/dta/manager/manager.js" />
- <script type="application/javascript" src="chrome://dta/content/dta/manager/utils.js" />
- <script type="application/javascript" src="chrome://dta/content/dta/manager/tree.js" />
+ <script type="application/javascript" src="chrome://dia/content/dia/manager/manager.js" />
+ <script type="application/javascript" src="chrome://dia/content/dia/manager/utils.js" />
+ <script type="application/javascript" src="chrome://dia/content/dia/manager/tree.js" />
 
- <stringbundleset xmlns="http://www.downthemall.net/properties#">
-  <stringbundle src="chrome://dta/locale/common.properties" />
-  <stringbundle src="chrome://dta/locale/manager.properties" />
-  <stringbundle src="chrome://dta/locale/prefpanes.properties" />
+ <stringbundleset xmlns="http://downitall.realityripple.com/properties#">
+  <stringbundle src="chrome://dia/locale/common.properties" />
+  <stringbundle src="chrome://dia/locale/manager.properties" />
+  <stringbundle src="chrome://dia/locale/prefpanes.properties" />
  </stringbundleset>
 
  <commandset id="maincommands">

@@ -12,19 +12,19 @@
  *
  * ***** END LICENSE BLOCK ***** -->
 <?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://dta/skin/common/style.css" type="text/css" ?>
-<?xml-stylesheet href="chrome://dta/skin/add/style.css" type="text/css" ?>
+<?xml-stylesheet href="chrome://dia/skin/common/style.css" type="text/css" ?>
+<?xml-stylesheet href="chrome://dia/skin/add/style.css" type="text/css" ?>
 
 <!DOCTYPE dialog [
  <!ENTITY % globalDTD SYSTEM "chrome://global/locale/">
  %globalDTD;
- <!ENTITY % commonDTD SYSTEM "chrome://dta/locale/">
+ <!ENTITY % commonDTD SYSTEM "chrome://dia/locale/">
  %commonDTD;
- <!ENTITY % defcommonDTD SYSTEM "chrome://dta-locale/content/dta.dtd">
+ <!ENTITY % defcommonDTD SYSTEM "chrome://dia-locale/content/dia.dtd">
  %defcommonDTD;
- <!ENTITY % addUrlDTD SYSTEM "chrome://dta/locale/addurl.dtd">
+ <!ENTITY % addUrlDTD SYSTEM "chrome://dia/locale/addurl.dtd">
  %addUrlDTD;
- <!ENTITY % defaddUrlDTD SYSTEM "chrome://dta-locale/content/addurl.dtd">
+ <!ENTITY % defaddUrlDTD SYSTEM "chrome://dia-locale/content/addurl.dtd">
  %defaddUrlDTD;
 ]>
 
@@ -32,7 +32,7 @@
  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
  xmlns:html="http://www.w3.org/1999/xhtml"
  title="&windowtitle;"
- id="DownThemAll"
+ id="DownItAll"
  onload="Dialog.load();"
  persist="screenX screenY width"
  ondialogaccept="return Dialog.download(true);"
@@ -44,12 +44,12 @@
  buttonaccesskeyextra1="&queue.key;"
  >
 
- <script type="application/javascript" src="chrome://dta/content/common/internalFunctions.js"/>
- <script type="application/javascript" src="chrome://dta/content/dta/addurl.js"/>
+ <script type="application/javascript" src="chrome://dia/content/common/internalFunctions.js"/>
+ <script type="application/javascript" src="chrome://dia/content/dia/addurl.js"/>
 
- <stringbundleset xmlns="http://www.downthemall.net/properties#">
-  <stringbundle src="chrome://dta/locale/addurl.properties"/>
-  <stringbundle src="chrome://dta/locale/common.properties"/>
+ <stringbundleset xmlns="http://downitall.realityripple.com/properties#">
+  <stringbundle src="chrome://dia/locale/addurl.properties"/>
+  <stringbundle src="chrome://dia/locale/common.properties"/>
  </stringbundleset>
 
  <keyset>

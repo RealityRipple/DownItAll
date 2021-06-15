@@ -12,30 +12,30 @@
 <?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://global/skin/richlistbox.css" type="text/css"?>
 <?xml-stylesheet href="chrome://global/skin/toolbar.css" type="text/css"?>
-<?xml-stylesheet href="chrome://dta/skin/mirrors/style.css" type="text/css"?>
+<?xml-stylesheet href="chrome://dia/skin/mirrors/style.css" type="text/css"?>
 
 
 <!DOCTYPE dialog [
  <!ENTITY % globalDTD SYSTEM "chrome://global/locale/">
  %globalDTD;
- <!ENTITY % commonDTD SYSTEM "chrome://dta/locale/">
+ <!ENTITY % commonDTD SYSTEM "chrome://dia/locale/">
  %commonDTD;
- <!ENTITY % defcommonDTD SYSTEM "chrome://dta-locale/content/dta.dtd">
+ <!ENTITY % defcommonDTD SYSTEM "chrome://dia-locale/content/dia.dtd">
  %defcommonDTD;
- <!ENTITY % mirrorsDTD SYSTEM "chrome://dta/locale/mirrors.dtd">
+ <!ENTITY % mirrorsDTD SYSTEM "chrome://dia/locale/mirrors.dtd">
  %mirrorsDTD;
- <!ENTITY % defmirrorsDTD SYSTEM "chrome://dta-locale/content/mirrors.dtd">
+ <!ENTITY % defmirrorsDTD SYSTEM "chrome://dia-locale/content/mirrors.dtd">
  %defmirrorsDTD;
 ]>
-<dialog title="&title;" id="DownThemAllMirrors" windowtype="DTA:mirrors" flex="1" persist="width height screenX screenY" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+<dialog title="&title;" id="DownItAllMirrors" windowtype="DIA:mirrors" flex="1" persist="width height screenX screenY" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
  <script type="application/x-javascript" src="chrome://global/content/globalOverlay.js" />
- <script type="application/javascript" src="chrome://dta/content/common/internalFunctions.js" />
+ <script type="application/javascript" src="chrome://dia/content/common/internalFunctions.js" />
 
  <script type="text/javascript" src="mirrors.js" />
 
- <stringbundleset id="bundles" xmlns="http://www.downthemall.net/properties#">
-  <stringbundle src="chrome://dta/locale/mirrors.properties" />
+ <stringbundleset id="bundles" xmlns="http://downitall.realityripple.com/properties#">
+  <stringbundle src="chrome://dia/locale/mirrors.properties" />
  </stringbundleset>
 
  <commandset>

@@ -73,7 +73,7 @@ const Observer = {
   Prefs.dirPermissions = perms;
  },
 };
-Prefs.addObserver("extensions.dta.permissions", Observer);
+Prefs.addObserver("extensions.dia.permissions", Observer);
 
 function asyncCopy(instream, outstream, close) {
  let copier = new Instances.AsyncStreamCopier2(

@@ -1,27 +1,27 @@
-<!-- LOCALIZATION NOTE : FILE Please do NOT translate Get'emAll! and OneClick -->
+<!-- LOCALIZATION NOTE : FILE Please do NOT translate DownItAll! and OneClick -->
 
-<!ENTITY dta-tbinstall "Add Toolbar Buttons">
-<!ENTITY dta-pref.label "Preferences">
-<!ENTITY dta-about2.label "About Get'emAll!">
-<!ENTITY dta-manager-button "Manager">
-<!ENTITY dta-manager-button.desc "Opens the Manager window.">
-<!ENTITY dta-selector-button2.label "OneClick! Selector">
-<!ENTITY dta-selector-button.desc "Adds items by left-clicking on them.">
-<!ENTITY dta-tb-all.label "All Tabs">
-<!ENTITY dta-tb-single.label "Current Tab">
-<!ENTITY dta-selection2.label "Get'emAll! Selection">
-<!ENTITY dta-selection-turbo2.label "OneClick Selection">
-<!ENTITY dta-regular2.label "Get'emAll!">
-<!ENTITY dta-regular.desc "Opens the Get'emAll! Selection window for the current tab.">
-<!ENTITY dta-regular-turbo2.label "GeA! OneClick">
-<!ENTITY dta-regular-turbo.desc "Downloads all items from the current page according to the last used preferences and filters.">
-<!ENTITY dta-img-save2.label "Save Image with Get'emAll!">
-<!ENTITY dta-img-save-turbo2.label "Save Image with GeA! OneClick">
-<!ENTITY dta-video-save2.label "Save Video with Get'emAll!">
-<!ENTITY dta-video-save-turbo2.label "Save Video with GeA! OneClick">
-<!ENTITY dta-audio-save2.label "Save Audio with Get'emAll!">
-<!ENTITY dta-audio-save-turbo2.label "Save Audio with GeA! OneClick">
-<!ENTITY dta-link-save2.label "Save Link with Get'emAll!">
-<!ENTITY dta-link-save-turbo2.label "Save Link with GeA! OneClick">
-<!ENTITY dta-form-save2.label "Save Form Target with Get'emAll!">
-<!ENTITY dta-form-save-turbo2.label "Save Form Target with GeA! OneClick">
+<!ENTITY dia-tbinstall "Add Toolbar Buttons">
+<!ENTITY dia-pref.label "Preferences">
+<!ENTITY dia-about2.label "About DownItAll!">
+<!ENTITY dia-manager-button "Manager">
+<!ENTITY dia-manager-button.desc "Opens the Manager window.">
+<!ENTITY dia-selector-button2.label "OneClick! Selector">
+<!ENTITY dia-selector-button.desc "Adds items by left-clicking on them.">
+<!ENTITY dia-tb-all.label "All Tabs">
+<!ENTITY dia-tb-single.label "Current Tab">
+<!ENTITY dia-selection2.label "DownItAll! Selection">
+<!ENTITY dia-selection-turbo2.label "OneClick Selection">
+<!ENTITY dia-regular2.label "DownItAll!">
+<!ENTITY dia-regular.desc "Opens the DownItAll! Selection window for the current tab.">
+<!ENTITY dia-regular-turbo2.label "DiA! OneClick">
+<!ENTITY dia-regular-turbo.desc "Downloads all items from the current page according to the last used preferences and filters.">
+<!ENTITY dia-img-save2.label "Save Image with DownItAll!">
+<!ENTITY dia-img-save-turbo2.label "Save Image with DiA! OneClick">
+<!ENTITY dia-video-save2.label "Save Video with DownItAll!">
+<!ENTITY dia-video-save-turbo2.label "Save Video with DiA! OneClick">
+<!ENTITY dia-audio-save2.label "Save Audio with DownItAll!">
+<!ENTITY dia-audio-save-turbo2.label "Save Audio with DiA! OneClick">
+<!ENTITY dia-link-save2.label "Save Link with DownItAll!">
+<!ENTITY dia-link-save-turbo2.label "Save Link with DiA! OneClick">
+<!ENTITY dia-form-save2.label "Save Form Target with DownItAll!">
+<!ENTITY dia-form-save-turbo2.label "Save Form Target with DiA! OneClick">
