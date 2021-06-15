@@ -1,9 +1,0 @@
-1.0.2 (2021/05/16)
-*	Fix error in importing from files.
-
-1.0.1 (2021/04/19)
-* Update name spelling and description shown in the addon manager.
-* Added README and changelog to repository.
-
-1.0 (2021/04/12)
-*   Initial commit.
