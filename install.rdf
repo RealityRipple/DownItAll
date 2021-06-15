@@ -3,7 +3,7 @@
  xmlns:em="http://www.mozilla.org/2004/em-rdf#">
  <Description about="urn:mozilla:install-manifest"
   em:id="{C0BDE00B-B7AB-5D45-B456-814ED225513F}" em:name="DownItAll!"
-  em:description="Down it All! A powerful download manager." 
+  em:description="The mass downloader for UXP Browsers." 
   em:version="1.1" em:bootstrap="true" em:type="2" em:creator="RealityRipple" 
   em:iconURL="chrome://diaicon/content/icon.png"
   em:icon64URL="chrome://diaicon/content/icon64.png"
@@ -12,9 +12,9 @@
   em:optionsURL="chrome://dia/content/preferences/prefs.xul">
   <em:contributor>moonbat</em:contributor>
   <em:contributor>Matt A. Tobin</em:contributor>
-  <em:contributor>Federico Parodi</em:contributor>
-  <em:contributor>Stefano Verna</em:contributor>
-  <em:contributor>Nils Maier</em:contributor>
+  <em:developer>Federico Parodi</em:developer>
+  <em:developer>Stefano Verna</em:developer>
+  <em:developer>Nils Maier</em:developer>
   <em:targetApplication name="Pale Moon">
    <Description
     em:id="{8de7fcbb-c55c-4fbe-bfc5-fc555c87dbc4}" em:minVersion="29.0"
