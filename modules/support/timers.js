@@ -26,10 +26,17 @@ function TimerData(owner, time, type, func, ctx) {
 }
 
 TimerData.prototype = Object.freeze({
- cancel: function() { return this.timer.cancel(); },
+ cancel: function()
+ {
+  if (this.timer === undefined)
+   return;
+  return this.timer.cancel();
+ },
  toString: function() { return this.uuid; },
  observe: function(timer) {
   this.execute();
+  if (this.timer === undefined)
+   return;
   if (this.timer.type === nsITimer.TYPE_ONE_SHOT) {
    this.owner.killTimer(this.uuid);
   }
