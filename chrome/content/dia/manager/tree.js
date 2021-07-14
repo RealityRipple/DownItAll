@@ -820,6 +820,10 @@ var Tree = {
   }
  },
  canDrop: function(index, orient, dt) {
+  if (index >= this._filtered.length) {
+   dt.dropEffect = "none";
+   return false;
+  }
   let rv = dt.types.contains("application/x-dia-position");
   if (rv) {
    dt.dropEffect = "move";
