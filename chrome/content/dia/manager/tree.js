@@ -839,27 +839,43 @@ var Tree = {
    this.beginUpdate();
    let downloads;
    try {
+    /* orient can be unreliable in multiline selection cases,
+     * so we instead calculate whether the highest item is
+     * above or below the insert row by hand.
+     *
+     * if the drop location is between the first item and
+     * the total count of items, then we don't move anywhere,
+     * but we do consolidate the selection.
+     *
+     * if the drop location is below the first item, then
+     * it should move to where we insert between, not the
+     * exact row index we're dropping on top of. this provides
+     * a more natural "drop-in" feel.
+     */
+    let selList = this._getSelectedIds(true);
+    let selMin = Math.min(...selList);
+    if (row >= selMin && row < selMin + selList.length) {
+     row = selMin;
+    }
+    else if (row >= selMin + selList.length) {
+     row -= selList.length - 1;
+     if (row < 0)
+      row = 0;
+    }
     // translate row from filtered list to full list
     let realRow = this._filtered[row].position;
 
-    /* first we remove the dragged items from the list
-     * then we reinsert them if the dragged item is location before the drop
-     * position we need to adjust it (as we remove the item first) after we
-     * collected all items we simply reinsert them and invalidate our list.
-     * This might not be the most performant way, but at least it kinda works ;)
-     */
+    // remove the dragged items from the list
     downloads = Array.map(
-     this._getSelectedIds(true),
+     selList,
      function(id) {
       let qi = this._filtered[id];
-      if (id < row) {
-       --row;
-      }
       this._downloads.splice(qi.position, 1);
       return qi;
      },
      this
     );
+    // reinsert the dragged items at their new location
     for (let qi of downloads) {
      this._downloads.splice(realRow, 0, qi);
     }
