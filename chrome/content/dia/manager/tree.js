@@ -835,10 +835,6 @@ var Tree = {
    this.beginUpdate();
    let downloads;
    try {
-    // means insert_after, so we need to adjust the row
-    if (orient === 1) {
-     ++row;
-    }
     // translate row from filtered list to full list
     let realRow = this._filtered[row].position;
 
