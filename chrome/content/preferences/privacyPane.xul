@@ -22,6 +22,8 @@
   <preferences>
    <preference id="diarmcomp" name="extensions.dia.removecompleted"
     type="bool" />
+   <preference id="diarmcompimm" name="extensions.dia.removecompletedimmediate"
+    type="bool" />
    <preference id="diarmcanc" name="extensions.dia.removecanceled"
     type="bool" />
    <preference id="diarmabort" name="extensions.dia.removeaborted"
@@ -43,15 +45,19 @@
    </columns>
    <rows>
     <row>
-     <groupbox>
-      <caption id="closing" label="&privacypane.closing.caption;" />
-      <checkbox id="removecompleted" label="&privacypane.removecompleted2.label;"
-       preference="diarmcomp" />
-      <checkbox id="removecanceled" label="&privacypane.removecanceled2.label;"
-       preference="diarmcanc" />
-      <checkbox id="removeaborted" label="&privacypane.removeaborted2.label;"
-       preference="diarmabort" />
-     </groupbox>
+     <vbox>
+      <groupbox>
+       <caption id="closing" label="&privacypane.closing.caption;" />
+       <checkbox id="removecompleted" label="&privacypane.removecompleted2.label;"
+        preference="diarmcomp" />
+       <checkbox id="removecanceled" label="&privacypane.removecanceled2.label;"
+        preference="diarmcanc" />
+       <checkbox id="removeaborted" label="&privacypane.removeaborted2.label;"
+        preference="diarmabort" />
+      </groupbox>
+      <checkbox id="removecompletedimmediate" label="&privacypane.removecompletedimmediate2.label;"
+       preference="diarmcompimm" />
+     </vbox>
 
      <groupbox>
       <caption id="diaddown" label="&privacypane.dropdowns.caption;" />

@@ -35,6 +35,12 @@ var Privacy = {
   $('history').setAttribute('preference', 'diahistory');
   $('diahistory').updateElements();
  },
+ changedRemoveCompleted: function() {
+  $("removecompletedimmediate").disabled = !$("removecompleted").checked;
+  if ($("removecompletedimmediate").disabled) {
+   $("removecompletedimmediate").checked = false;
+  }
+ },
  changedHistory: function() {
   $('historylabel').value = $('history').value;
  },

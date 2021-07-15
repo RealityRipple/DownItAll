@@ -745,6 +745,9 @@ var Tree = {
    case QUEUED:
     return this._cpprop_prog;
    case COMPLETE:
+    if (Prefs.removeCompletedImmediate) {
+     this._removeByState(COMPLETE, false);
+    }
     if (d.hashCollection) {
      return this._cpprop_progverified;
     }

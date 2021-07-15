@@ -39,6 +39,7 @@
 <!ENTITY privacypane.label "Privacy">
 <!ENTITY privacypane.closing.caption "When Manager window is closed">
 <!ENTITY privacypane.removecompleted2.label "Remove completed downloads">
+<!ENTITY privacypane.removecompletedimmediate2.label "Remove completed downloads immediately">
 <!ENTITY privacypane.removecanceled2.label "Remove canceled/failed downloads">
 <!ENTITY privacypane.removeaborted2.label "Remove unfinished downloads">
 <!ENTITY privacypane.deletefoldershistory.label "Empty Folderlist">

@@ -15,6 +15,7 @@ pref("extensions.dia.maxchunks", 4);
 pref("extensions.dia.history", 5);
 pref("extensions.dia.alertbox", 2);
 pref("extensions.dia.removecompleted", true);
+pref("extensions.dia.removecompletedimmediate", false);
 pref("extensions.dia.removecanceled", false);
 pref("extensions.dia.removeaborted", false);
 pref("extensions.dia.infophrases", true);

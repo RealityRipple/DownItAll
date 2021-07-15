@@ -86,6 +86,7 @@ var Prefs = {
 
  mappings: [
   ['removeCompleted', true],
+  ['removeCompletedImmediate', false],
   ['removeAborted', false],
   ['removeCanceled', false],
   ['autoClose', 'closedia', false],
