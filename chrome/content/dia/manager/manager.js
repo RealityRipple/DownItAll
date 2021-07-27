@@ -296,28 +296,6 @@ var Dialog = {
   }).bind(this);
   addEventListener("unload", unload_obs, false);
 
-  // Autofit
-  (function autofit() {
-   let de = document.documentElement;
-   Version.getInfo(function(version) {
-    let cv = version.VERSION + ".toolitems" + $('tools').childNodes.length;
-    let shouldAutofit = !de.hasAttribute('diaAutofitted');
-    if (!shouldAutofit) {
-     try {
-      let lv = de.getAttribute('diaAutofitted');
-      shouldAutofit = !!version.compareVersion(cv, lv);
-     }
-     catch (ex) {
-      shouldAutofit = true;
-     }
-    }
-    if (shouldAutofit) {
-     document.documentElement.setAttribute('diaAutofitted', cv);
-     $('tools').setAttribute('mode', 'icons');
-    }
-   });
-  })();
-
   $('listSpeeds').limit = Prefs.speedLimit;
   $('listSpeedsSpinners').addEventListener('up', () => Dialog.changeSpeedLimitUp(), false);
   $('listSpeedsSpinners').addEventListener('down', () => Dialog.changeSpeedLimitDown(), false);
