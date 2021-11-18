@@ -178,15 +178,19 @@ function load(window, document) {
   url = new DIA.URL(ml ? ml : url);
   if (!ml)
   {
-   let newSpec = url._url.spec;
-   let ioService = Components.classes["@mozilla.org/network/io-service;1"].getService(Components.interfaces.nsIIOService);
-   let prevURI = ioService.newURI(prevSpec).QueryInterface(Components.interfaces.nsIURL);
-   let newURI = ioService.newURI(newSpec).QueryInterface(Components.interfaces.nsIURL);
-   if (newURI.fileName && newURI.fileExtension) {
-    filename = newURI.fileName;
-   }
-   else if (prevURI.fileName && prevURI.fileExtension) {
-    filename = decodeURIComponent(prevURI.fileName);
+   if (dialog.mLauncher.suggestedFileName) {
+    filename = dialog.mLauncher.suggestedFileName;
+   } else {
+    let newSpec = url._url.spec;
+    let ioService = Components.classes["@mozilla.org/network/io-service;1"].getService(Components.interfaces.nsIIOService);
+    let prevURI = ioService.newURI(prevSpec).QueryInterface(Components.interfaces.nsIURL);
+    let newURI = ioService.newURI(newSpec).QueryInterface(Components.interfaces.nsIURL);
+    if (newURI.fileName && newURI.fileExtension) {
+     filename = newURI.fileName;
+    }
+    else if (prevURI.fileName && prevURI.fileExtension) {
+     filename = decodeURIComponent(prevURI.fileName);
+    }
    }
   }
 
