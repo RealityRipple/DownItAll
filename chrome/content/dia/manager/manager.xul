@@ -27,7 +27,7 @@
 ]>
 
 <overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" id="diamanagermainoverlay">
-<window windowtype="DIA:Manager" title="DownItAll!" id="DownItAll" class="downlinks" flex="1" persist="width height screenX screenY sizemode diaAutofitted">
+<window windowtype="DIA:Manager" title="DownItAll!" id="DownItAll" class="downlinks" flex="1" persist="width height screenX screenY sizemode">
 
  <audio xmlns="http://www.w3.org/1999/xhtml" src="chrome://dia/skin/sounds/done.ogg" id="sound_done"></audio>
  <audio xmlns="http://www.w3.org/1999/xhtml" src="chrome://dia/skin/sounds/error.ogg" id="sound_error"></audio>
