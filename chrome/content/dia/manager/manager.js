@@ -2953,6 +2953,9 @@ var startDownloads = (function() {
     if (e.startDate) {
      qi.startDate = e.startDate;
     }
+    if (e.fileSize) {
+     qi._totalSize = e.fileSize;
+    }
 
     // hash?
     if (e.hashCollection) {

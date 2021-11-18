@@ -88,7 +88,7 @@ function load(window, document) {
    log(LOG_DEBUG, "save-as reverted!");
   };
 
-  let url, filename, referrer, mask, isPrivate;
+  let url, filename, filesize, referrer, mask, isPrivate;
 
   let download = turbo => {
    if (turbo) {
@@ -102,6 +102,8 @@ function load(window, document) {
    };
    if (filename)
     item.fileName = filename;
+   if (filesize)
+    item.fileSize = filesize;
 
    DIA.saveSingleItem(window, turbo, item);
    let de = document.documentElement;
@@ -178,6 +180,9 @@ function load(window, document) {
   url = new DIA.URL(ml ? ml : url);
   if (!ml)
   {
+   if (dialog.mLauncher.contentLength > 0) {
+    filesize = dialog.mLauncher.contentLength;
+   }
    if (dialog.mLauncher.suggestedFileName) {
     filename = dialog.mLauncher.suggestedFileName;
    } else {
