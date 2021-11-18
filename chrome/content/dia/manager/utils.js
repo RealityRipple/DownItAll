@@ -95,6 +95,7 @@ var Prefs = {
   ['maxChunks', 4],
   ['setTime', true],
   ['showOnlyFilenames', true],
+  ['selectExtension', false],
   ['conflictResolution', 3],
   ['alertingSystem', 'alertbox', (Utils.SYSTEMSLASH === '\\') ? 1 : 0],
   ['finishEvent', ''],
