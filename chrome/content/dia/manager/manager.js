@@ -1784,7 +1784,7 @@ QueueItem.prototype = {
   return getLargeIcon(this.destinationName, 'metalink' in this);
  },
  get remainingString() {
-  if (this.partialSize <= 0 || this.totalSize <= 0) {
+  if (this.partialSize < 0 || this.totalSize <= 0) {
    return TextCache_UNKNOWN;
   }
   else if (this.state === COMPLETE || this.state === FINISHING) {
@@ -1793,7 +1793,7 @@ QueueItem.prototype = {
   return Utils.formatBytes(this.totalSize - this.partialSize);
  },
  get partialString() {
-  if (this.partialSize <= 0) {
+  if (this.partialSize < 0) {
    return TextCache_UNKNOWN;
   }
   return Utils.formatBytes(this.partialSize);
@@ -1805,7 +1805,7 @@ QueueItem.prototype = {
   return Utils.formatBytes(this.totalSize);
  },
  get dimensionString() {
-  if (this.partialSize <= 0) {
+  if (this.partialSize < 0) {
    return TextCache_UNKNOWN;
   }
   else if (this.totalSize <= 0) {
