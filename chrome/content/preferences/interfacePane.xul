@@ -19,7 +19,6 @@
  <prefpane id="paneInterface" label="&uipane.label;" onpaneload="Interface.init();">
   <preferences id="prefsInterface">
    <preference id="diaShowInDown" name="extensions.dia.downloadWin" type="bool" />
-   <preference id="diaHideUrl" name="extensions.dia.showonlyfilenames" type="bool" />
    <preference id="diaSelectExt" name="extensions.dia.selectextension" type="bool" />
    <preference id="diaContextSub" name="extensions.dia.ctxcompact" type="bool" />
    <preference id="diaToolHide" name="extensions.dia.toolshidden" type="bool" />
@@ -38,7 +37,6 @@
     <checkbox flex="1" id="minimizetotray" label="&uipane.minimizetotray.label;" preference="diaMinimizeToTray" />
     <label id="minimizetotray_link" value="&uipane.getmintrayr.label;" onclick="Interface.openMinTrayR();" hidden="true" class="text-link" />
    </hbox>
-   <checkbox label="&uipane.namesonly.label;" preference="diaHideUrl" />
    <checkbox label="&uipane.selectextension.label;" preference="diaSelectExt" />
    <checkbox label="&uipane.showtooltip.label;" preference="diaShowTooltip" />
   </groupbox>

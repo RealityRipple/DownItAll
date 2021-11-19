@@ -21,7 +21,6 @@ pref("extensions.dia.removeaborted", false);
 pref("extensions.dia.infophrases", true);
 pref("extensions.dia.statistics", false); // later use!
 pref("extensions.dia.logging", false);
-pref("extensions.dia.showonlyfilenames", true);
 pref("extensions.dta.selectextension", false);
 pref("extensions.dia.sounds.done", true);
 pref("extensions.dia.sounds.error", false);

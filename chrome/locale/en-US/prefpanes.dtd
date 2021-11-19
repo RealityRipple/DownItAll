@@ -113,7 +113,6 @@
 <!ENTITY advancedpane.sparsefiles.tooltip "Sparse files are files that are not immediately reserved on the harddisk. Sparse files might cause faster pre-allocation, but also less write performance and/or more file fragmentation!">
 
 <!ENTITY uipane.label "Interface">
-<!ENTITY uipane.namesonly.label "Show only file names in Manager window">
 <!ENTITY uipane.selectextension.label "Select file extension on rename">
 <!ENTITY uipane.integration.caption "Integration">
 <!ENTITY uipane.downloadwin.label "Add DownItAll! to the 'Save File' window">

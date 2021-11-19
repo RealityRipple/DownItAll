@@ -240,8 +240,6 @@
       <splitter class="tree-splitter" />
       <treecol id="colTask" matcher="downloadmatch" label="&download.label;" tooltiptext="&download.label;" flex="5" crop="center" style="width:16em;" persist="hidden width ordinal" />
       <splitter class="tree-splitter" />
-      <treecol id="colDomain" label="&domain.label;" tooltiptext="&domain.label;" flex="1" hidden="true" crop="center" style="width: 8em;" persist="hidden width ordinal" />
-      <splitter class="tree-splitter" />
       <treecol id="colProgress" label="&pct.label;" tooltiptext="&pct.label;" type="progressmeter" flex="4" style="width: 6em;" persist="hidden width ordinal" />
       <splitter class="tree-splitter" />
       <treecol id="colPercent" label="&percent.label;" tooltiptext="&percent.label;" style="width: 3em;" persist="hidden width ordinal" />
@@ -261,6 +259,8 @@
       <treecol id="colMask" label="&mask3.label;" tooltiptext="&mask3.label;" flex="1" hidden="true" persist="hidden width ordinal" />
       <splitter class="tree-splitter" />
       <treecol id="colPath" matcher="pathmatch" label="&path.label;" tooltiptext="&path.label;" flex="1" hidden="true" crop="start" persist="hidden width ordinal" />
+      <splitter class="tree-splitter" />
+      <treecol id="colDomain" matcher="domainmatch" label="&domain.label;" tooltiptext="&domain.label;" flex="1" hidden="true" crop="center" style="width: 8em;" persist="hidden width ordinal" />
       <splitter class="tree-splitter" />
       <treecol id="colHash" label="&hash.label;" tooltiptext="&hash.label;" flex="1" hidden="true" persist="hidden width ordinal" />
      </treecols>

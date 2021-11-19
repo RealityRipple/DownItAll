@@ -377,13 +377,8 @@ var Tree = {
   let cmpFun = (function () {
    switch (id) {
    case 'colTask':
-    if (Prefs.showOnlyFilenames) {
-     return function(d) {
-      return d.destinationName;
-     };
-    }
     return function(d) {
-     return d.urlManager.usable;
+     return d.destinationName;
     };
    case 'colDown':
     return function(d) {
@@ -407,7 +402,7 @@ var Tree = {
     };
    case 'colDomain':
     return function(d) {
-     return d.urlManager.domain;
+     return d.urlManager.usable;
     };
    };
    throw new Exception("cmpFun not implemented");
@@ -557,8 +552,7 @@ var Tree = {
    return '';
   }
   switch (col.id) {
-   case 'colTask':  return Prefs.showOnlyFilenames ? d.destinationName : d.urlManager.usable;
-   case 'colDomain': return d.urlManager.domain;
+   case 'colTask':  return d.destinationName;
    case 'colPercent':  return d.percent;
    case 'colDown':  return d.partialString;
    case 'colRemain':  return d.remainingString;
@@ -568,6 +562,7 @@ var Tree = {
    case 'colSegments':  return d.parts;
    case 'colMask':  return d.mask;
    case 'colPath':  return d.destinationPath;
+   case 'colDomain': return d.urlManager.usable;
    case 'colHash': return d.prettyHash;
   }
   return '';
