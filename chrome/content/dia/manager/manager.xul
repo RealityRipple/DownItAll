@@ -246,7 +246,7 @@
       <splitter class="tree-splitter" />
       <treecol id="colDown" label="&dld.label;" tooltiptext="&dld.label;" flex="2" hidden="true" style="width: 9em;" persist="hidden width ordinal" />
       <splitter class="tree-splitter" />
-      <treecol id="colRemain" label="&rmn.label;" tooltiptext="&rmn.label;" flex="2" style="width: 9em;" persist="hidden width ordinal" />
+      <treecol id="colRemain" matcher="remaindermatch" label="&rmn.label;" tooltiptext="&rmn.label;" flex="2" style="width: 9em;" persist="hidden width ordinal" />
       <splitter class="tree-splitter" />
       <treecol id="colSize" matcher="sizematch" label="&dim.label;" tooltiptext="&dim.label;" flex="2" style="width: 9em;" persist="hidden width ordinal" />
       <splitter class="tree-splitter" />

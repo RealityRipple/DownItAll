@@ -312,6 +312,7 @@ Matcher.prototype = {
   'downloadmatch': new MatcherTee(FilterMatch, DomainMatch),
   'pathmatch': PathMatch,
   'statusmatch': new MatcherTee(StatusMatch, RemainderMatch),
+  'remaindermatch': RemainderMatch,
   'sizematch': SizeMatch,
   'domainmatch': DomainMatch
  },
