@@ -236,7 +236,7 @@
    <stack flex="1" id="mainstack">
     <tree id="downloads" flex="1" hidecolumnpicker="false" context="popup" seltype="multiple" enableColumnDrag="true" style="margin:0px;" chromedir="&locale.dir;">
      <treecols>
-      <treecol id="colAction" label="" tooltiptext="" flex="1" crop="center" style="min-width: 42px; max-width: 42px;" persist="hidden width ordinal" />
+      <treecol id="colAction" matcher="actionmatch" label="" tooltiptext="" flex="1" crop="center" style="min-width: 42px; max-width: 42px;" persist="hidden width ordinal" />
       <splitter class="tree-splitter" />
       <treecol id="colTask" matcher="downloadmatch" label="&download.label;" tooltiptext="&download.label;" flex="5" crop="center" style="width:16em;" persist="hidden width ordinal" />
       <splitter class="tree-splitter" />
