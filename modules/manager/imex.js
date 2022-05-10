@@ -133,7 +133,7 @@ exports.exportToHtmlFile = function exportToHtmlFile(aDownloads, aDocument, aFil
   let foot = document.createElement('p');
   foot.appendChild(document.createTextNode('Exported by '));
   n = document.createElement('a');
-  n.setAttribute('href', 'https://realityripple.com/Software/Mozilla-Extensions/DownItAll/');
+  n.setAttribute('href', 'https://realityripple.com/Software/XUL/DownItAll/');
   n.textContent = "DownItAll! " + "Version.VERSION";
   foot.appendChild(n);
   body.appendChild(foot);
