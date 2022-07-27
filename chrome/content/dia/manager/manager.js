@@ -2339,6 +2339,22 @@ QueueItem.prototype = {
   let file = this.tmpFile;
 
   if (this.state !== RUNNING) {
+   if (this.state === FINISHING && "isMetalink" in this)
+   {
+    let pa = Preallocator.prealloc(
+     file,
+     this.partialSize,
+     Prefs.permissions,
+     Prefs.sparseFiles
+     );
+    if (pa) {
+     yield pa;
+     log(LOG_INFO, "pa: done");
+    }
+    else {
+     log(LOG_INFO, "pa: not preallocating");
+    }
+   }
    return;
   }
 
