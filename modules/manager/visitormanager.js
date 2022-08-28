@@ -162,6 +162,18 @@ HttpVisitor.prototype = {
   }
   catch (ex) {}
   try {
+   let md = chan.getResponseHeader("content-md5");
+   let v = atob(md);
+   let regHex = /^[0-9A-Fa-f]+$/g;
+   if (!regHex.test(v))
+    v = hexdigest(v);
+   v = new DIA.Hash(v, 'MD5');
+   if (!this.hash || this.hash.q < v.q) {
+    this.hash = v;
+   }
+  }
+  catch (ex) {}
+  try {
    let poweredby = chan.getResponseHeader("x-powered-by");
    if (!!poweredby) {
     this.relaxSize = true;
