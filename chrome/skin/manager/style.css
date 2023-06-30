@@ -610,6 +610,13 @@ treechildren::-moz-tree-image(iconic,addbutton) {
  -moz-image-region: rect(176px,64px,192px,48px);
 }
 
+.referringpage {
+ -moz-image-region: rect(128px,16px,144px,0px);
+}
+.referringpage[disable="true"] {
+ -moz-image-region: rect(144px,16px,160px,0px);
+}
+
 #removeDupes {
  -moz-image-region: rect(96px,48px,112px,32px);
 }
@@ -819,6 +826,13 @@ toolbarbutton.listselectinv, menuitem#listselectinv {
  .mirrors[disabled="true"],
  .mirrors-cascaded[disable="true"] {
   -moz-image-region: rect(352px,128px,384px,96px);
+ }
+
+ .referringpage {
+  -moz-image-region: rect(256px,32px,288px,0px);
+ }
+ .referringpage[disable="true"] {
+  -moz-image-region: rect(288px,32px,320px,0px);
  }
 
  #removeDupes {

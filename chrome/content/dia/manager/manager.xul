@@ -85,6 +85,7 @@
   <command id="cmdRemoveChunk" oncommand="Tree.changeChunks(false);" />
 
   <command id="cmdMirrors" oncommand="Tree.manageMirrors();" />
+  <command id="cmdReferringPage" oncommand="Tree.openReferringPage();" />
 
   <command id="cmdCleanGone" oncommand="Tree.removeGone();" />
 
@@ -209,6 +210,7 @@
      <menuitem id="removechunk" class="action menuitem-iconic" label="&removechunk.label;" command="cmdRemoveChunk" />
      <menuseparator class="action"/>
      <menuitem id="mirrors-cascaded" class="menuitem-iconic" label="&mirrors.label;" tooltiptext="&mirrors.tooltip;" command="cmdMirrors" />
+     <menuitem id="referringpage" class="menuitem-iconic" label="&referringpage.label;" tooltiptext="&referringpage.tooltip;" command="cmdReferringPage" />
      <menuseparator id="mirrors-cascaded-sep" />
      <menuitem id="force" class="action menuitem-iconic" label="&force.label;" key="kForceStart" command="cmdForceStart" />
      <menuseparator />

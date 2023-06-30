@@ -1337,6 +1337,42 @@ var Tree = {
    log(LOG_INFO, "New mirrors set " + mirrors);
   }
  },
+ openReferringPage: function() {
+  if (!this.current) {
+   return;
+  }
+  if (!this.current.hasOwnProperty('referrer')) {
+   return;
+  }
+  if (typeof this.current.referrer === 'undefined')
+   return;
+  let mdtr = Components.classes['@mozilla.org/appshell/window-mediator;1'].getService(Components.interfaces.nsIWindowMediator);
+  let brw = mdtr.getEnumerator('navigator:browser');
+  while (brw.hasMoreElements())
+  {
+   let wnd = brw.getNext();
+   let gw = wnd.gBrowser;
+   for (let i = 0; i < gw.browsers.length; i++)
+   {
+    let bri = gw.getBrowserAtIndex(i);
+    if (bri.currentURI.specIgnoringRef === this.current.referrer.specIgnoringRef)
+    {
+     let tbi = gw.tabContainer.childNodes[i];
+     gw.selectedTab = tbi;
+     wnd.focus();
+     return;
+    }
+   }
+  }
+  let rwnd = mdtr.getMostRecentWindow('navigator:browser');
+  if (rwnd)
+  {
+   let nw = rwnd.gBrowser.addTab(this.current.referrer.spec, null, null, null, null, null);
+   rwnd.gBrowser.selectedTab = nw;
+   return;
+  }
+  window.open(this.current.referrer.spec);
+ },
  export: function() {
   function processResponse(fp, rv) {
    if (rv !== Ci.nsIFilePicker.returnOK && rv !== Ci.nsIFilePicker.returnReplace) {
@@ -1496,7 +1532,9 @@ var Tree = {
   {item: 'cmdMoveTop', f: function(d) { return d.minId > 0; }},
   {item: 'cmdMoveDown', f: function(d) { return !Tree.filtered && d.max !== d.rows - 1; }},
   {item: 'cmdMoveBottom', f: function(d) { return d.maxId !== Tree._downloads.length - 1; }},
-  {item: 'cmdRemoveCompleted', f: function(d) { for (let i = 0; i < Tree._downloads.length; i++) { if (Tree._downloads[i].isOf(COMPLETE)) return true; } return false; }}
+  {item: 'cmdRemoveCompleted', f: function(d) { for (let i = 0; i < Tree._downloads.length; i++) { if (Tree._downloads[i].isOf(COMPLETE)) return true; } return false; }},
+
+  {item: 'cmdReferringPage', f: function(d) { return d.count === 1 && d.referrer;}},
  ],
  _refreshTools_items: [
   {items: ["cmdDelete", "delete"], f: function(d) { return d.state === COMPLETE; }},
@@ -1536,6 +1574,15 @@ var Tree = {
     return;
    }
 
+   let refs = false;
+   if (this.selection.count > 0) {
+    for (let qi of this.getSelected()) {
+     if (qi.hasOwnProperty('referrer')) {
+      refs = true;
+      break;
+     }
+    }
+   }
    let states = {
     state: 0,
     resumable: false,
@@ -1547,6 +1594,7 @@ var Tree = {
     max: 0,
     minId: this._downloads.length,
     maxId: 0,
+    referrer: refs,
    };
    for (let qi of this.getSelected()) {
     states.state |= qi.state;

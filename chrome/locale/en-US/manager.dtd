@@ -76,6 +76,9 @@
 <!ENTITY mirrors.label "Manage Mirrors">
 <!ENTITY mirrors.tooltip "Manage download mirror locations">
 
+<!ENTITY referringpage.label "Open Referring Page">
+<!ENTITY referringpage.tooltip "Open the webpage where this download was initiated.">
+
 <!ENTITY toolbar.icons "Use Icons">
 <!ENTITY toolbar.full "Use Icons and Text">
 
