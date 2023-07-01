@@ -3018,6 +3018,115 @@ var startDownloads = (function() {
     }
 
     qi.rebuildDestination();
+    if (qi._destinationLocalFile.exists()) {
+     const basename = qi._destinationName;
+     let newDest = qi._destinationLocalFile.clone();
+     let cr = -1;
+     if (Prefs.conflictResolution !== 3) {
+      cr = Prefs.conflictResolution;
+     }
+     else if (qi.shouldOverwrite) {
+      cr = 1;
+     }
+     else if ('_sessionSetting' in ConflictManager) {
+      cr = ConflictManager._sessionSetting;
+     }
+     else if ('_conflictSetting' in qi) {
+      cr = qi._conflictSetting;
+     }
+     let conflicts = 0;
+     for (;; ++conflicts) {
+      newDest.leafName = Utils.formatConflictName(basename, conflicts);
+      if (!newDest.exists()) {
+       break;
+      }
+     }
+     if (cr < 0) {
+      let trueState = qi.state;
+      if (qi.state !== PAUSED)
+       qi.pause();
+      let dialog = {};
+      dialog.promise = new Promise(function(resolve, reject) {
+       dialog.resolve = resolve;
+       dialog.reject = reject;
+      });
+      let options = {
+       url: Utils.cropCenter(qi.urlManager.usable, 45),
+       fn: Utils.cropCenter(qi._destinationLocalFile.leafName, 45),
+       newDest: Utils.cropCenter(newDest.leafName, 45)
+      };
+      window.openDialog(
+       "chrome://dia/content/dia/manager/conflicts.xul",
+       "_blank",
+       "chrome,centerscreen,resizable=no,dialog,close=no,dependent",
+       options, dialog
+       );
+      dialog.promise.then(function(v){
+       let ctype = 0;
+       [cr, ctype] = v;
+       if (ctype === 1) {
+        ConflictManager._sessionSetting = cr;
+       }
+       else if (ctype === 2) {
+        Preferences.setExt('conflictresolution', cr);
+       }
+       else {
+        qi._conflictSetting = cr;
+       }
+       switch (cr) {
+        case 0:
+         qi._destinationLocalFile = newDest;
+         qi._destinationFile = newDest.path;
+         qi._destinationName = newDest.leafName;
+         qi._destinationNameFull = newDest.leafName;
+         qi._fileName = newDest.leafName;
+         let fn = newDest.leafName;
+         let ext = Utils.getExtension(fn);
+         if (ext) {
+          fn = fn.substring(0, fn.length - ext.length - 1);
+         }
+         else {
+          fn = newDest.leafName;
+          ext = '';
+         }
+         qi._fileNameAndExtension = {name: fn, extension: ext };
+         if (trueState !== PAUSED)
+          qi.queue();
+         break;
+        case 1:
+         if (trueState !== PAUSED)
+          qi.queue();
+         break;
+        case 2:
+         Tree.remove(qi);
+         break;
+       }
+      });
+     }
+     switch (cr) {
+      case 0:
+       qi._destinationLocalFile = newDest;
+       qi._destinationFile = newDest.path;
+       qi._destinationName = newDest.leafName;
+       qi._destinationNameFull = newDest.leafName;
+       qi._fileName = newDest.leafName;
+       let fn = newDest.leafName;
+       let ext = Utils.getExtension(fn);
+       if (ext) {
+        fn = fn.substring(0, fn.length - ext.length - 1);
+       }
+       else {
+        fn = newDest.leafName;
+        ext = '';
+       }
+       qi._fileNameAndExtension = {name: fn, extension: ext };
+       break;
+      case 1:
+       break;
+      case 2:
+       return true;
+     }
+    }
     RequestManipulation.modifyDownload(qi);
     Tree.add(qi);
     qi.save();
