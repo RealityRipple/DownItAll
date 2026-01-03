@@ -144,6 +144,7 @@ statusbar {
 }
 statusbarpanel {
  -moz-appearance: statusbarpanel;
+ appearance: statusbarpanel;
  -moz-box-align: center;
  -moz-box-pack: center;
  height: auto;

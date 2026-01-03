@@ -14,14 +14,17 @@ statusbarpanel#netstatus[offline] {
 
 treecol > dropmarker {
  -moz-appearance: treetwistyopen;
+ appearance: treetwistyopen;
 }
 
 #tools {
  -moz-appearance: menubar;
+ appearance: menubar;
 }
 #tools > toolbarbutton {
  border: 1px solid transparent;
  -moz-appearance: none;
+ appearance: none;
  color: -moz-menubartext;
  -moz-border-radius: 6.5px;
 }

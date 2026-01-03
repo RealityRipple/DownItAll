@@ -35,6 +35,7 @@
 #search {
  border-radius: 10000px;
  -moz-appearance: none;
+ appearance: none;
  box-shadow: 0 1px rgba(255, 255, 255, 0.2), inset 0 1px hsla(0,0%,0%,.05);
  margin: 0 4px;
  padding: 2px;
@@ -70,6 +71,7 @@
 
 #footer {
  -moz-appearance: statusbar;
+ appearance: statusbar;
  background: yellow !important;
 }
 #footer > resizer {
@@ -95,12 +97,14 @@ toolbarspacer.visible {
 
 #actionsbox {
  -moz-appearance: toolbar;
+ appearance: toolbar;
 }
 #actions {
  margin-top: 16px;
  padding-left: 2px;
  padding-right: 2px;
  -moz-appearance: none;
+ appearance: none;
  background-color: -moz-mac-chrome-inactive;
  border-top: 1px solid -moz-mac-chrome-active;
  -moz-border-start: 1px solid -moz-mac-chrome-active;
@@ -122,6 +126,7 @@ toolbarspacer.visible {
 
 treecol > dropmarker {
  -moz-appearance: none;
+ appearance: none;
 }
 
 toolbar#tools > toolbarbutton {

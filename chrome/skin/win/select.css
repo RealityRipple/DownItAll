@@ -10,10 +10,12 @@
  @media (-moz-windows-default-theme) {
   #views, #findfiles {
    -moz-appearance: none !important;
+   appearance: none !important;
    background-color: rgb(185,209,234);
   }
   #views:-moz-window-inactive , #findfiles:-moz-window-inactive {
    -moz-appearance: none !important;
+   appearance: none !important;
    background-color: rgb(215,228,242);
   }
  }

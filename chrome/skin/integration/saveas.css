@@ -3,6 +3,7 @@
 
 #turbodiaexec {
  -moz-appearance: toolbarbutton;
+ appearance: toolbarbutton;
  list-style-image: url("chrome://dia/skin/toolbarbuttons/buttons16.png");
  -moz-image-region: rect(0px,64px,16px,48px);
 }

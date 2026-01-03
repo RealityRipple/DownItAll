@@ -2,6 +2,7 @@
 
 .findfiles {
  -moz-appearance: menubar !important;
+ appearance: menubar !important;
 }
 .findfiles toolbarbutton {
  color: -moz-menubartext;

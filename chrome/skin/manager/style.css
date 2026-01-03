@@ -423,6 +423,7 @@ treechildren::-moz-tree-image(iconic,addbutton) {
 }
 #actions > toolbarseparator {
  -moz-appearance: none;
+ appearance: none;
  height: 0;
  border-top: 3px solid transparent;
  border-bottom: 3px solid transparent;
@@ -910,6 +911,7 @@ toolbarbutton.listselectinv, menuitem#listselectinv {
 
 #loading {
  -moz-appearance: none;
+ appearance: none;
  -moz-user-focus: ignore;
  border: none !important;
  min-width: 0;
@@ -1012,6 +1014,7 @@ treecol[matcher] {
 }
 treecol[params] .treecol-marker {
  -moz-appearance: none;
+ appearance: none;
  background-color: transparent;
  list-style-image: url(chrome://global/skin/checkbox/cbox-check.gif);
 }
