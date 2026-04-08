@@ -1,5 +1,3 @@
-"use strict";
-
 /* global pref */
 pref("extensions.dia.ctxmenu", "1,1,0");
 pref("extensions.dia.ctxcompact", false);

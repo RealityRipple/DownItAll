@@ -3,7 +3,6 @@
  * You can obtain one at http://mozilla.org/MPL/2.0/. */
 /* globals content, sendAsyncMessage, addMessageListener, removeMessageListener */
 (function() {
-"use strict";
 
 function handleGetURI(m) {
  sendAsyncMessage(m.data.topic, {

@@ -3,7 +3,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 /* DiA-only code! - DO NOT include in overlays or such! */
-"use strict";
 /* jshint strict:true, globalstrict:true, browser:true */
 /* global _, Cc:true, Ci:true, Cr:true, Cu:true, ctor:true, Exception:true */
 var Cc = Components.classes;

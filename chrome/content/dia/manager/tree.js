@@ -1,7 +1,6 @@
 /* This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
-"use strict";
 /* global $, $e, $$, _, Utils, Timers, FilterManager, getIcon, Preferences, Task, OS */
 /* global mapInSitu, filterInSitu, mapFilterInSitu, filterMapInSitu */
 /* global DIA, Dialog, QueueItem, Prefs, QueueStore, Prompts, ImportExport, Metalinker */

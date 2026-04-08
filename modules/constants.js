@@ -1,5 +1,3 @@
-"use strict";
-
 Object.defineProperties(exports, {
  PAUSED: {value: 1<<1, enumerable: true},
  RUNNING: {value: 1<<2, enumerable: true},

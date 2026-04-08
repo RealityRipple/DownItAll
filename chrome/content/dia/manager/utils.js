@@ -1,7 +1,6 @@
 /* This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
-"use strict";
 /* global $, $$, _, Preferences, Dialog, Utils, mapInSitu, RequestManipulation, hash, showPreferences, Timers, defer */
 /* global COMPLETE, PAUSED, CANCELED, RUNNING, SPEED_COUNT, TOOLTIP_FREQ */
 /* jshint globalstrict: true, strict:true, browser:true */
