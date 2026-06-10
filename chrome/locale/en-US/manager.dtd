@@ -15,6 +15,7 @@
 <!ENTITY dld.label "Downloaded">
 <!ENTITY rmn.label "Remaining">
 <!ENTITY dim.label "Size">
+<!ENTITY date.label "Added">
 <!-- LOCALIZATION NOTE (time2.label):  Est. == Estimated -->
 <!ENTITY time2.label "ETA">
 <!ENTITY parts.label "Segments">

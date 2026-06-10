@@ -262,6 +262,44 @@ const DomainMatch = {
  }
 };
 
+const DateMatch = {
+ get name() {
+  return 'datematch';
+ },
+ getItems: function*(downloads) {
+  let dates = filterInSitu(
+   downloads.map(d => d.startDate.getTime()),
+   function(e) {
+    const sED = new Date(e).toLocaleDateString();
+    for (const p in this) {
+     if (p === sED)
+      return false;
+    }
+    this[sED] = null;
+    return sED;
+   },
+   {});
+  dates.sort();
+  for (const p of dates) {
+   yield {
+    label: new Date(p).toLocaleDateString(),
+    param: p
+   };
+  }
+ },
+ getMatcher: function(params) {
+  return function DateMatcher(d) {
+   for (let i = 0; i < params.length; i++) {
+    const pI = parseInt(params[i], 10);
+    const pD = new Date(pI);
+    if (d.startDate.toLocaleDateString() === pD.toLocaleDateString())
+     return true;
+   }
+   return false;
+  };
+ }
+};
+
 function MatcherTee(a, b) {
  this.a = a;
  this.b = b;
@@ -314,7 +352,8 @@ Matcher.prototype = {
   'statusmatch': new MatcherTee(StatusMatch, RemainderMatch),
   'remaindermatch': RemainderMatch,
   'sizematch': SizeMatch,
-  'domainmatch': DomainMatch
+  'domainmatch': DomainMatch,
+  'datematch': DateMatch,
  },
  getItems: function*(name, downloads) {
   for (let i of this._available[name].getItems(downloads)) {

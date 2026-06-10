@@ -391,6 +391,10 @@ var Tree = {
     return function(d) {
      return d.totalSize;
     };
+   case 'colDate':
+    return function(d) {
+     return d.startDate.getTime();
+    };
    case 'colStatus':
     return function(d) {
      return d.status;
@@ -557,6 +561,7 @@ var Tree = {
    case 'colRemain':  return d.remainingString;
    case 'colSize':  return d.totalString;
    case 'colSpeed':  return d.speed;
+   case 'colDate':  return d.startDate.toLocaleString(undefined, {dateStyle: 'short', timeStyle: 'short'});
    case 'colStatus':  return d.status;
    case 'colSegments':  return d.parts;
    case 'colMask':  return d.mask;
